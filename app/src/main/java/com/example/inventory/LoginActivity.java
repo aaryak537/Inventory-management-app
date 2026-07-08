@@ -5,16 +5,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
 public class LoginActivity extends AppCompatActivity {
 
     EditText email,password;
@@ -31,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
         back=findViewById(R.id.back);
         email=findViewById(R.id.etEmail);
         password=findViewById(R.id.etPassword);
-        login=findViewById(R.id.btnLogin);
+        login=findViewById(R.id.btnSignup);
         forget=findViewById(R.id.tvForget);
         signup=findViewById(R.id.tvSignup);
 
