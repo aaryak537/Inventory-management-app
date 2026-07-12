@@ -1,4 +1,20 @@
 <resources>
     <string name="app_name">Inventory</string>
     <string name="manage_smarter_grow_faster">Manage Smarter. Grow Faster</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="login_to_continue">Login to continue</string>
+    <string name="welcome_back">Welcome back!</string>
+    <string name="email">Email</string>
+    <string name="login">Login</string>
+    <string name="remember_me">Remember me</string>
+    <string name="password">Password</string>
+    <string name="todo">TODO</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="inventory_management">INVENTORY MANAGEMENT</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="have_an_account">Have an account?</string>
+    <string name="log_in">Log In</string>
+    <string name="create_account">Create account</string>
+    <string name="welcome">Welcome!</string>
 </resources>
