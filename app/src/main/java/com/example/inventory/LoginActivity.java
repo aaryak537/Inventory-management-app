@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
+
 import android.widget.EditText;
 
 import android.widget.TextView;
@@ -23,7 +23,6 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText email,password;
     Button login;
-    CheckBox remember;
     TextView forget,signup;
     FirebaseAuth auth;
 
@@ -45,9 +44,8 @@ public class LoginActivity extends AppCompatActivity {
 
         email=findViewById(R.id.etEmail);
         password=findViewById(R.id.etPassword);
-        login=findViewById(R.id.btnSignup);
-        remember=findViewById(R.id.checkBox);
-        forget=findViewById(R.id.tvForget);
+        login=findViewById(R.id.btnLogin);
+        forget=findViewById(R.id.tvForgot);
         signup=findViewById(R.id.tvSignup);
 
         auth=FirebaseAuth.getInstance();

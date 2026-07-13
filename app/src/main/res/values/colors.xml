@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- colors.xml -->
+
+    <color name="primary">#2563EB</color>      <!-- Royal Blue -->
+    <color name="primaryDark">#1D4ED8</color>
+    <color name="accent">#60A5FA</color>
+
+    <color name="background">#0F172A</color>   <!-- Dark Navy -->
+    <color name="card">#1E293B</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="hint">#94A3B8</color>
+
+    <color name="textfield">#334155</color>
+
 </resources>
