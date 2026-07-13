@@ -57,8 +57,23 @@ public class DashActivity extends AppCompatActivity {
                 lowStock=0;
                 stock=0;
                 totalValue=0;
-            }
 
+                for(DataSnapshot dataSnapshot:snapshot.getChildren()){
+                    Product product=dataSnapshot.getValue(Product.class);
+                    if(product!=null){
+                        pro++;
+                        stock+=product.getQuantity();
+                        totalValue+=product.getQuantity()*product.getPrice();
+                        if(product.getQuantity()<10){
+                            lowStock++;
+                        }
+                    }
+                }
+                TotalPro.setText(String.valueOf(pro));
+                low.setText(String.valueOf(lowStock));
+                TotalStock.setText(String.valueOf(stock));
+                value.setText(String.valueOf(totalValue));
+            }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {}
         });

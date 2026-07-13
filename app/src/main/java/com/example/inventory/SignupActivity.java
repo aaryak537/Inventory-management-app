@@ -28,7 +28,6 @@ public class SignupActivity extends AppCompatActivity {
     EditText email,password,confirm;
     Button signup;
     TextView login;
-    CheckBox remember;
     FirebaseAuth auth;
     DatabaseReference databaseRef;
 
@@ -42,8 +41,7 @@ public class SignupActivity extends AppCompatActivity {
         password=findViewById(R.id.etPassword);
         signup=findViewById(R.id.btnSignup);
         confirm=findViewById(R.id.etConfirm);
-        login=findViewById(R.id.tvSignup);
-        remember=findViewById(R.id.checkBox);
+        login=findViewById(R.id.txtLogin);
 
         auth=FirebaseAuth.getInstance();
         databaseRef= FirebaseDatabase.getInstance().getReference("Users");

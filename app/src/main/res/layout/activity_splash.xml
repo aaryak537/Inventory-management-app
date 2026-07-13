@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="serif-monospace"
         android:gravity="center"
-        android:text="@string/inventory_management"
+        android:text="Inventory Management"
         android:textAlignment="center"
         android:textColor="#3F51B5"
         android:textSize="48sp"
@@ -37,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-condensed"
-        android:text="@string/manage_smarter_grow_faster"
+        android:text="Manage Smarter. Grow Faster."
         android:textAlignment="center"
         android:textColor="#2196F3"
         android:textSize="20sp"
@@ -55,6 +55,6 @@
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/icon" />
+        app:srcCompat="@drawable/smart" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
