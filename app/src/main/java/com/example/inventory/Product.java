@@ -1,22 +1,50 @@
 package com.example.inventory;
 
 public class Product {
+
     private String productName;
+    private String category;
     private int quantity;
-    private int price;
-    public Product(){}
-    public Product(String productName,int quantity,int price){
-        this.productName=productName;
-        this.quantity=quantity;
-        this.price=price;
+    private double price;
+
+    public Product() {}
+
+    public Product(String productName, String category, int quantity, double price) {
+        this.productName = productName;
+        this.category = category;
+        this.quantity = quantity;
+        this.price = price;
     }
-    public String getProductName(){
+
+    public String getProductName() {
         return productName;
     }
-    public int getQuantity(){
+
+    public String getCategory() {
+        return category;
+    }
+
+    public int getQuantity() {
         return quantity;
     }
-    public int getPrice(){
+
+    public double getPrice() {
         return price;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

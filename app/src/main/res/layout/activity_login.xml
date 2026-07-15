@@ -7,12 +7,11 @@
     android:layout_height="match_parent"
     android:background="#F5F7FA">
 
-
     <View
         android:id="@+id/header"
         android:layout_width="0dp"
         android:layout_height="260dp"
-        android:background="@layout/bg_login_top"
+        android:background="@drawable/bg_login_top"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -23,7 +22,7 @@
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:src="@drawable/smart"
-        android:contentDescription="@string/logoLogin"
+        android:contentDescription="@string/logo"
         android:scaleType="centerInside"
         app:layout_constraintTop_toTopOf="@id/header"
         app:layout_constraintBottom_toBottomOf="@id/header"
@@ -102,7 +101,7 @@
                     android:id="@+id/etPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/passwordLogin"
+                    android:hint="@string/password"
                     android:inputType="textPassword"
                     android:padding="16dp"/>
 

@@ -1,27 +1,33 @@
 package com.example.inventory;
 
 import android.os.Bundle;
-import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.*;
+
+import java.util.HashSet;
 
 public class DashActivity extends AppCompatActivity {
-    ImageButton menu,notify,home,product,plus,report,profile;
-    TextView TotalPro,low,TotalStock,value;
+
+    ImageView notify;
+    FloatingActionButton addProduct;
+    LinearLayout addPro, QCategory, report, supplier;
+    RecyclerView recent;
+    TextView TotalPro, low, userName, category, revenue, sales;
     DatabaseReference databaseReference;
-    int pro=0;
-    int lowStock=0;
-    int stock=0;
-    int totalValue=0;
+
+    int totalProducts = 0;
+    int lowStock = 0;
+    double totalRevenue = 0;
+    HashSet<String> categorySet = new HashSet<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,47 +35,59 @@ public class DashActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_dash);
 
-        menu=findViewById(R.id.btnMenu);
-        notify=findViewById(R.id.btnNotify);
-        home=findViewById(R.id.btnHome);
-        product=findViewById(R.id.btnProduct);
-        plus=findViewById(R.id.btnPlus);
-        report=findViewById(R.id.btnReport);
-        profile=findViewById(R.id.btnProfile);
+        userName = findViewById(R.id.tvUsername);
+        category = findViewById(R.id.tvCategories);
+        addProduct = findViewById(R.id.fabAddProduct);
+        addPro = findViewById(R.id.llAddPro);
+        QCategory = findViewById(R.id.llCategory);
+        supplier = findViewById(R.id.llSupply);
+        revenue = findViewById(R.id.tvRevenue);
+        sales = findViewById(R.id.tvSales);
+        recent = findViewById(R.id.rvRecentActivity);
+        notify = findViewById(R.id.imgNotify);
+        report = findViewById(R.id.llReport);
 
-        TotalPro=findViewById(R.id.tvTotalPro);
-        low=findViewById(R.id.tvLow);
-        TotalStock=findViewById(R.id.tvTotal);
-        value=findViewById(R.id.tvValue);
+        TotalPro = findViewById(R.id.tvTotalProducts);
+        low = findViewById(R.id.tvLowStock);
 
-        databaseReference= FirebaseDatabase.getInstance().getReference("Products");
+        databaseReference = FirebaseDatabase.getInstance().getReference("Products");
+
         loadDashboard();
-
     }
-    private void loadDashboard(){
+    private void loadDashboard() {
+
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                pro=0;
-                lowStock=0;
-                stock=0;
-                totalValue=0;
 
-                for(DataSnapshot dataSnapshot:snapshot.getChildren()){
-                    Product product=dataSnapshot.getValue(Product.class);
-                    if(product!=null){
-                        pro++;
-                        stock+=product.getQuantity();
-                        totalValue+=product.getQuantity()*product.getPrice();
-                        if(product.getQuantity()<10){
+                totalProducts = 0;
+                lowStock = 0;
+                totalRevenue = 0;
+                categorySet.clear();
+
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    Product product = ds.getValue(Product.class);
+
+                    if (product != null) {
+                        totalProducts++;
+
+                        if (product.getQuantity() < 10) {
                             lowStock++;
                         }
+                        totalRevenue += product.getPrice() * product.getQuantity();
+
+                        categorySet.add(product.getCategory());
                     }
                 }
-                TotalPro.setText(String.valueOf(pro));
+                TotalPro.setText(String.valueOf(totalProducts));
+
                 low.setText(String.valueOf(lowStock));
-                TotalStock.setText(String.valueOf(stock));
-                value.setText(String.valueOf(totalValue));
+
+                revenue.setText("₹" + totalRevenue);
+
+                category.setText(String.valueOf(categorySet.size()));
+
+                sales.setText(String.valueOf(totalProducts));
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {}

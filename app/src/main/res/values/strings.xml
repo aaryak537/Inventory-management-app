@@ -12,15 +12,42 @@
     <string name="full_name">Full Name</string>
 
     <string name="password">Password</string>
-    <string name="passwordLogin">Password</string>
+
     <string name="logo">logo</string>
-    <string name="logoLogin">logo</string>
+
     <string name="login">Login</string>
     <string name="loginBtn">LOGIN</string>
     <string name="don_t_have_an_account">Don\'t have an account?</string>
     <string name="login_to_continue_managing_inventory">Login to continue managing inventory</string>
     <string name="welcome_back">Welcome Back</string>
+    <string name="welcome">Welcome Back,</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="sign_up">Sign Up</string>
     <string name="let_s_get_started_with_your_inventory">Let\'s get started with your inventory.</string>
+
+    <string name="category">Categories</string>
+    <string name="home">home</string>
+    <string name="low_stock">Low Stock</string>
+    <string name="product">product</string>
+    <string name="add_product">Add Product</string>
+    <string name="inventory_overview">Inventory Overview</string>
+    <string name="manage_your_stock_efficiently">Manage your stock efficiently</string>
+    <string name="quick_actions">Quick Actions</string>
+    <string name="recent_activity">Recent Activity</string>
+    <string name="reports">Reports</string>
+    <string name="sales_overview">Sales Overview</string>
+    <string name="revenue">Revenue</string>
+    <string name="sales">Sales</string>
+    <string name="suppliers">Suppliers</string>
+    <string name="total_products">Total Products</string>
+    <string name="notification">notification</string>
+    <string name="_00">00</string>
+    <string name="_1_25_000">₹1,25,000</string>
+    <string name="_000">000</string>
+    <string name="_358">358</string>
+    <string name="aarya">Aarya</string>
+    <string name="logo_image">logo image</string>
+    <string name="product_image">product image</string>
+    <string name="profile_image">profile image</string>
+    <string name="search_products">Search products...</string>
 </resources>

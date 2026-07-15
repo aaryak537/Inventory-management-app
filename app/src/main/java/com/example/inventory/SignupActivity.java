@@ -57,6 +57,7 @@ public class SignupActivity extends AppCompatActivity {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String fullName=name.getText().toString().trim();
                 String mail = email.getText().toString().trim();
                 String pass = password.getText().toString().trim();
                 String same=confirm.getText().toString().trim();
