@@ -26,6 +26,7 @@
     <string name="let_s_get_started_with_your_inventory">Let\'s get started with your inventory.</string>
 
     <string name="category">Categories</string>
+    <string name="categories">Category</string>
     <string name="home">home</string>
     <string name="low_stock">Low Stock</string>
     <string name="product">product</string>
@@ -50,4 +51,27 @@
     <string name="product_image">product image</string>
     <string name="profile_image">profile image</string>
     <string name="search_products">Search products...</string>
+    <string name="in_stock">In stock</string>
+    <string name="create_a_new_inventory_item">Create a new inventory item</string>
+    <string name="description">Description</string>
+    <string name="expected_profit">Expected Profit</string>
+    <string name="inventory_status">Inventory Status</string>
+    <string name="pricing_inventory"><![CDATA[Pricing & Inventory]]></string>
+    <string name="product_details">Product Details</string>
+    <string name="product_summary">Product Summary</string>
+    <string name="stock_value">Stock Value</string>
+    <string name="tap_to_select_image_from_gallery">Tap to select image from gallery</string>
+    <string name="upload_product_image">Upload Product Image</string>
+    <string name="available_stock">Available Stock</string>
+    <string name="barcode_optional">Barcode (Optional)</string>
+    <string name="brand_optional">Brand (Optional)</string>
+    <string name="cost_price">Cost Price (₹)</string>
+    <string name="product_description">Product Description</string>
+    <string name="product_id">Product ID</string>
+    <string name="product_name">Product Name</string>
+    <string name="selling_price">Selling Price (₹)</string>
+    <string name="back">back</string>
+    <string name="save_product">SAVE PRODUCT</string>
+    <string name="camera">camera</string>
+    <string name="_0">₹0</string>
 </resources>

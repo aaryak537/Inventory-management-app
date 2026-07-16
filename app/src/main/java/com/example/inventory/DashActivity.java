@@ -1,6 +1,8 @@
 package com.example.inventory;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -53,6 +55,21 @@ public class DashActivity extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference("Products");
 
         loadDashboard();
+
+        addProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(DashActivity.this, AddProActivity.class);
+                startActivity(intent);
+            }
+        });
+        addPro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(DashActivity.this, AddProActivity.class);
+                startActivity(intent);
+            }
+        });
     }
     private void loadDashboard() {
 
