@@ -33,7 +33,7 @@ public class AddProActivity extends AppCompatActivity {
 
     private ActivityResultLauncher<Intent> imagePickerLauncher;
     EditText proName, costPrice, sellingPrice, stock, description;
-    EditText proId, brand;
+    EditText productId, brand;
     AutoCompleteTextView autoCategory;
     ArrayAdapter<String> categoryAdapter;
     int quantity;
@@ -63,7 +63,7 @@ public class AddProActivity extends AppCompatActivity {
         proImg = findViewById(R.id.imgProduct);
         autoCategory = findViewById(R.id.autoCategory);
 
-        proId = findViewById(R.id.etProductId);
+        productId = findViewById(R.id.etProductId);
         brand = findViewById(R.id.etBrand);
 
         stockStatus = findViewById(R.id.tvStockStatus);
@@ -196,7 +196,7 @@ public class AddProActivity extends AppCompatActivity {
 
         String productName = proName.getText().toString().trim();
 
-        String productId = proId.getText().toString().trim();
+        String proId = productId.getText().toString().trim();
 
         String category = autoCategory.getText().toString().trim();
 
@@ -214,7 +214,7 @@ public class AddProActivity extends AppCompatActivity {
 
         String imageUrl = "";
 
-        if (productName.isEmpty() || productId.isEmpty() ||
+        if (productName.isEmpty() || proId.isEmpty() ||
                 cPrice.isEmpty() ||sellPrice.isEmpty()) {
 
             Toast.makeText(this, "Fill all required fields",
@@ -225,14 +225,14 @@ public class AddProActivity extends AppCompatActivity {
                 productName,
                 category,
                 quantity,
-                productId,
+                brandName,
                 cPrice,
                 sellPrice,
                 stocks,
                 describe,
                 imageUrl
         );
-        databaseReference.child(productId)
+        databaseReference.child(proId)
                 .setValue(product)
                 .addOnSuccessListener(unused -> {
 

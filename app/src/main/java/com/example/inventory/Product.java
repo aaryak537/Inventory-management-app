@@ -2,13 +2,13 @@ package com.example.inventory;
 
 public class Product {
 
-    private String proId;
     private String productName;
     private String category;
     private int quantity;
     private String costPrice;
     private String sellingPrice;
     private String stock;
+    private String brandName;
     private String description;
     private String imageUrl;
 
@@ -16,23 +16,20 @@ public class Product {
     public Product() {
     }
     public Product(String productName, String category, int quantity,
-                   String proId, String costPrice, String sellingPrice,
+                   String brandName, String costPrice, String sellingPrice,
                    String stock, String description, String imageUrl) {
 
         this.productName = productName;
         this.category = category;
         this.quantity = quantity;
-
-        this.proId = proId;
+        this.brandName=brandName;
         this.costPrice = costPrice;
         this.sellingPrice = sellingPrice;
         this.stock = stock;
         this.description = description;
         this.imageUrl = imageUrl;
     }
-    public String getProId() {
-        return proId;
-    }
+
     public String getProductName() {
         return productName;
     }
@@ -41,6 +38,9 @@ public class Product {
     }
     public int getQuantity() {
         return quantity;
+    }
+    public String getBrandName() {
+        return brandName;
     }
     public String getCostPrice() {
         return costPrice;
@@ -57,9 +57,7 @@ public class Product {
     public String getImageUrl() {
         return imageUrl;
     }
-    public void setProId(String proId) {
-        this.proId = proId;
-    }
+
     public void setProductName(String productName) {
         this.productName = productName;
     }
@@ -68,6 +66,9 @@ public class Product {
     }
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
     }
     public void setCostPrice(String costPrice) {
         this.costPrice = costPrice;

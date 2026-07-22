@@ -27,8 +27,9 @@
             android:layout_height="52dp"
             android:background="@drawable/circle_blue"
             android:padding="12dp"
-            android:src="@drawable/ic_inventory"
-            android:tint="@android:color/white"/>
+            android:contentDescription="@string/product"
+            android:src="@drawable/products"
+            app:tint="@android:color/white"/>
 
         <!-- Activity Details -->
         <LinearLayout
@@ -42,7 +43,7 @@
                 android:id="@+id/tvActivityTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Dell Laptop Added"
+                android:text="@string/dell_laptop_added"
                 android:textColor="#111827"
                 android:textSize="16sp"
                 android:textStyle="bold"/>
@@ -52,7 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Quantity: 5 units"
+                android:text="@string/quantity_5_units"
                 android:textColor="#6B7280"
                 android:textSize="13sp"/>
 
@@ -61,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="2 minutes ago"
+                android:text="@string/_2_minutes_ago"
                 android:textColor="#9CA3AF"
                 android:textSize="12sp"/>
 
@@ -72,12 +73,12 @@
             android:id="@+id/tvStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/status_added_bg"
+            android:background="@drawable/circle_green"
             android:paddingStart="12dp"
             android:paddingTop="6dp"
             android:paddingEnd="12dp"
             android:paddingBottom="6dp"
-            android:text="Added"
+            android:text="@string/added"
             android:textColor="@android:color/white"
             android:textSize="12sp"
             android:textStyle="bold"/>
