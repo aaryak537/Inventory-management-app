@@ -13,8 +13,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-//import com.google.firebase.storage.FirebaseStorage;
-//import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -37,7 +37,7 @@ public class EditProActivity extends AppCompatActivity {
     Button changeImg, update, btnDelete;
     TextInputEditText productName, costPrice, sellingPrice, etStock, etDescription;
     Spinner spCategory;
-    //StorageReference storageReference;
+    StorageReference storageReference;
     DatabaseReference databaseReference;
     Uri imgUri = null;
     String proId, imgUrl;
@@ -79,8 +79,8 @@ public class EditProActivity extends AppCompatActivity {
         etStock = findViewById(R.id.etStock);
         etDescription = findViewById(R.id.etDescription);
 
-        //spCategory = findViewById(R.id.spCategory);
-     //   storageReference = FirebaseStorage.getInstance().getReference("ProductImages");
+        spCategory = findViewById(R.id.spCategory);
+        storageReference = FirebaseStorage.getInstance().getReference("ProductImages");
 
         databaseReference = FirebaseDatabase.getInstance()
                 .getReference("Products");
@@ -115,7 +115,7 @@ public class EditProActivity extends AppCompatActivity {
             if (imgUri != null) {
                 uploadImage();
             } else {
-                //updateProduct(imgUrl);
+                updateProduct(imgUrl);
             }
         });
         // Delete Product
@@ -163,42 +163,40 @@ public class EditProActivity extends AppCompatActivity {
     private void uploadImage() {
 
         if (imgUri == null) {
-            //updateProduct(imgUrl);
+            updateProduct(imgUrl);
             return;
         }
 
-      //  StorageReference imageRef =
-         //       storageReference.child(System.currentTimeMillis() + ".jpg");
+       StorageReference imageRef =
+               storageReference.child(System.currentTimeMillis() + ".jpg");
 
-      //  imageRef.putFile(imgUri)
-       //         .addOnSuccessListener(taskSnapshot ->
+       imageRef.putFile(imgUri)
+               .addOnSuccessListener(taskSnapshot ->
 
-             //           imageRef.getDownloadUrl()
-                          //      .addOnSuccessListener(uri -> {
+                       imageRef.getDownloadUrl()
+                               .addOnSuccessListener(uri -> {
+                                   String downloadUrl = uri.toString();
 
-                           //         String downloadUrl = uri.toString();
+                                   updateProduct(downloadUrl);
 
-                            //        updateProduct(downloadUrl);
+                               })
 
-                            //    })
+              )
+                .addOnFailureListener(e ->
 
-             //   )
-              //  .addOnFailureListener(e ->
-
-                    //    Toast.makeText(
-                     //           EditProActivity.this,
-                     //           e.getMessage(),
-                      //          Toast.LENGTH_SHORT
-                      //  ).show()
-
-               // );
-   // }
-  //  private void updateProduct(String image) {
+                       Toast.makeText(
+                                EditProActivity.this,
+                                e.getMessage(),
+                               Toast.LENGTH_SHORT
+                       ).show()
+                );
+    }
+    private void updateProduct(String image) {
 
         String name = productName.getText().toString().trim();
         String category = spCategory.getSelectedItem().toString();
-        String cost = costPrice.getText().toString().trim();
-        String selling = sellingPrice.getText().toString().trim();
+        double cost = Double.parseDouble(costPrice.getText().toString().trim());
+        double selling = Double.parseDouble(sellingPrice.getText().toString().trim());
         String stock = etStock.getText().toString().trim();
         String description = etDescription.getText().toString().trim();
 
@@ -215,7 +213,7 @@ public class EditProActivity extends AppCompatActivity {
         map.put("sellingPrice",selling);
         map.put("stock",stock);
         map.put("description",description);
-      //  map.put("image",image);
+       map.put("image",image);
 
         databaseReference.child(proId)
                 .updateChildren(map)

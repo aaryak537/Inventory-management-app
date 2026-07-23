@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Soft Shadow -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#15000000"/>
+            <size
+                android:width="116dp"
+                android:height="116dp"/>
+        </shape>
+    </item>
+
+    <!-- White Border -->
+    <item
+        android:left="3dp"
+        android:top="3dp"
+        android:right="3dp"
+        android:bottom="3dp">
+
+        <shape android:shape="oval">
+            <solid android:color="#FFFFFF"/>
+        </shape>
+
+    </item>
+
+    <!-- Blue-Teal Gradient -->
+    <item
+        android:left="8dp"
+        android:top="8dp"
+        android:right="8dp"
+        android:bottom="8dp">
+
+        <shape android:shape="oval">
+
+            <gradient
+                android:startColor="#1E88E5"
+                android:centerColor="#2196F3"
+                android:endColor="#00BCD4"
+                android:angle="45"/>
+
+            <stroke
+                android:width="2dp"
+                android:color="#80FFFFFF"/>
+
+        </shape>
+
+    </item>
+
+</layer-list>

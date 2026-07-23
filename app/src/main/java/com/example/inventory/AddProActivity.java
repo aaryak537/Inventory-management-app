@@ -202,9 +202,8 @@ public class AddProActivity extends AppCompatActivity {
 
         String brandName = brand.getText().toString().trim();
 
-        String cPrice = costPrice.getText().toString().trim();
-
-        String sellPrice = sellingPrice.getText().toString().trim();
+        double cPrice = Double.parseDouble(costPrice.getText().toString().trim());
+        double sellPrice = Double.parseDouble(sellingPrice.getText().toString().trim());
 
         String stocks = stock.getText().toString().trim();
 
@@ -215,7 +214,7 @@ public class AddProActivity extends AppCompatActivity {
         String imageUrl = "";
 
         if (productName.isEmpty() || proId.isEmpty() ||
-                cPrice.isEmpty() ||sellPrice.isEmpty()) {
+                cPrice==0 ||sellPrice==0) {
 
             Toast.makeText(this, "Fill all required fields",
                     Toast.LENGTH_SHORT).show();

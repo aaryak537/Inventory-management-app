@@ -97,4 +97,16 @@
     <string name="_2_minutes_ago">2 minutes ago</string>
     <string name="dell_laptop_added">Dell Laptop Added</string>
     <string name="added">Added</string>
+    <string name="about_info">about info</string>
+    <string name="next_about_page">next about page</string>
+    <string name="about_app">About App</string>
+    <string name="manage_your_smart_shelf_account">Manage your Smart Shelf account</string>
+    <string name="notifications">Notifications</string>
+    <string name="settings">Settings</string>
+    <string name="smart_shelf_v1_0">Smart Shelf v1.0</string>
+    <string name="inventory_manager">Inventory Manager</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="logout">Logout</string>
+    <string name="email_gmail_com">email@gmail.com</string>
+    <string name="user_name">User Name</string>
 </resources>
