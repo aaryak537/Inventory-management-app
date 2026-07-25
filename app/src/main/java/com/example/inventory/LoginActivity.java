@@ -45,8 +45,8 @@ public class LoginActivity extends AppCompatActivity {
         email=findViewById(R.id.etEmail);
         password=findViewById(R.id.etPassword);
         login=findViewById(R.id.btnLogin);
-        forget=findViewById(R.id.tvForgot);
-        signup=findViewById(R.id.tvSignup);
+        forget=findViewById(R.id.txtForgot);
+        signup=findViewById(R.id.btnSignup);
 
         auth=FirebaseAuth.getInstance();
 

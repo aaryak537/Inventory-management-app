@@ -2,11 +2,9 @@ package com.example.inventory;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+
 import android.widget.Button;
-
 import android.widget.EditText;
-
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,9 +21,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class SignupActivity extends AppCompatActivity {
 
-    EditText name,email,password,confirm;
+    EditText name, email, phone, password, confirm;
     Button signup;
     TextView login;
+
     FirebaseAuth auth;
     DatabaseReference databaseRef;
 
@@ -35,73 +34,117 @@ public class SignupActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_signup);
 
-        name=findViewById(R.id.etName);
-        email=findViewById(R.id.etEmail);
-        password=findViewById(R.id.etPassword);
-        signup=findViewById(R.id.btnSignup);
-        confirm=findViewById(R.id.etConfirm);
-        login=findViewById(R.id.txtLogin);
+        // Initialize Views
+        name = findViewById(R.id.etName);
+        email = findViewById(R.id.etEmail);
+        phone = findViewById(R.id.etPhone);
+        password = findViewById(R.id.etPassword);
+        confirm = findViewById(R.id.etConfirm);
+        signup = findViewById(R.id.btnSignup);
+        login = findViewById(R.id.tvLogin);
 
-        auth=FirebaseAuth.getInstance();
-        databaseRef= FirebaseDatabase.getInstance().getReference("Users");
+        auth = FirebaseAuth.getInstance();
+        databaseRef = FirebaseDatabase.getInstance().getReference("Users");
 
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(SignupActivity.this,LoginActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        login.setOnClickListener(v -> {
+            startActivity(new Intent(SignupActivity.this, LoginActivity.class));
+            finish();
         });
 
-        signup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String fullName=name.getText().toString().trim();
-                String mail = email.getText().toString().trim();
-                String pass = password.getText().toString().trim();
-                String same=confirm.getText().toString().trim();
+        signup.setOnClickListener(v -> {
 
-                if (mail.isEmpty()) {
-                    email.setError("Enter Email");
-                    return;
-                }
-                else if(pass.isEmpty()){
-                    password.setError("Enter Password");
-                    return;
-                }
-                else if(same.isEmpty()){
-                    confirm.setError("Confirm Password");
-                    return;
-                }
-                else if(!pass.equals(same)){
-                    password.setError("Password do not match");
-                }
-                else{
-                    auth.createUserWithEmailAndPassword(mail,pass)
-                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            String fullName = name.getText().toString().trim();
+            String mail = email.getText().toString().trim();
+            String phoneNo = phone.getText().toString().trim();
+            String pass = password.getText().toString().trim();
+            String same = confirm.getText().toString().trim();
+
+            // Validation
+            if (fullName.isEmpty()) {
+                name.setError("Enter Full Name");
+                name.requestFocus();
+                return;
+            }
+
+            if (mail.isEmpty()) {
+                email.setError("Enter Email");
+                email.requestFocus();
+                return;
+            }
+
+            if (phoneNo.isEmpty()) {
+                phone.setError("Enter Phone Number");
+                phone.requestFocus();
+                return;
+            }
+
+            if (phoneNo.length() != 10) {
+                phone.setError("Enter Valid Phone Number");
+                phone.requestFocus();
+                return;
+            }
+
+            if (pass.isEmpty()) {
+                password.setError("Enter Password");
+                password.requestFocus();
+                return;
+            }
+
+            if (pass.length() < 6) {
+                password.setError("Password must be at least 6 characters");
+                password.requestFocus();
+                return;
+            }
+
+            if (same.isEmpty()) {
+                confirm.setError("Confirm Password");
+                confirm.requestFocus();
+                return;
+            }
+
+            if (!pass.equals(same)) {
+                confirm.setError("Passwords do not match");
+                confirm.requestFocus();
+                return;
+            }
+
+            // Create Firebase Account
+            auth.createUserWithEmailAndPassword(mail, pass)
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()){
-                                String uid=auth.getCurrentUser().getUid();
-                                User user=new User(mail);
+
+                            if (task.isSuccessful()) {
+
+                                String uid = auth.getCurrentUser().getUid();
+
+                                // Save user details
+                                User user = new User(
+                                        fullName,
+                                        mail,
+                                        phoneNo
+                                );
 
                                 databaseRef.child(uid).setValue(user);
 
-                                Toast.makeText(SignupActivity.this,"Account Created Successfully",
+                                Toast.makeText(SignupActivity.this,
+                                        "Account Created Successfully",
                                         Toast.LENGTH_SHORT).show();
 
-                                Intent intent=new Intent(SignupActivity.this,DashActivity.class);
-                                startActivity(intent);
+                                startActivity(new Intent(SignupActivity.this,
+                                        DashActivity.class));
                                 finish();
-                            }else{
+
+                            } else {
+
                                 Toast.makeText(SignupActivity.this,
-                                        task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                                        task.getException().getMessage(),
+                                        Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
-                }
-            }
+
         });
+
     }
 }

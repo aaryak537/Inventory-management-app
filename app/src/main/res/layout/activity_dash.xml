@@ -64,7 +64,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
-                                android:text="User"
+                                android:text="@string/user"
                                 android:textColor="#FFFFFF"
                                 android:textSize="28sp"
                                 android:textStyle="bold" />
@@ -133,7 +133,7 @@
                         android:padding="14dp"
                         android:contentDescription="@string/product"
                         android:scaleType="fitCenter"
-                     android:src="@drawable/products"
+                     android:src="@drawable/ic_package"
                         app:tint="#FFFFFF" />
 
                     <LinearLayout
@@ -238,7 +238,7 @@
                             android:padding="12dp"
                             android:contentDescription="@string/category"
                             android:scaleType="fitCenter"
-                         android:src="@drawable/login"
+                         android:src="@drawable/ic_category"
                             app:tint="#FFFFFF" />
 
                         <TextView
@@ -284,7 +284,7 @@
                 android:columnCount="2"
                 android:rowCount="2">
 
-                <!-- Add Product -->
+                <!-- Product -->
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
                     android:layout_height="130dp"
@@ -294,7 +294,7 @@
                     app:cardElevation="6dp">
 
                     <LinearLayout
-                        android:id="@+id/llAddPro"
+                        android:id="@+id/llProduct"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
@@ -306,14 +306,14 @@
                             android:background="@drawable/circle_blue"
                             android:padding="12dp"
                             android:contentDescription="@string/product_image"
-                            android:src="@android:drawable/ic_menu_add"
+                            android:src="@drawable/ic_package"
                             app:tint="#FFFFFF" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
-                            android:text="@string/add_product"
+                            android:text="@string/products"
                             android:textColor="#111827"
                             android:textStyle="bold" />
 
@@ -344,7 +344,7 @@
                             android:contentDescription="@string/home"
                             android:padding="12dp"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/home"
+                            android:src="@drawable/ic_category"
                             app:tint="#FFFFFF" />
 
                         <TextView
@@ -381,7 +381,7 @@
                             android:background="@drawable/circle_orange"
                             android:padding="12dp"
                             android:contentDescription="@string/reports"
-                            android:src="@drawable/report"
+                            android:src="@drawable/ic_report"
                             app:tint="#FFFFFF" />
 
                         <TextView
@@ -418,7 +418,7 @@
                             android:background="@drawable/circle_blue"
                             android:padding="12dp"
                             android:contentDescription="@string/profile_image"
-                            android:src="@drawable/profile"
+                            android:src="@drawable/ic_supply"
                             app:tint="#FFFFFF" />
 
                         <TextView
@@ -471,7 +471,7 @@
                             android:id="@+id/tvRevenue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/_1_25_000"
+                            android:text="@string/_0_00_000"
                             android:textColor="#2563EB"
                             android:textSize="26sp"
                             android:textStyle="bold" />
@@ -503,7 +503,7 @@
                             android:id="@+id/tvSales"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/_358"
+                            android:text="@string/_0_000"
                             android:textColor="#22C55E"
                             android:textSize="26sp"
                             android:textStyle="bold" />

@@ -1,61 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_dashboard_header"
     tools:context=".SplashActivity">
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="background"
+    <!-- Decorative Circle Top Left -->
+
+    <View
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:layout_marginStart="-90dp"
+        android:layout_marginTop="-70dp"
+        android:alpha="0.10"
+        android:background="@drawable/circle_white"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <!-- Decorative Circle Bottom Right -->
+
+    <View
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_marginEnd="-70dp"
+        android:layout_marginBottom="-60dp"
+        android:alpha="0.08"
+        android:background="@drawable/circle_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Logo Card -->
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/logoCard"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        app:cardCornerRadius="32dp"
+        app:cardElevation="10dp"
+        app:cardBackgroundColor="@android:color/white"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/blues" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:src="@drawable/smart"
+            android:contentDescription="@string/logo_image"/>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- App Name -->
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/appName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="serif-monospace"
-        android:gravity="center"
-        android:text="Inventory Management"
-        android:textAlignment="center"
-        android:textColor="#3F51B5"
-        android:textSize="48sp"
+        android:layout_marginTop="28dp"
+        android:text="@string/smart_shelf"
+        android:textColor="@android:color/white"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        android:textSize="30sp"
+        android:fontFamily="sans-serif-medium"
+        app:layout_constraintTop_toBottomOf="@id/logoCard"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Tagline -->
 
     <TextView
-        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-condensed"
-        android:text="Manage Smarter. Grow Faster."
-        android:textAlignment="center"
-        android:textColor="#2196F3"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"
+        android:text="@string/manage_inventory_smarter"
+        android:textColor="#D8F6FF"
+        android:textSize="15sp"
+        android:fontFamily="sans-serif"
+        app:layout_constraintTop_toBottomOf="@id/appName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="20dp"
-        android:contentDescription="logo"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="parent"
+    <!-- Loading -->
+
+    <ProgressBar
+        android:id="@+id/loading"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="70dp"
+        android:indeterminateTint="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@id/versionText"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/smart" />
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Version -->
+
+    <TextView
+        android:id="@+id/versionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/version_1_0"
+        android:textColor="#CDEEFF"
+        android:textSize="13sp"
+        android:layout_marginBottom="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

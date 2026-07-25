@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.*;
 
@@ -21,7 +22,7 @@ import java.util.Locale;
 public class DashActivity extends AppCompatActivity {
      ImageView notify;
      FloatingActionButton addProduct;
-
+    BottomNavigationView bottomNavigation;
      LinearLayout addPro, QCategory, report, supplier;
 
      RecyclerView recent;
@@ -45,8 +46,8 @@ public class DashActivity extends AppCompatActivity {
         category = findViewById(R.id.tvCategories);
 
         addProduct = findViewById(R.id.fabAddProduct);
-
-        addPro = findViewById(R.id.llAddPro);
+        bottomNavigation = findViewById(R.id.bottomNavigation);
+        addPro = findViewById(R.id.llProduct);
         QCategory = findViewById(R.id.llCategory);
         supplier = findViewById(R.id.llSupply);
         report = findViewById(R.id.llReport);
@@ -135,6 +136,33 @@ public class DashActivity extends AppCompatActivity {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {}
+        });
+
+        bottomNavigation.setOnItemSelectedListener(item -> {
+
+            int id = item.getItemId();
+
+            if (id == R.id.nav_home) {
+
+                startActivity(new Intent(this, DashActivity.class));
+                return true;
+
+            } else if (id == R.id.nav_products) {
+
+                startActivity(new Intent(this, ProductActivity.class));
+                return true;
+            }else if (id == R.id.nav_reports) {
+
+                startActivity(new Intent(this, ReportActivity.class));
+                return true;
+
+            } else if (id == R.id.nav_profile) {
+
+                startActivity(new Intent(this, SettingsActivity.class));
+                return true;
+            }
+
+            return false;
         });
     }
 }
