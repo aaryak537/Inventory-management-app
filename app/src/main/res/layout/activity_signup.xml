@@ -113,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
                 android:hint="@string/phone_number"
-                app:startIconDrawable="@android:drawable/ic_phone">
+                app:startIconDrawable="@drawable/ic_phone">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etPhone"
@@ -133,7 +133,7 @@
                 android:layout_marginTop="14dp"
                 android:hint="@string/password"
                 app:endIconMode="password_toggle"
-                app:startIconDrawable="@android:drawable/ic_lock">
+                app:startIconDrawable="@drawable/ic_lock">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etPassword"
@@ -153,7 +153,7 @@
                 android:layout_marginTop="14dp"
                 android:hint="@string/confirm_password"
                 app:endIconMode="password_toggle"
-                app:startIconDrawable="@android:drawable/ic_lock">
+                app:startIconDrawable="@drawable/ic_lock">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etConfirm"

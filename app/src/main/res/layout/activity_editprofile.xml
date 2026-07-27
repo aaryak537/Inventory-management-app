@@ -159,7 +159,7 @@
                             <ImageView
                                 android:layout_width="24dp"
                                 android:layout_height="24dp"
-                                android:src="@drawable/ic_inventory"
+                                android:src="@drawable/ic_package"
                                 app:tint="#1976D2"/>
 
                             <TextView
@@ -367,7 +367,7 @@
                             app:boxCornerRadiusTopEnd="16dp"
                             app:boxCornerRadiusBottomStart="16dp"
                             app:boxCornerRadiusBottomEnd="16dp"
-                            app:startIconDrawable="@android:drawable/ic_dialog_email">
+                            app:startIconDrawable="@drawable/ic_email">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/etEmail"
@@ -416,7 +416,7 @@
                             app:boxCornerRadiusTopEnd="16dp"
                             app:boxCornerRadiusBottomStart="16dp"
                             app:boxCornerRadiusBottomEnd="16dp"
-                            app:startIconDrawable="@android:drawable/ic_phone">
+                            app:startIconDrawable="@drawable/ic_phone">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/etPhone"
@@ -472,7 +472,7 @@
                             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:startIconDrawable="@drawable/ic_business"
+                            app:startIconDrawable="@drawable/ic_home"
                             app:boxCornerRadiusTopStart="16dp"
                             app:boxCornerRadiusTopEnd="16dp"
                             app:boxCornerRadiusBottomStart="16dp"

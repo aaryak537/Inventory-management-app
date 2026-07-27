@@ -147,11 +147,12 @@ public class DashActivity extends AppCompatActivity {
                 startActivity(new Intent(this, DashActivity.class));
                 return true;
 
-            } else if (id == R.id.nav_products) {
-
+            }
+            else if (id == R.id.nav_products) {
                 startActivity(new Intent(this, ProductActivity.class));
-                return true;
-            }else if (id == R.id.nav_reports) {
+               return true;
+            }
+            else if (id == R.id.nav_reports) {
 
                 startActivity(new Intent(this, ReportActivity.class));
                 return true;

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardProduct"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="6dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardCornerRadius="18dp"
+    app:cardElevation="4dp"
+    app:strokeColor="#E5E7EB"
+    app:strokeWidth="1dp">
+
+    <RelativeLayout
+        android:id="@+id/layoutContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Product Image -->
+
+        <ImageView
+            android:id="@+id/imgProduct"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@drawable/bg_circle"
+            android:padding="14dp"
+            android:src="@drawable/ic_package"
+            android:scaleType="centerInside"
+            app:tint="#2563EB"/>
+
+        <!-- Edit -->
+
+        <ImageView
+            android:id="@+id/btnEdit"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:src="@android:drawable/ic_menu_edit"
+            app:tint="#2563EB"/>
+
+        <!-- Delete -->
+
+        <ImageView
+            android:id="@+id/btnDelete"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_below="@id/btnEdit"
+            android:layout_alignEnd="@id/btnEdit"
+            android:layout_marginTop="10dp"
+            android:src="@android:drawable/ic_menu_delete"
+            app:tint="#EF4444"/>
+
+        <!-- Product Name -->
+
+        <TextView
+            android:id="@+id/txtProductName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/imgProduct"
+            android:layout_marginStart="16dp"
+            android:text="Wireless Mouse"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#111827"/>
+
+        <!-- Product ID -->
+
+        <TextView
+            android:id="@+id/txtProductId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtProductName"
+            android:layout_toEndOf="@id/imgProduct"
+            android:layout_marginStart="16dp"
+            android:text="ID : PRD001"
+            android:textColor="#9CA3AF"
+            android:textSize="12sp"/>
+
+        <!-- Category -->
+
+        <TextView
+            android:id="@+id/txtCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtProductId"
+            android:layout_toEndOf="@id/imgProduct"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/bg_category"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="4dp"
+            android:text="Electronics"
+            android:textColor="#2563EB"
+            android:textStyle="bold"
+            android:textSize="12sp"/>
+
+        <!-- Price -->
+
+        <TextView
+            android:id="@+id/txtPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtCategory"
+            android:layout_toEndOf="@id/imgProduct"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:text="₹999"
+            android:textColor="#2563EB"
+            android:textStyle="bold"
+            android:textSize="20sp"/>
+
+        <!-- Stock -->
+
+        <TextView
+            android:id="@+id/txtStock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtPrice"
+            android:layout_toEndOf="@id/imgProduct"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="6dp"
+            android:text="Stock : 45"
+            android:textColor="#6B7280"
+            android:textSize="14sp"/>
+
+        <!-- Status -->
+
+        <TextView
+            android:id="@+id/txtStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/circle_green_bg"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="5dp"
+            android:text="In Stock"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textSize="12sp"/>
+
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>
