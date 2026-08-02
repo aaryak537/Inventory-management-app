@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "866979513255",
+    "firebase_url": "https://inventory-8e8aa-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "inventory-8e8aa",
     "storage_bucket": "inventory-8e8aa.firebasestorage.app"
   },
@@ -12,7 +13,20 @@
           "package_name": "com.example.inventory"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "866979513255-ip15dchst3agu951johfrblnsbkmuofo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.inventory",
+            "certificate_hash": "a71c2381884a421e46df1745ce62a3ab1018f23e"
+          }
+        },
+        {
+          "client_id": "866979513255-6n8tippu0vkhbej46c6usvn7eh5e3cnm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyADvAJM3d1PjTk7kFhC_xXIA6nipFJicQ8"
@@ -20,7 +34,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "866979513255-6n8tippu0vkhbej46c6usvn7eh5e3cnm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

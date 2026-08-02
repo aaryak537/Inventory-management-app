@@ -1,6 +1,7 @@
 package com.example.inventory;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,16 +18,14 @@ import java.util.ArrayList;
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder>
         implements Filterable {
 
-    Context context;
-
-    ArrayList<Product> list;
-    ArrayList<Product> fullList;
+    private final Context context;
+    private final ArrayList<Product> list;
+    private final ArrayList<Product> fullList;
 
     public ProductAdapter(Context context, ArrayList<Product> list) {
-
         this.context = context;
         this.list = list;
-        fullList = new ArrayList<>(list);
+        this.fullList = new ArrayList<>(list);
     }
 
     @NonNull
@@ -34,7 +33,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(context)
-                .inflate(R.layout.item_product,parent,false);
+                .inflate(R.layout.item_product, parent, false);
 
         return new ViewHolder(view);
     }
@@ -44,17 +43,39 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
         Product product = list.get(position);
 
-      //  holder.txtProductId.setText(product.getProId());
         holder.txtProductName.setText(product.getProductName());
         holder.txtCategory.setText(product.getCategory());
-        holder.txtPrice.setText("₹" + product.getSellingPrice());
-        holder.txtStock.setText("Stock : " + product.getStock());
 
-        if(product.isInStock()){
-            holder.txtStatus.setText("In Stock");
-        }else{
+        holder.txtPrice.setText("₹" +
+                String.format("%.2f", product.getSellingPrice()));
+
+        holder.txtQuantity.setText("Quantity : " +
+                product.getQuantity());
+
+        if (product.isInStock()) {
+
+            holder.txtStatus.setText("Available");
+            holder.txtStatus.setBackgroundResource(R.drawable.circle_green_bg);
+
+        } else {
+
             holder.txtStatus.setText("Out of Stock");
+            holder.txtStatus.setBackgroundColor(Color.RED);
         }
+
+        // Edit button
+        holder.btnEdit.setOnClickListener(v -> {
+
+            // TODO: Open Edit Product Activity
+
+        });
+
+        // Delete button
+        holder.btnDelete.setOnClickListener(v -> {
+
+            // TODO: Delete Product
+
+        });
     }
 
     @Override
@@ -62,23 +83,28 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         return list.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView txtProductId,txtProductName,txtCategory,txtPrice,txtStock,txtStatus;
-        ImageView btnEdit,btnDelete;
+        TextView txtProductName;
+        TextView txtCategory;
+        TextView txtPrice;
+        TextView txtQuantity;
+        TextView txtStatus;
+
+        ImageView btnEdit;
+        ImageView btnDelete;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            txtProductId=itemView.findViewById(R.id.txtProductId);
-            txtProductName=itemView.findViewById(R.id.txtProductName);
-            txtCategory=itemView.findViewById(R.id.txtCategory);
-            txtPrice=itemView.findViewById(R.id.txtPrice);
-            txtStock=itemView.findViewById(R.id.txtStock);
-            txtStatus=itemView.findViewById(R.id.txtStatus);
+            txtProductName = itemView.findViewById(R.id.txtProductName);
+            txtCategory = itemView.findViewById(R.id.txtCategory);
+            txtPrice = itemView.findViewById(R.id.txtPrice);
+            txtQuantity = itemView.findViewById(R.id.txtQuantity);
+            txtStatus = itemView.findViewById(R.id.txtStatus);
 
-            btnEdit=itemView.findViewById(R.id.btnEdit);
-            btnDelete=itemView.findViewById(R.id.btnDelete);
+            btnEdit = itemView.findViewById(R.id.btnEdit);
+            btnDelete = itemView.findViewById(R.id.btnDelete);
         }
     }
 
@@ -90,38 +116,40 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
 
-                ArrayList<Product> filtered=new ArrayList<>();
+                ArrayList<Product> filteredList = new ArrayList<>();
 
-                if(constraint==null || constraint.length()==0){
+                if (constraint == null || constraint.length() == 0) {
 
-                    filtered.addAll(fullList);
+                    filteredList.addAll(fullList);
 
-                }else{
+                } else {
 
-                    String search=constraint.toString().toLowerCase();
+                    String search =
+                            constraint.toString().toLowerCase().trim();
 
-                    for(Product p:fullList){
+                    for (Product product : fullList) {
 
-                        if(p.getProductName().toLowerCase().contains(search)){
+                        if (product.getProductName().toLowerCase().contains(search)
+                                || product.getCategory().toLowerCase().contains(search)) {
 
-                            filtered.add(p);
-
+                            filteredList.add(product);
                         }
                     }
                 }
 
-                FilterResults results=new FilterResults();
-                results.values=filtered;
+                FilterResults results = new FilterResults();
+                results.values = filteredList;
                 return results;
             }
 
             @Override
-            protected void publishResults(CharSequence constraint, FilterResults results) {
+            @SuppressWarnings("unchecked")
+            protected void publishResults(CharSequence constraint,
+                                          FilterResults results) {
 
                 list.clear();
                 list.addAll((ArrayList<Product>) results.values);
                 notifyDataSetChanged();
-
             }
         };
     }

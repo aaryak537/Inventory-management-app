@@ -33,7 +33,9 @@
         <activity
             android:name=".DashActivity"
             android:exported="false" />
-
+        <activity
+            android:name=".ProductActivity"
+            android:exported="false" />
         <activity
             android:name=".AddProActivity"
             android:exported="false" />
@@ -54,6 +56,21 @@
             android:exported="false" />
         <activity
             android:name=".TermsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SupplierActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddSupplierActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditSupplierActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CategoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddCategoryActivity"
             android:exported="false" />
     </application>
 </manifest>

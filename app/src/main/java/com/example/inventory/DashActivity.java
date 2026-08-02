@@ -23,7 +23,7 @@ public class DashActivity extends AppCompatActivity {
      ImageView notify;
      FloatingActionButton addProduct;
     BottomNavigationView bottomNavigation;
-     LinearLayout addPro, QCategory, report, supplier;
+     LinearLayout Pro, QCategory, report, supplier;
 
      RecyclerView recent;
 
@@ -47,7 +47,7 @@ public class DashActivity extends AppCompatActivity {
 
         addProduct = findViewById(R.id.fabAddProduct);
         bottomNavigation = findViewById(R.id.bottomNavigation);
-        addPro = findViewById(R.id.llProduct);
+        Pro = findViewById(R.id.llProduct);
         QCategory = findViewById(R.id.llCategory);
         supplier = findViewById(R.id.llSupply);
         report = findViewById(R.id.llReport);
@@ -76,14 +76,27 @@ public class DashActivity extends AppCompatActivity {
             }
         });
 
-        addPro.setOnClickListener(new View.OnClickListener() {
+        Pro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(DashActivity.this,
-                        AddProActivity.class));
+                        ProductActivity.class));
             }
         });
-
+        supplier.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DashActivity.this,
+                        SupplierActivity.class));
+            }
+        });
+        QCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DashActivity.this,
+                        CategoryActivity.class));
+            }
+        });
         report.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -162,7 +175,6 @@ public class DashActivity extends AppCompatActivity {
                 startActivity(new Intent(this, SettingsActivity.class));
                 return true;
             }
-
             return false;
         });
     }
