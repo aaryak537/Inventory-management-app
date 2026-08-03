@@ -27,7 +27,7 @@
             android:layout_height="90dp"
             android:contentDescription="@string/logo_image"
             android:src="@drawable/smart"
-            app:tint="@android:color/white"/>
+            />
 
         <TextView
             android:layout_width="wrap_content"
