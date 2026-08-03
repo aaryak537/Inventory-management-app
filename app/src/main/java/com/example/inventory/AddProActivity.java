@@ -16,6 +16,8 @@ import android.widget.ImageView;
 
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -83,7 +85,17 @@ public class AddProActivity extends AppCompatActivity {
                 "Toys"
         };
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Products");
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user == null) {
+            Toast.makeText(this, "Please login first", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+
+        databaseReference = FirebaseDatabase.getInstance()
+                .getReference("Products")
+                .child(user.getUid());
 
         imagePickerLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),

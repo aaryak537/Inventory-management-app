@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -36,8 +38,17 @@ public class AddCategoryActivity extends AppCompatActivity {
         spStatus = findViewById(R.id.spStatus);
         btnSaveCategory = findViewById(R.id.btnSaveCategory);
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user == null) {
+            Toast.makeText(this, "Please login first", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+
         databaseReference = FirebaseDatabase.getInstance()
-                .getReference("Categories");
+                .getReference("Categories")
+                .child(user.getUid());
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);

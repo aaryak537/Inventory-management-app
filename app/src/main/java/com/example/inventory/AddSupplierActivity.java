@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -30,7 +32,17 @@ public class AddSupplierActivity extends AppCompatActivity {
         etEmail = findViewById(R.id.etEmail);
         btnSaveSupplier = findViewById(R.id.btnSaveSupplier);
 
-        supplierRef = FirebaseDatabase.getInstance().getReference("Suppliers");
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user == null) {
+            Toast.makeText(this, "Please login first", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+
+        supplierRef = FirebaseDatabase.getInstance()
+                .getReference("Suppliers")
+                .child(user.getUid());
 
         btnSaveSupplier.setOnClickListener(v -> saveSupplier());
     }
@@ -94,13 +106,6 @@ public class AddSupplierActivity extends AppCompatActivity {
                 phone,
                 email
         );
-
-        btnSaveSupplier.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveSupplier();
-            }
-        });
 
         supplierRef.child(supplierId)
                 .setValue(supplier)

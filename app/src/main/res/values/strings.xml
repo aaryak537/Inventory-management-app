@@ -125,4 +125,10 @@
     <string name="user">User</string>
     <string name="_0_00_000">₹0,00,000</string>
     <string name="_0_000">0,000</string>
+    <string name="search_product">Search Product...</string>
+    <string name="available">Available</string>
+    <string name="active_status">active status</string>
+    <string name="manage_your_inventory_products">Manage your inventory products</string>
+    <string name="money">money</string>
+
 </resources>

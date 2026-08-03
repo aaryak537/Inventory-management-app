@@ -3,129 +3,170 @@
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardProduct"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="16dp"
-    android:layout_marginTop="10dp"
-    android:layout_marginBottom="6dp"
+    android:layout_marginVertical="8dp"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackground"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="6dp"
-    app:strokeColor="#E5E7EB"
+    app:cardBackgroundColor="@android:color/white"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="8dp"
+    app:strokeColor="#E8ECF4"
     app:strokeWidth="1dp">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <!-- Product Icon -->
+        <!-- Product Image -->
+
         <ImageView
             android:id="@+id/imgProduct"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
             android:background="@drawable/bg_circle"
             android:padding="16dp"
-            android:src="@drawable/ic_package"
             android:scaleType="centerInside"
-            app:tint="#2563EB"/>
+            android:src="@drawable/ic_package"
+            android:contentDescription="@string/product_image"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#2563EB" />
 
         <!-- Product Name -->
+
         <TextView
             android:id="@+id/txtProductName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/imgProduct"
             android:layout_marginStart="16dp"
-            android:text="Wireless Mouse"
-            android:textStyle="bold"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="#111827"
             android:textSize="18sp"
-            android:textColor="#111827"/>
-
-        <!-- Category -->
-        <TextView
-            android:id="@+id/txtCategory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txtProductName"
-            android:layout_toEndOf="@id/imgProduct"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/bg_category"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="4dp"
-            android:text="Electronics"
-            android:textColor="#2563EB"
             android:textStyle="bold"
-            android:textSize="12sp"/>
-
-        <!-- Price -->
-        <TextView
-            android:id="@+id/txtPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txtCategory"
-            android:layout_toEndOf="@id/imgProduct"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
-            android:text="₹999.00"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="#2563EB"/>
-
-        <!-- Quantity -->
-        <TextView
-            android:id="@+id/txtQuantity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txtPrice"
-            android:layout_toEndOf="@id/imgProduct"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="6dp"
-            android:text="Quantity : 15"
-            android:textColor="#6B7280"
-            android:textSize="14sp"/>
+            app:layout_constraintEnd_toStartOf="@id/txtStatus"
+            app:layout_constraintStart_toEndOf="@id/imgProduct"
+            app:layout_constraintTop_toTopOf="@id/imgProduct"
+            tools:text="Wireless Bluetooth Mouse" />
 
         <!-- Status -->
+
         <TextView
             android:id="@+id/txtStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="8dp"
             android:background="@drawable/circle_green_bg"
             android:paddingHorizontal="12dp"
             android:paddingVertical="5dp"
-            android:text="Available"
+            android:text="@string/available"
             android:textColor="@android:color/white"
+            android:textSize="12sp"
             android:textStyle="bold"
-            android:textSize="12sp"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/txtProductName" />
 
-        <!-- Edit Button -->
-        <ImageView
-            android:id="@+id/btnEdit"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="4dp"
-            android:src="@android:drawable/ic_menu_edit"
-            app:tint="#2563EB"/>
+        <!-- Category -->
+
+        <TextView
+            android:id="@+id/txtCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_category"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="4dp"
+            android:textColor="#2563EB"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/txtProductName"
+            app:layout_constraintTop_toBottomOf="@id/txtProductName"
+            tools:text="Electronics" />
+
+        <!-- Price -->
+
+        <TextView
+            android:id="@+id/txtPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:textColor="#2563EB"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/txtCategory"
+            app:layout_constraintTop_toBottomOf="@id/txtCategory"
+            tools:text="₹999" />
+
+        <!-- Quantity -->
+
+        <LinearLayout
+            android:id="@+id/layoutQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="@id/txtPrice"
+            app:layout_constraintTop_toBottomOf="@id/txtPrice">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:contentDescription="@string/active_status"
+                android:src="@drawable/circle_green"
+                app:tint="#6B7280"/>
+
+            <TextView
+                android:id="@+id/txtQuantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:textColor="#6B7280"
+                android:textSize="14sp"
+                tools:text="15 in Stock"/>
+
+        </LinearLayout>
 
         <!-- Delete Button -->
+
         <ImageView
             android:id="@+id/btnDelete"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_toStartOf="@id/btnEdit"
-            android:layout_alignBottom="@id/btnEdit"
-            android:layout_marginEnd="18dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/bg_circle"
+            android:padding="8dp"
+            android:contentDescription="@string/delete_product"
             android:src="@android:drawable/ic_menu_delete"
-            app:tint="#EF4444"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnEdit"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:tint="#EF4444" />
 
-    </RelativeLayout>
+        <!-- Edit Button -->
+
+        <ImageView
+            android:id="@+id/btnEdit"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/bg_circle"
+            android:padding="8dp"
+            android:contentDescription="@string/edit_product"
+            android:src="@android:drawable/ic_menu_edit"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnDelete"
+            app:tint="#2563EB" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

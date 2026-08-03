@@ -1,6 +1,8 @@
 package com.example.inventory;
 
+import androidx.appcompat.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +11,12 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -63,18 +68,46 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             holder.txtStatus.setBackgroundColor(Color.RED);
         }
 
-        // Edit button
         holder.btnEdit.setOnClickListener(v -> {
 
-            // TODO: Open Edit Product Activity
+            Intent intent = new Intent(context, EditProActivity.class);
+
+            intent.putExtra("name", product.getProductName());
+            intent.putExtra("price", product.getSellingPrice());
+            intent.putExtra("quantity", product.getQuantity());
+            intent.putExtra("category", product.getCategory());
+
+            context.startActivity(intent);
 
         });
 
-        // Delete button
         holder.btnDelete.setOnClickListener(v -> {
 
-            // TODO: Delete Product
+            new AlertDialog.Builder(context)
+                    .setTitle("Delete Product")
+                    .setMessage("Are you sure you want to delete this product?")
+                    .setPositiveButton("Delete", (dialog, which) -> {
 
+                        FirebaseDatabase.getInstance()
+                                .getReference("Products")
+                               // .child(product.getId())   // Product ID stored in Firebase
+                                .removeValue()
+                                .addOnSuccessListener(unused -> {
+
+                                    Toast.makeText(context,
+                                            "Product deleted successfully",
+                                            Toast.LENGTH_SHORT).show();
+
+                                })
+                                .addOnFailureListener(e -> {
+
+                                    Toast.makeText(context,
+                                            "Failed: " + e.getMessage(),
+                                            Toast.LENGTH_SHORT).show();
+                                });
+                    })
+                    .setNegativeButton("Cancel", null)
+                    .show();
         });
     }
 

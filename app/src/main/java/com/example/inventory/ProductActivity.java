@@ -1,14 +1,18 @@
 package com.example.inventory;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -17,7 +21,7 @@ public class ProductActivity extends AppCompatActivity {
  EditText etSearch;
  TextView tvTotalProducts, tvStockValue;
  RecyclerView recyclerProducts;
-
+ FloatingActionButton fabAdd;
  ArrayList<Product> productList;
  ProductAdapter adapter;
 
@@ -26,6 +30,7 @@ public class ProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
 
+        fabAdd=findViewById(R.id.fabAddProduct);
         etSearch = findViewById(R.id.etSearch);
         tvTotalProducts = findViewById(R.id.tvTotalProducts);
         tvStockValue = findViewById(R.id.tvStockValue);
@@ -34,6 +39,14 @@ public class ProductActivity extends AppCompatActivity {
         setupRecyclerView();
         updateSummary();
         searchProduct();
+
+        fabAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(ProductActivity.this, AddProActivity.class);
+                startActivity(intent);
+            }
+        });
     }
     private void loadProducts() {
         productList = new ArrayList<>();
@@ -41,14 +54,14 @@ public class ProductActivity extends AppCompatActivity {
         productList.add(new Product(
                 "Wireless Mouse",
                 "Electronics",
-                999.00,
+                300.00,
                 15,
                 true));
 
         productList.add(new Product(
                 "Keyboard",
                 "Electronics",
-                1499.00,
+                1399.00,
                 10,
                 true));
 
@@ -62,14 +75,14 @@ public class ProductActivity extends AppCompatActivity {
         productList.add(new Product(
                 "Printer",
                 "Electronics",
-                12500.00,
+                12499.00,
                 2,
-                true));
+                false));
 
         productList.add(new Product(
                 "Monitor",
                 "Electronics",
-                9999.00,
+                15499.00,
                 5,
                 false));
     }

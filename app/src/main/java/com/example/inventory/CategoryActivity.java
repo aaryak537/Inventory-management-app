@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,7 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class CategoryActivity extends AppCompatActivity {
+public class CategoryActivity extends AppCompatActivity implements CategoryAdapter.OnCategoryActionListener {
 
     RecyclerView recyclerCategory;
     EditText etSearchCategory;
@@ -52,12 +54,19 @@ public class CategoryActivity extends AppCompatActivity {
 
         categoryList = new ArrayList<>();
 
-      //  adapter = new CategoryAdapter(this, categoryList);
-
+        adapter = new CategoryAdapter(this, categoryList, this);
         recyclerCategory.setAdapter(adapter);
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user == null) {
+            finish();
+            return;
+        }
+
         databaseReference = FirebaseDatabase.getInstance()
-                .getReference("Categories");
+                .getReference("Categories")
+                .child(user.getUid());
 
         loadCategories();
 
@@ -133,28 +142,38 @@ public class CategoryActivity extends AppCompatActivity {
 
                     layoutEmpty.setVisibility(View.GONE);
                     recyclerCategory.setVisibility(View.VISIBLE);
-
                 }
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
-                Toast.makeText(CategoryActivity.this,
-                        error.getMessage(),
+                Toast.makeText(CategoryActivity.this, error.getMessage(),
                         Toast.LENGTH_SHORT).show();
-
             }
-
         });
+    }
+    @Override
+    public void onEdit(Category category) {
 
+        Toast.makeText(this,
+                "Edit: " + category.getCategoryName(),
+                Toast.LENGTH_SHORT).show();
+
+        // TODO: Open EditCategoryActivity
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        loadCategories();
-    }
+    public void onDelete(Category category) {
 
+        databaseReference.child(category.getId())
+                .removeValue()
+                .addOnSuccessListener(unused ->
+                        Toast.makeText(this,
+                                "Category Deleted",
+                                Toast.LENGTH_SHORT).show())
+                .addOnFailureListener(e ->
+                        Toast.makeText(this,
+                                e.getMessage(),
+                                Toast.LENGTH_SHORT).show());
+    }
 }

@@ -3,7 +3,7 @@ package com.example.inventory;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
-import android.view.MenuItem;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
@@ -69,25 +69,25 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
             PopupMenu popupMenu = new PopupMenu(context, holder.imgMenu);
             MenuInflater inflater = popupMenu.getMenuInflater();
-      //      inflater.inflate(R.menu.menu_item_options, popupMenu.getMenu());
+           inflater.inflate(R.menu.menu_category, popupMenu.getMenu());
 
-          //  popupMenu.setOnMenuItemClickListener(item -> {
+            popupMenu.setOnMenuItemClickListener(item -> {
 
-             //   int id = item.getItemId();
+                int id = item.getItemId();
 
-            //    if (id == R.id.menuEdit) {
+                if (id == R.id.menuEdit) {
 
-              //      listener.onEdit(category);
-              //      return true;
+                    listener.onEdit(category);
+                    return true;
 
-              //  } else if (id == R.id.menuDelete) {
+                } else if (id == R.id.menuDelete) {
 
-              //      listener.onDelete(category);
-              //      return true;
-             //   }
+                    listener.onDelete(category);
+                    return true;
+               }
 
-            //    return false;
-          //  });
+                return false;
+            });
             popupMenu.show();
         });
     }
