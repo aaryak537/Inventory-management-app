@@ -26,13 +26,14 @@
         <activity
             android:name=".SignupActivity"
             android:exported="false" />
-
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
-
         <activity
             android:name=".DashActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NotifyActivity"
             android:exported="false" />
         <activity
             android:name=".ProductActivity"

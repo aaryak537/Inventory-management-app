@@ -42,9 +42,6 @@
     <string name="suppliers">Suppliers</string>
     <string name="total_products">Total Products</string>
     <string name="notification">notification</string>
-    <string name="_00">00</string>
-
-    <string name="_000">000</string>
 
     <string name="aarya">Aarya</string>
     <string name="logo_image">logo image</string>
@@ -123,12 +120,15 @@
     <string name="remember_me">Remember Me</string>
     <string name="create_new_account">Create New Account</string>
     <string name="user">User</string>
-    <string name="_0_00_000">₹0,00,000</string>
-    <string name="_0_000">0,000</string>
+
     <string name="search_product">Search Product...</string>
     <string name="available">Available</string>
     <string name="active_status">active status</string>
     <string name="manage_your_inventory_products">Manage your inventory products</string>
     <string name="money">money</string>
+    <string name="no_notifications_yet">No Notifications Yet</string>
+    <string name="you_re_all_caught_up">You\'re all caught up.</string>
+    <string name="delete">delete</string>
+    <string name="low_stock_alert">Low Stock Alert</string>
 
 </resources>

@@ -227,7 +227,7 @@
                 android:background="@drawable/bg_outline_button"
                 android:text="@string/continue_with_google"
                 android:textAllCaps="false"
-                android:textColor="#1565C0"
+                android:textColor="@color/white"
                 android:backgroundTint="@null"
                 android:drawableStart="@drawable/common_google_signin_btn_icon_dark"
                 android:drawablePadding="10dp"/>

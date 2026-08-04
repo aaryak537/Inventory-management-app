@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardNotification"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="18dp"
+    app:cardElevation="5dp"
+    app:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="90dp"
+        android:padding="16dp">
+
+        <!-- Notification Icon -->
+        <ImageView
+            android:id="@+id/imgNotificationIcon"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/bg_circle_light"
+            android:padding="12dp"
+            android:contentDescription="@string/notification"
+            android:src="@drawable/ic_notification"
+            app:tint="#2563EB"/>
+
+        <!-- Unread Dot -->
+        <View
+            android:id="@+id/viewUnreadDot"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/bg_unread_dot"/>
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/tvNotificationTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/imgNotificationIcon"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="20dp"
+            android:text="@string/low_stock_alert"
+            android:textStyle="bold"
+            android:textSize="17sp"
+            android:textColor="#111827"/>
+
+        <!-- Message -->
+        <TextView
+            android:id="@+id/tvNotificationMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvNotificationTitle"
+            android:layout_toEndOf="@id/imgNotificationIcon"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="16dp"
+            android:text="Rice has only 3 items remaining."
+            android:textColor="#6B7280"
+            android:textSize="14sp"/>
+
+        <!-- Time -->
+        <TextView
+            android:id="@+id/tvNotificationTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvNotificationMessage"
+            android:layout_toEndOf="@id/imgNotificationIcon"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:text="5 mins ago"
+            android:textColor="#9CA3AF"
+            android:textSize="12sp"/>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

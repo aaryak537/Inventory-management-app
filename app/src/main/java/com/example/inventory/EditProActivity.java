@@ -231,6 +231,9 @@ public class EditProActivity extends AppCompatActivity {
                         Toast.makeText(this,
                                 e.getMessage(),
                                 Toast.LENGTH_SHORT).show());
+        NotifyHelper.addNotification(
+                "Product Updated",
+                productName + " updated");
     }
     private void deleteProduct() {
 
@@ -246,5 +249,8 @@ public class EditProActivity extends AppCompatActivity {
                         Toast.makeText(this,
                                 e.getMessage(),
                                 Toast.LENGTH_SHORT).show());
+        NotifyHelper.addNotification(
+                "Product Deleted",
+                productName + " removed");
     }
 }

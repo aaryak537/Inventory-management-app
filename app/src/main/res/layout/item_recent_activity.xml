@@ -28,8 +28,7 @@
             android:background="@drawable/circle_blue"
             android:padding="12dp"
             android:contentDescription="@string/product"
-            android:src="@drawable/products"
-            app:tint="@android:color/white"/>
+            android:src="@drawable/products" />
 
         <!-- Activity Details -->
         <LinearLayout

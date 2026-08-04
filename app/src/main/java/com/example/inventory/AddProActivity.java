@@ -243,6 +243,7 @@ public class AddProActivity extends AppCompatActivity {
                 describe,
                 imageUrl
         );
+
         databaseReference.child(proId)
                 .setValue(product)
                 .addOnSuccessListener(unused -> {
@@ -254,5 +255,8 @@ public class AddProActivity extends AppCompatActivity {
                 .addOnFailureListener(e ->
                         Toast.makeText(this, e.getMessage(),
                                 Toast.LENGTH_SHORT).show());
+        NotifyHelper.addNotification(
+                "Product Added",
+                productName + " added successfully");
     }
 }
