@@ -17,4 +17,5 @@
 
     <color name="textfield">#334155</color>
 
+    <color name="onPrimary">#FFFFFF</color>
 </resources>

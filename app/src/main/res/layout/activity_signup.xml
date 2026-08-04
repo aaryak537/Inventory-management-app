@@ -176,18 +176,16 @@
 
 
             <!-- Signup Button -->
-
             <Button
                 android:id="@+id/btnSignup"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="56dp"
                 android:layout_marginTop="18dp"
+                android:background="@drawable/bg_primary_button"
+                android:backgroundTint="@null"
                 android:text="@string/create_btn"
-                android:textStyle="bold"
-                android:textAllCaps="false"
                 android:textColor="@android:color/white"
-                android:background="@drawable/bg_primary_button"/>
-
+                android:textStyle="bold"/>
 
             <!-- Divider -->
 
@@ -230,6 +228,7 @@
                 android:text="@string/continue_with_google"
                 android:textAllCaps="false"
                 android:textColor="#1565C0"
+                android:backgroundTint="@null"
                 android:drawableStart="@drawable/common_google_signin_btn_icon_dark"
                 android:drawablePadding="10dp"/>
             <!-- Login -->

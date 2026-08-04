@@ -10,6 +10,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,7 +26,6 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputEditText email, password;
     private MaterialButton login, signup;
     private TextView forget;
-
     private FirebaseAuth auth;
 
     @Override
@@ -31,10 +33,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Initialize Firebase
         auth = FirebaseAuth.getInstance();
 
-        // Initialize Views
         email = findViewById(R.id.etEmail);
         password = findViewById(R.id.etPassword);
 
@@ -42,17 +42,14 @@ public class LoginActivity extends AppCompatActivity {
         signup = findViewById(R.id.btnSignup);
 
         forget = findViewById(R.id.txtForgot);
-
-        // Login Button
+        hideSystemUI();
         login.setOnClickListener(v -> loginUser());
 
-        // Signup Button
         signup.setOnClickListener(v -> {
             Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
             startActivity(intent);
         });
 
-        // Forgot Password
         forget.setOnClickListener(v -> resetPassword());
     }
 
@@ -65,8 +62,6 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         }
     }
-
-    // ---------------- Login ----------------
 
     private void loginUser() {
 
@@ -107,18 +102,16 @@ public class LoginActivity extends AppCompatActivity {
                         login.setEnabled(true);
 
                         if (task.isSuccessful()) {
-
-                            Toast.makeText(LoginActivity.this,
-                                    "Login Successful",
+                            Toast.makeText(LoginActivity.this, "Login Successful",
                                     Toast.LENGTH_SHORT).show();
 
-                            Intent intent = new Intent(LoginActivity.this, DashActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            Intent intent = new Intent(LoginActivity.this,
+                                    DashActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                                    Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
                             finish();
-
                         } else {
-
                             Toast.makeText(LoginActivity.this,
                                     task.getException().getMessage(),
                                     Toast.LENGTH_LONG).show();
@@ -126,8 +119,6 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
-
-    // ---------------- Forgot Password ----------------
 
     private void resetPassword() {
 
@@ -149,18 +140,30 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
 
                     if (task.isSuccessful()) {
-
                         Toast.makeText(LoginActivity.this,
                                 "Password reset email sent.",
                                 Toast.LENGTH_LONG).show();
-
                     } else {
-
                         Toast.makeText(LoginActivity.this,
                                 task.getException().getMessage(),
                                 Toast.LENGTH_LONG).show();
                     }
-
                 });
+    }
+    private void hideSystemUI() {
+
+        WindowInsetsControllerCompat controller =
+                WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
+
+        if (controller != null) {
+            controller.hide(WindowInsetsCompat.Type.systemBars());
+            controller.setSystemBarsBehavior(
+                    WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+        }
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        hideSystemUI();
     }
 }
