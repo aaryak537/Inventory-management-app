@@ -207,31 +207,31 @@ public class AddProActivity extends AppCompatActivity {
     private void saveProduct() {
 
         String productName = proName.getText().toString().trim();
-
         String proId = productId.getText().toString().trim();
-
         String category = autoCategory.getText().toString().trim();
-
         String brandName = brand.getText().toString().trim();
-
-        double cPrice = Double.parseDouble(costPrice.getText().toString().trim());
-        double sellPrice = Double.parseDouble(sellingPrice.getText().toString().trim());
-
-        String stocks = stock.getText().toString().trim();
-
+        String stockText = stock.getText().toString().trim();
         String describe = description.getText().toString().trim();
 
-        quantity = Integer.parseInt(stocks);
+        if (productName.isEmpty() ||
+                proId.isEmpty() ||
+                category.isEmpty() ||
+                costPrice.getText().toString().trim().isEmpty() ||
+                sellingPrice.getText().toString().trim().isEmpty() ||
+                stockText.isEmpty()) {
 
-        String imageUrl = "";
-
-        if (productName.isEmpty() || proId.isEmpty() ||
-                cPrice==0 ||sellPrice==0) {
-
-            Toast.makeText(this, "Fill all required fields",
+            Toast.makeText(this,
+                    "Fill all required fields",
                     Toast.LENGTH_SHORT).show();
             return;
         }
+
+        double cPrice = Double.parseDouble(costPrice.getText().toString().trim());
+        double sellPrice = Double.parseDouble(sellingPrice.getText().toString().trim());
+        quantity = Integer.parseInt(stockText);
+
+        String imageUrl = "";
+
         Product product = new Product(
                 productName,
                 category,
@@ -239,7 +239,7 @@ public class AddProActivity extends AppCompatActivity {
                 brandName,
                 cPrice,
                 sellPrice,
-                stocks,
+                stockText,
                 describe,
                 imageUrl
         );
