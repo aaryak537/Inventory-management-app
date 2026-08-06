@@ -1,9 +1,10 @@
 package com.example.inventory;
 
-import androidx.appcompat.app.AlertDialog;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
@@ -33,9 +36,21 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         this.fullList = new ArrayList<>(list);
     }
 
+    public void updateList(ArrayList<Product> newList) {
+
+        list.clear();
+        list.addAll(newList);
+
+        fullList.clear();
+        fullList.addAll(newList);
+
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
+                                         int viewType) {
 
         View view = LayoutInflater.from(context)
                 .inflate(R.layout.item_product, parent, false);
@@ -45,22 +60,22 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
+        Log.d("ADAPTER", "Binding position = " + position);
         Product product = list.get(position);
-
+        holder.itemView.setBackgroundColor(Color.YELLOW);
         holder.txtProductName.setText(product.getProductName());
         holder.txtCategory.setText(product.getCategory());
+      //  holder.tvProductNo.setText(product.getProID());
+        holder.txtPrice.setText("₹" + String.format("%.2f", product.getSellingPrice()));
 
-        holder.txtPrice.setText("₹" +
-                String.format("%.2f", product.getSellingPrice()));
-
-        holder.txtQuantity.setText("Quantity : " +
-                product.getQuantity());
+        holder.txtQuantity.setText(
+                "Quantity : " + product.getQuantity());
 
         if (product.isInStock()) {
 
             holder.txtStatus.setText("Available");
-            holder.txtStatus.setBackgroundResource(R.drawable.circle_green_bg);
+            holder.txtStatus.setBackgroundResource(
+                    R.drawable.circle_green_bg);
 
         } else {
 
@@ -70,64 +85,91 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
         holder.btnEdit.setOnClickListener(v -> {
 
-            Intent intent = new Intent(context, EditProActivity.class);
+            Intent intent = new Intent(context,
+                    EditProActivity.class);
 
-            intent.putExtra("name", product.getProductName());
-            intent.putExtra("price", product.getSellingPrice());
-            intent.putExtra("quantity", product.getQuantity());
-            intent.putExtra("category", product.getCategory());
+            intent.putExtra("productId",
+                    product.getProductId());
+
+            intent.putExtra("name",
+                    product.getProductName());
+
+            intent.putExtra("category",
+                    product.getCategory());
+
+            intent.putExtra("price",
+                    product.getSellingPrice());
+
+            intent.putExtra("quantity",
+                    product.getQuantity());
 
             context.startActivity(intent);
-
         });
 
         holder.btnDelete.setOnClickListener(v -> {
 
             new AlertDialog.Builder(context)
                     .setTitle("Delete Product")
-                    .setMessage("Are you sure you want to delete this product?")
-                    .setPositiveButton("Delete", (dialog, which) -> {
+                    .setMessage("Delete this product?")
+                    .setPositiveButton("Delete",
+                            (dialog, which) -> {
 
-                        FirebaseDatabase.getInstance()
-                                .getReference("Products")
-                               // .child(product.getId())   // Product ID stored in Firebase
-                                .removeValue()
-                                .addOnSuccessListener(unused -> {
+                                FirebaseUser user =
+                                        FirebaseAuth.getInstance()
+                                                .getCurrentUser();
 
-                                    Toast.makeText(context,
-                                            "Product deleted successfully",
-                                            Toast.LENGTH_SHORT).show();
+                                if (user == null)
+                                    return;
 
-                                })
-                                .addOnFailureListener(e -> {
+                                FirebaseDatabase.getInstance()
+                                        .getReference("Products")
+                                        .child(user.getUid())
+                                        .child(product.getProductId())
+                                        .removeValue()
+                                        .addOnSuccessListener(unused ->
+                                                Toast.makeText(
+                                                                context,
+                                                                "Product Deleted",
+                                                                Toast.LENGTH_SHORT)
+                                                        .show())
+                                        .addOnFailureListener(e ->
+                                                Toast.makeText(
+                                                                context,
+                                                                e.getMessage(),
+                                                                Toast.LENGTH_SHORT)
+                                                        .show());
 
-                                    Toast.makeText(context,
-                                            "Failed: " + e.getMessage(),
-                                            Toast.LENGTH_SHORT).show();
-                                });
-                    })
+                            })
                     .setNegativeButton("Cancel", null)
                     .show();
+
         });
+        Log.d("ADAPTER",
+                "No = " + product.getProductId() +
+                        " Name = " + product.getProductName());
+        Log.d("PRODUCT",
+                "No=" + product.getProductId() +
+                        " Name=" + product.getProductName());
     }
 
     @Override
-    public int getItemCount() {
-        return list.size();
+   public int getItemCount() {
+       return list.size();
     }
+
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView txtProductName;
-        TextView txtCategory;
-        TextView txtPrice;
-        TextView txtQuantity;
-        TextView txtStatus;
+        TextView txtProductName,
+                txtCategory,
+                txtPrice,
+                txtQuantity,
+                txtStatus;
 
-        ImageView btnEdit;
-        ImageView btnDelete;
+        ImageView btnEdit,
+                btnDelete;
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             txtProductName = itemView.findViewById(R.id.txtProductName);
@@ -149,34 +191,42 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
 
-                ArrayList<Product> filteredList = new ArrayList<>();
+                ArrayList<Product> filtered = new ArrayList<>();
 
-                if (constraint == null || constraint.length() == 0) {
+                if (constraint == null ||
+                        constraint.length() == 0) {
 
-                    filteredList.addAll(fullList);
+                    filtered.addAll(fullList);
 
                 } else {
 
-                    String search =
-                            constraint.toString().toLowerCase().trim();
+                    String text = constraint.toString()
+                            .toLowerCase().trim();
 
                     for (Product product : fullList) {
 
-                        if (product.getProductName().toLowerCase().contains(search)
-                                || product.getCategory().toLowerCase().contains(search)) {
+                        if (product.getProductName()
+                                .toLowerCase()
+                                .contains(text)
 
-                            filteredList.add(product);
+                                ||
+
+                                product.getCategory()
+                                        .toLowerCase()
+                                        .contains(text)) {
+
+                            filtered.add(product);
                         }
                     }
                 }
 
                 FilterResults results = new FilterResults();
-                results.values = filteredList;
+                results.values = filtered;
+
                 return results;
             }
 
             @Override
-            @SuppressWarnings("unchecked")
             protected void publishResults(CharSequence constraint,
                                           FilterResults results) {
 

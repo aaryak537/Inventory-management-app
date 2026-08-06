@@ -63,15 +63,15 @@
 
         </LinearLayout>
 
-        <!-- ================= SUMMARY CARDS ================= -->
-
         <GridLayout
             android:id="@+id/gridSummary"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="-36dp"
+            android:alignmentMode="alignMargins"
             android:columnCount="3"
+            android:rowCount="1"
             android:useDefaultMargins="true"
             app:layout_constraintTop_toBottomOf="@id/headerLayout"
             app:layout_constraintStart_toStartOf="parent"
@@ -83,8 +83,9 @@
                 android:layout_width="0dp"
                 android:layout_height="120dp"
                 android:layout_columnWeight="1"
+                android:layout_margin="4dp"
                 app:cardCornerRadius="18dp"
-                app:cardElevation="5dp">
+                app:cardElevation="6dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -95,8 +96,8 @@
                     <ImageView
                         android:layout_width="28dp"
                         android:layout_height="28dp"
-                        android:contentDescription="@string/product_image"
                         android:src="@drawable/ic_package"
+                        android:contentDescription="@string/product_image"
                         app:tint="#2563EB"/>
 
                     <TextView
@@ -105,15 +106,16 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="0"
+                        android:textColor="#111827"
                         android:textSize="24sp"
-                        android:textStyle="bold"
-                        android:textColor="#111827"/>
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/products"
-                        android:textColor="#6B7280"/>
+                        android:textColor="#6B7280"
+                        android:textSize="12sp"/>
 
                 </LinearLayout>
 
@@ -125,8 +127,9 @@
                 android:layout_width="0dp"
                 android:layout_height="120dp"
                 android:layout_columnWeight="1"
+                android:layout_margin="4dp"
                 app:cardCornerRadius="18dp"
-                app:cardElevation="5dp">
+                app:cardElevation="6dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -148,14 +151,15 @@
                         android:layout_height="wrap_content"
                         android:text="₹0"
                         android:textColor="#111827"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:textStyle="bold"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/stock_value"
-                        android:textColor="#6B7280"/>
+                        android:textColor="#6B7280"
+                        android:textSize="12sp"/>
 
                 </LinearLayout>
 
@@ -167,8 +171,9 @@
                 android:layout_width="0dp"
                 android:layout_height="120dp"
                 android:layout_columnWeight="1"
+                android:layout_margin="4dp"
                 app:cardCornerRadius="18dp"
-                app:cardElevation="5dp">
+                app:cardElevation="6dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -179,8 +184,8 @@
                     <ImageView
                         android:layout_width="28dp"
                         android:layout_height="28dp"
-                        android:contentDescription="@string/low_stock"
                         android:src="@android:drawable/ic_dialog_alert"
+                        android:contentDescription="@string/low_stock"
                         app:tint="#EF4444"/>
 
                     <TextView
@@ -188,15 +193,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
+                        android:textColor="#111827"
                         android:textSize="24sp"
-                        android:textStyle="bold"
-                        android:textColor="#111827"/>
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/low_stock"
-                        android:textColor="#6B7280"/>
+                        android:textColor="#6B7280"
+                        android:textSize="12sp"/>
 
                 </LinearLayout>
 

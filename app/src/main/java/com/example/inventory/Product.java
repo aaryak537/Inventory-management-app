@@ -1,6 +1,11 @@
 package com.example.inventory;
 
+import com.google.firebase.database.Exclude;
+
 public class Product {
+
+    @Exclude
+    private String productId;
 
     private String productName;
     private String category;
@@ -12,10 +17,9 @@ public class Product {
     private String description;
     private String imageUrl;
 
-    // Required empty constructor for Firebase
-    public Product() {}
+    public Product() {
+    }
 
-    // Full Constructor
     public Product(String productName, String category, int quantity,
                    String brandName, double costPrice, double sellingPrice,
                    String stock, String description, String imageUrl) {
@@ -31,7 +35,6 @@ public class Product {
         this.imageUrl = imageUrl;
     }
 
-    // Simple Constructor (for ProductActivity)
     public Product(String productName, String category,
                    double sellingPrice, int quantity, boolean inStock) {
 
@@ -45,6 +48,15 @@ public class Product {
         this.description = "";
         this.imageUrl = "";
     }
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
+
     public String getProductName() {
         return productName;
     }
@@ -81,12 +93,10 @@ public class Product {
         return imageUrl;
     }
 
-    // Optional helper
     public boolean isInStock() {
         return stock != null && stock.equalsIgnoreCase("In Stock");
     }
 
-    // Setters
     public void setProductName(String productName) {
         this.productName = productName;
     }
