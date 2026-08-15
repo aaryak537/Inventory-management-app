@@ -294,10 +294,13 @@
                     app:cardElevation="5dp">
 
                     <LinearLayout
+                        android:id="@+id/llCategory"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
                         android:gravity="center"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:padding="16dp">
 
                         <ImageView
                             android:layout_width="52dp"
@@ -516,120 +519,39 @@
                         android:textStyle="bold"/>
 
                 </LinearLayout>
+                    <!-- Suppliers -->
 
-                <!-- Categories -->
+                    <LinearLayout
+                        android:id="@+id/llSupply"
+                        android:layout_width="0dp"
+                        android:layout_height="135dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/bg_action_card"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="16dp">
 
-                <LinearLayout
-                    android:id="@+id/llCategory"
-                    android:layout_width="0dp"
-                    android:layout_height="135dp"
-                    android:layout_weight="1"
-                    android:layout_marginStart="8dp"
-                    android:background="@drawable/bg_action_card"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                        <ImageView
+                            android:layout_width="58dp"
+                            android:layout_height="58dp"
+                            android:background="@drawable/circle_orange"
+                            android:padding="14dp"
+                            android:src="@drawable/ic_supplier"
+                            app:tint="@android:color/white"/>
 
-                    <ImageView
-                        android:layout_width="58dp"
-                        android:layout_height="58dp"
-                        android:background="@drawable/circle_green"
-                        android:padding="14dp"
-                        android:src="@drawable/ic_category"
-                        app:tint="@android:color/white"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="14dp"
+                            android:text="Suppliers"
+                            android:textColor="#111827"
+                            android:textSize="17sp"
+                            android:textStyle="bold"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="14dp"
-                        android:text="Categories"
-                        android:textColor="#111827"
-                        android:textSize="17sp"
-                        android:textStyle="bold"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <!-- Row 2 -->
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:orientation="horizontal">
-
-                <!-- Suppliers -->
-
-                <LinearLayout
-                    android:id="@+id/llSupply"
-                    android:layout_width="0dp"
-                    android:layout_height="135dp"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/bg_action_card"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <ImageView
-                        android:layout_width="58dp"
-                        android:layout_height="58dp"
-                        android:background="@drawable/circle_orange"
-                        android:padding="14dp"
-                        android:src="@drawable/ic_supplier"
-                        app:tint="@android:color/white"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="14dp"
-                        android:text="Suppliers"
-                        android:textColor="#111827"
-                        android:textSize="17sp"
-                        android:textStyle="bold"/>
-
-                </LinearLayout>
-
-                <!-- Reports -->
-
-                <LinearLayout
-                    android:id="@+id/llReport"
-                    android:layout_width="0dp"
-                    android:layout_height="135dp"
-                    android:layout_weight="1"
-                    android:layout_marginStart="8dp"
-                    android:background="@drawable/bg_action_card"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <ImageView
-                        android:layout_width="58dp"
-                        android:layout_height="58dp"
-                        android:background="@drawable/blue_purple_gradient"
-                        android:padding="14dp"
-                        android:src="@drawable/ic_report"
-                        app:tint="@android:color/white"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="14dp"
-                        android:text="Reports"
-                        android:textColor="#111827"
-                        android:textSize="17sp"
-                        android:textStyle="bold"/>
-
-                </LinearLayout>
+                    </LinearLayout>
 
             </LinearLayout>
         </LinearLayout>

@@ -7,18 +7,32 @@ public class Category {
     private String description;
     private String status;
 
+    // Used only for displaying the number of products
+    // in the Category screen.
+    // It does NOT have to be stored in Firebase.
+    private int productCount;
+
     // Required empty constructor for Firebase
     public Category() {
     }
 
-    public Category(String id, String categoryName, String description, String status) {
+    // Constructor
+    public Category(String id,
+                    String categoryName,
+                    String description,
+                    String status) {
+
         this.id = id;
         this.categoryName = categoryName;
         this.description = description;
         this.status = status;
+        this.productCount = 0;
     }
 
-    // Getter & Setter for ID
+    // ==============================
+    // ID
+    // ==============================
+
     public String getId() {
         return id;
     }
@@ -27,7 +41,11 @@ public class Category {
         this.id = id;
     }
 
-    // Getter & Setter for Category Name
+
+    // ==============================
+    // CATEGORY NAME
+    // ==============================
+
     public String getCategoryName() {
         return categoryName;
     }
@@ -36,7 +54,11 @@ public class Category {
         this.categoryName = categoryName;
     }
 
-    // Getter & Setter for Description
+
+    // ==============================
+    // DESCRIPTION
+    // ==============================
+
     public String getDescription() {
         return description;
     }
@@ -45,12 +67,29 @@ public class Category {
         this.description = description;
     }
 
-    // Getter & Setter for Status
+
+    // ==============================
+    // STATUS
+    // ==============================
+
     public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+
+    // ==============================
+    // PRODUCT COUNT
+    // ==============================
+
+    public int getProductCount() {
+        return productCount;
+    }
+
+    public void setProductCount(int productCount) {
+        this.productCount = productCount;
     }
 }

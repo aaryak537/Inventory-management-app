@@ -31,25 +31,13 @@ public class EditProActivity extends AppCompatActivity {
 
     private ImageButton back;
     private ImageView imgPro;
-
-    private Button changeImg;
-    private Button update;
-    private Button btnDelete;
-
-    private TextInputEditText productName;
-    private TextInputEditText costPrice;
-    private TextInputEditText sellingPrice;
-    private TextInputEditText etStock;
-    private TextInputEditText etDescription;
-
+    private Button changeImg,update,btnDelete;
+    private TextInputEditText productName,costPrice,sellingPrice,etStock,etDescription;
     private AutoCompleteTextView spCategory;
-
     private StorageReference storageReference;
     private DatabaseReference databaseReference;
-
     private Uri imgUri;
-    private String imgUrl = "";
-    private String proId;
+    private String imgUrl = "",proId;
 
     private final String[] categories = {
             "Electronics",
@@ -73,9 +61,7 @@ public class EditProActivity extends AppCompatActivity {
 
                             imgUri = uri;
                             imgPro.setImageURI(uri);
-
                         }
-
                     });
 
     @Override
@@ -99,21 +85,16 @@ public class EditProActivity extends AppCompatActivity {
         spCategory = findViewById(R.id.spCategory);
 
         ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(
-                        this,
-                        android.R.layout.simple_dropdown_item_1line,
+                new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line,
                         categories);
-
         spCategory.setAdapter(adapter);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         if (user == null) {
 
-            Toast.makeText(this,
-                    "Please login first",
+            Toast.makeText(this, "Please login first",
                     Toast.LENGTH_SHORT).show();
-
             finish();
             return;
         }
@@ -129,10 +110,8 @@ public class EditProActivity extends AppCompatActivity {
 
         if (TextUtils.isEmpty(proId)) {
 
-            Toast.makeText(this,
-                    "Invalid Product",
+            Toast.makeText(this, "Invalid Product",
                     Toast.LENGTH_SHORT).show();
-
             finish();
             return;
         }
@@ -147,25 +126,18 @@ public class EditProActivity extends AppCompatActivity {
         update.setOnClickListener(v -> {
 
             if (imgUri != null) {
-
                 uploadImage();
-
             } else {
-
                 updateProduct(imgUrl);
-
             }
-
         });
-
         btnDelete.setOnClickListener(v -> deleteProduct());
     }
 
     private void loadProduct() {
 
         databaseReference.child(proId)
-                .addListenerForSingleValueEvent(
-                        new ValueEventListener() {
+                .addListenerForSingleValueEvent(new ValueEventListener() {
 
                             @Override
                             public void onDataChange(
@@ -173,43 +145,34 @@ public class EditProActivity extends AppCompatActivity {
 
                                 if (!snapshot.exists()) {
 
-                                    Toast.makeText(
-                                            EditProActivity.this,
+                                    Toast.makeText(EditProActivity.this,
                                             "Product not found",
                                             Toast.LENGTH_SHORT).show();
-
                                     finish();
                                     return;
                                 }
 
-                                Product product =
-                                        snapshot.getValue(Product.class);
+                                Product product = snapshot.getValue(Product.class);
 
                                 if (product == null)
                                     return;
 
-                                productName.setText(
-                                        product.getProductName());
+                                productName.setText(product.getProductName());
 
-                                costPrice.setText(
-                                        String.valueOf(
+                                costPrice.setText(String.valueOf(
                                                 product.getCostPrice()));
 
-                                sellingPrice.setText(
-                                        String.valueOf(
+                                sellingPrice.setText(String.valueOf(
                                                 product.getSellingPrice()));
 
-                                etStock.setText(
-                                        String.valueOf(
+                                etStock.setText(String.valueOf(
                                                 product.getQuantity()));
 
-                                etDescription.setText(
-                                        product.getDescription());
+                                etDescription.setText(product.getDescription());
 
                                 imgUrl = product.getImageUrl();
 
-                                if (imgUrl != null &&
-                                        !imgUrl.isEmpty()) {
+                                if (imgUrl != null && !imgUrl.isEmpty()) {
 
                                     Glide.with(EditProActivity.this)
                                             .load(imgUrl)
@@ -217,17 +180,12 @@ public class EditProActivity extends AppCompatActivity {
 
                                 }
 
-                                for (int i = 0;
-                                     i < categories.length;
-                                     i++) {
+                                for (int i = 0; i < categories.length; i++) {
 
                                     if (categories[i].equalsIgnoreCase(
                                             product.getCategory())) {
 
-                                        spCategory.setText(
-                                                categories[i],
-                                                false);
-
+                                        spCategory.setText(categories[i], false);
                                         break;
                                     }
                                 }
@@ -237,11 +195,8 @@ public class EditProActivity extends AppCompatActivity {
                             public void onCancelled(
                                     @NonNull DatabaseError error) {
 
-                                Toast.makeText(
-                                        EditProActivity.this,
-                                        error.getMessage(),
+                                Toast.makeText(EditProActivity.this, error.getMessage(),
                                         Toast.LENGTH_SHORT).show();
-
                             }
                         });
     }
@@ -335,12 +290,10 @@ public class EditProActivity extends AppCompatActivity {
                 .setValue(product)
                 .addOnSuccessListener(unused -> {
 
-                    NotifyHelper.addNotification(
-                            "Product Updated",
+                    NotifyHelper.addNotification("Product Updated",
                             name + " updated successfully");
 
-                    Toast.makeText(
-                            EditProActivity.this,
+                    Toast.makeText(EditProActivity.this,
                             "Product Updated Successfully",
                             Toast.LENGTH_SHORT
                     ).show();
@@ -348,9 +301,7 @@ public class EditProActivity extends AppCompatActivity {
                     finish();
                 })
                 .addOnFailureListener(e ->
-                        Toast.makeText(
-                                EditProActivity.this,
-                                e.getMessage(),
+                        Toast.makeText(EditProActivity.this, e.getMessage(),
                                 Toast.LENGTH_SHORT
                         ).show());
     }
@@ -371,25 +322,20 @@ public class EditProActivity extends AppCompatActivity {
                                     name = productName.getText().toString().trim();
                                 }
 
-                                NotifyHelper.addNotification(
-                                        "Product Deleted",
+                                NotifyHelper.addNotification("Product Deleted",
                                         name + " removed successfully");
 
-                                Toast.makeText(
-                                        EditProActivity.this,
+                                Toast.makeText(EditProActivity.this,
                                         "Product Deleted Successfully",
                                         Toast.LENGTH_SHORT
                                 ).show();
-
                                 finish();
                             })
                             .addOnFailureListener(e ->
-                                    Toast.makeText(
-                                            EditProActivity.this,
+                                    Toast.makeText(EditProActivity.this,
                                             e.getMessage(),
                                             Toast.LENGTH_SHORT
                                     ).show());
-
                 })
                 .setNegativeButton("Cancel", null)
                 .show();

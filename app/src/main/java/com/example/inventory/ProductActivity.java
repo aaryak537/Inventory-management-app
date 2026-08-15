@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
+
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,7 +62,6 @@ public class ProductActivity extends AppCompatActivity {
             databaseReference = FirebaseDatabase.getInstance()
                     .getReference("Products")
                     .child(user.getUid());
-
             loadProducts();
         }
 
@@ -98,19 +97,18 @@ public class ProductActivity extends AppCompatActivity {
 
                     } else {
 
-                        Toast.makeText(ProductActivity.this,
-                                "Loaded : " + product.getProductName(),
-                                Toast.LENGTH_SHORT).show();
-
                         product.setProductId(ds.getKey());
                         productList.add(product);
+
+                        // Calculate Stock Value
+                        stockValue += product.getCostPrice() * product.getQuantity();
+
+                        // Calculate Low Stock
+                        if (product.getQuantity() <= 10) {
+                            lowStockCount++;
+                        }
                     }
                 }
-
-                adapter.updateList(productList);
-                Toast.makeText(ProductActivity.this,
-                        "Adapter Count = " + adapter.getItemCount(),
-                        Toast.LENGTH_LONG).show();
 
                 int totalProducts = snapshot.getChildrenCount() > Integer.MAX_VALUE
                         ? Integer.MAX_VALUE
@@ -124,36 +122,25 @@ public class ProductActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
-                Toast.makeText(ProductActivity.this,
-                        error.getMessage(),
+                Toast.makeText(ProductActivity.this, error.getMessage(),
                         Toast.LENGTH_SHORT).show();
             }
         });
     }
-
     private void searchProduct() {
 
         etSearch.addTextChangedListener(new TextWatcher() {
 
             @Override
-            public void beforeTextChanged(CharSequence s,
-                                          int start,
-                                          int count,
-                                          int after) {
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
-            public void onTextChanged(CharSequence s,
-                                      int start,
-                                      int before,
-                                      int count) {
-
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 adapter.getFilter().filter(s);
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
-            }
+            public void afterTextChanged(Editable s) {}
         });
     }
 }

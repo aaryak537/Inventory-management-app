@@ -57,7 +57,7 @@
                     android:id="@+id/etSearch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Search products"/>
+                    android:hint="@string/search_product"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -244,6 +244,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="20dp"
+        android:contentDescription="@string/product_image"
         android:src="@android:drawable/ic_input_add"
         app:backgroundTint="#2563EB"
         app:tint="@android:color/white"/>

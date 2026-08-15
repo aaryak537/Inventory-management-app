@@ -65,7 +65,7 @@
             android:exported="false"/>
 
 
-        <!-- Product Module -->
+        <!-- Products -->
 
         <activity
             android:name=".ProductActivity"
@@ -137,6 +137,9 @@
             android:name=".AddCategoryActivity"
             android:exported="false"/>
 
+        <activity
+            android:name=".EditCategoryActivity"
+            android:exported="false" />
 
     </application>
 

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F5F7FA">
+
+    <!-- ========================= -->
+    <!-- TOP BAR -->
+    <!-- ========================= -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="18dp"
+        android:paddingEnd="18dp"
+        android:background="@android:color/white"
+        android:elevation="4dp">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_media_previous"
+            app:tint="#5B5FC7"
+            android:contentDescription="Back"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginStart="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edit Category"
+                android:textSize="21sp"
+                android:textStyle="bold"
+                android:textColor="#1F2937"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Update category information"
+                android:textSize="12sp"
+                android:textColor="#6B7280"
+                android:layout_marginTop="2dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <!-- ========================= -->
+    <!-- CONTENT -->
+    <!-- ========================= -->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+
+            <!-- ========================= -->
+            <!-- CATEGORY CARD -->
+            <!-- ========================= -->
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="5dp"
+                app:cardBackgroundColor="@android:color/white"
+                app:strokeColor="#E8ECF4"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+
+                    <!-- Category Name -->
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Category Name"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="#374151"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:boxCornerRadiusTopStart="14dp"
+                        app:boxCornerRadiusTopEnd="14dp"
+                        app:boxCornerRadiusBottomStart="14dp"
+                        app:boxCornerRadiusBottomEnd="14dp"
+                        app:boxStrokeColor="#5B5FC7"
+                        app:hintEnabled="true"
+                        android:hint="Category name">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etCategoryName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textCapSentences"
+                            android:textSize="15sp"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <!-- Description -->
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Description"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="#374151"
+                        android:layout_marginTop="20dp"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:boxCornerRadiusTopStart="14dp"
+                        app:boxCornerRadiusTopEnd="14dp"
+                        app:boxCornerRadiusBottomStart="14dp"
+                        app:boxCornerRadiusBottomEnd="14dp"
+                        app:boxStrokeColor="#5B5FC7"
+                        app:hintEnabled="true"
+                        android:hint="Category description">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etCategoryDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="110dp"
+                            android:gravity="top"
+                            android:inputType="textCapSentences|textMultiLine"
+                            android:textSize="15sp"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <!-- Status -->
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Status"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="#374151"
+                        android:layout_marginTop="20dp"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:boxCornerRadiusTopStart="14dp"
+                        app:boxCornerRadiusTopEnd="14dp"
+                        app:boxCornerRadiusBottomStart="14dp"
+                        app:boxCornerRadiusBottomEnd="14dp"
+                        app:boxStrokeColor="#5B5FC7">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/spStatus"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:minHeight="55dp"
+                            android:textSize="15sp"
+                            android:inputType="none"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <!-- ========================= -->
+            <!-- UPDATE BUTTON -->
+            <!-- ========================= -->
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnUpdateCategory"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:layout_marginTop="24dp"
+                android:text="Update Category"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                app:cornerRadius="16dp"
+                app:backgroundTint="#5B5FC7"
+                android:elevation="3dp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

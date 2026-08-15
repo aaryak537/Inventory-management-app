@@ -27,7 +27,7 @@ public class DashActivity extends AppCompatActivity {
     ImageView notify,forward;
     FloatingActionButton addProduct;
     BottomNavigationView bottomNavigation;
-    LinearLayout Pro, QCategory, report, supplier;
+    LinearLayout Pro, QCategory, supplier;
 
     TextView TotalPro, low, userName, category, revenue, sales;
 
@@ -44,7 +44,7 @@ public class DashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash);
 
-forward=findViewById(R.id.forwardBtn);
+        forward=findViewById(R.id.forwardBtn);
         userName = findViewById(R.id.tvUsername);
         category = findViewById(R.id.tvCategories);
 
@@ -53,7 +53,6 @@ forward=findViewById(R.id.forwardBtn);
         Pro = findViewById(R.id.llProduct);
         QCategory = findViewById(R.id.llCategory);
         supplier = findViewById(R.id.llSupply);
-        report = findViewById(R.id.llReport);
 
         revenue = findViewById(R.id.tvRevenue);
         sales = findViewById(R.id.tvSales);
@@ -161,13 +160,6 @@ forward=findViewById(R.id.forwardBtn);
             public void onClick(View v) {
                 startActivity(new Intent(DashActivity.this,
                         CategoryActivity.class));
-            }
-        });
-        report.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(DashActivity.this,
-                        ReportActivity.class));
             }
         });
     }

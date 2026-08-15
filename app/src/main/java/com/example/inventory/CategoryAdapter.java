@@ -3,7 +3,6 @@ package com.example.inventory;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
-
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
@@ -17,7 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder>
+public class CategoryAdapter
+        extends RecyclerView.Adapter<CategoryAdapter.ViewHolder>
         implements Filterable {
 
     private final Context context;
@@ -25,144 +25,382 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     private final ArrayList<Category> categoryListFull;
     private final OnCategoryActionListener listener;
 
+
+    // =========================================================
+    // INTERFACE
+    // =========================================================
+
     public interface OnCategoryActionListener {
+
         void onEdit(Category category);
+
         void onDelete(Category category);
     }
 
-    public CategoryAdapter(Context context,
-                           ArrayList<Category> categoryList,
-                           OnCategoryActionListener listener) {
+
+    // =========================================================
+    // CONSTRUCTOR
+    // =========================================================
+
+    public CategoryAdapter(
+            Context context,
+            ArrayList<Category> categoryList,
+            OnCategoryActionListener listener) {
 
         this.context = context;
         this.categoryList = categoryList;
         this.listener = listener;
-        this.categoryListFull = new ArrayList<>(categoryList);
+
+        this.categoryListFull =
+                new ArrayList<>(categoryList);
     }
+
+
+    // =========================================================
+    // CREATE VIEW HOLDER
+    // =========================================================
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(
+            @NonNull ViewGroup parent,
+            int viewType) {
 
-        View view = LayoutInflater.from(context)
-                .inflate(R.layout.item_category, parent, false);
+        View view =
+                LayoutInflater.from(context)
+                        .inflate(
+                                R.layout.item_category,
+                                parent,
+                                false
+                        );
 
         return new ViewHolder(view);
     }
 
+
+    // =========================================================
+    // BIND VIEW HOLDER
+    // =========================================================
+
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(
+            @NonNull ViewHolder holder,
+            int position) {
 
-        Category category = categoryList.get(position);
+        Category category =
+                categoryList.get(position);
 
-        holder.tvCategoryName.setText(category.getCategoryName());
-        holder.tvCategoryDescription.setText(category.getDescription());
-        holder.tvCategoryStatus.setText(category.getStatus());
 
-        if ("Active".equalsIgnoreCase(category.getStatus())) {
-            holder.tvCategoryStatus.setBackgroundResource(R.drawable.bg_status_active);
+        // Category Name
+
+        holder.tvCategoryName.setText(
+                category.getCategoryName()
+        );
+
+
+        // Description
+
+        String description =
+                category.getDescription();
+
+        if (description == null ||
+                description.trim().isEmpty()) {
+
+            holder.tvCategoryDescription
+                    .setVisibility(View.GONE);
+
         } else {
-            holder.tvCategoryStatus.setBackgroundResource(R.drawable.bg_status_inactive);
+
+            holder.tvCategoryDescription
+                    .setVisibility(View.VISIBLE);
+
+            holder.tvCategoryDescription
+                    .setText(description);
         }
+
+
+        // =====================================================
+        // PRODUCT COUNT
+        // =====================================================
+
+        int count =
+                category.getProductCount();
+
+        if (count == 1) {
+
+            holder.tvProductCount.setText(
+                    "1 Product"
+            );
+
+        } else {
+
+            holder.tvProductCount.setText(
+                    count + " Products"
+            );
+        }
+
+
+        // =====================================================
+        // STATUS
+        // =====================================================
+
+        String status =
+                category.getStatus();
+
+        if (status == null) {
+            status = "Inactive";
+        }
+
+        holder.tvCategoryStatus.setText(
+                status
+        );
+
+
+        if ("Active".equalsIgnoreCase(status)) {
+
+            holder.tvCategoryStatus
+                    .setBackgroundResource(
+                            R.drawable.bg_status_active
+                    );
+
+        } else {
+
+            holder.tvCategoryStatus
+                    .setBackgroundResource(
+                            R.drawable.bg_status_inactive
+                    );
+        }
+
+
+        // =====================================================
+        // POPUP MENU
+        // =====================================================
 
         holder.imgMenu.setOnClickListener(v -> {
 
-            PopupMenu popupMenu = new PopupMenu(context, holder.imgMenu);
-            MenuInflater inflater = popupMenu.getMenuInflater();
-           inflater.inflate(R.menu.menu_category, popupMenu.getMenu());
+            PopupMenu popupMenu =
+                    new PopupMenu(
+                            context,
+                            holder.imgMenu
+                    );
 
-            popupMenu.setOnMenuItemClickListener(item -> {
+            MenuInflater inflater =
+                    popupMenu.getMenuInflater();
 
-                int id = item.getItemId();
+            inflater.inflate(
+                    R.menu.menu_category,
+                    popupMenu.getMenu()
+            );
 
-                if (id == R.id.menuEdit) {
 
-                    listener.onEdit(category);
-                    return true;
+            popupMenu.setOnMenuItemClickListener(
+                    item -> {
 
-                } else if (id == R.id.menuDelete) {
+                        int id =
+                                item.getItemId();
 
-                    listener.onDelete(category);
-                    return true;
-               }
 
-                return false;
-            });
+                        if (id == R.id.menuEdit) {
+
+                            listener.onEdit(category);
+
+                            return true;
+                        }
+
+
+                        if (id == R.id.menuDelete) {
+
+                            listener.onDelete(category);
+
+                            return true;
+                        }
+
+
+                        return false;
+                    }
+            );
+
             popupMenu.show();
         });
     }
 
+
+    // =========================================================
+    // ITEM COUNT
+    // =========================================================
+
     @Override
     public int getItemCount() {
+
         return categoryList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+
+    // =========================================================
+    // VIEW HOLDER
+    // =========================================================
+
+    public static class ViewHolder
+            extends RecyclerView.ViewHolder {
 
         TextView tvCategoryName;
         TextView tvCategoryDescription;
+        TextView tvProductCount;
         TextView tvCategoryStatus;
+
         ImageView imgMenu;
 
-        public ViewHolder(@NonNull View itemView) {
+
+        public ViewHolder(
+                @NonNull View itemView) {
+
             super(itemView);
 
-            tvCategoryName = itemView.findViewById(R.id.tvCategoryName);
-            tvCategoryDescription = itemView.findViewById(R.id.tvCategoryDescription);
-            tvCategoryStatus = itemView.findViewById(R.id.tvCategoryStatus);
-            imgMenu = itemView.findViewById(R.id.imgMenu);
+
+            tvCategoryName =
+                    itemView.findViewById(
+                            R.id.tvCategoryName
+                    );
+
+
+            tvCategoryDescription =
+                    itemView.findViewById(
+                            R.id.tvCategoryDescription
+                    );
+
+
+            tvProductCount =
+                    itemView.findViewById(
+                            R.id.tvProductCount
+                    );
+
+
+            tvCategoryStatus =
+                    itemView.findViewById(
+                            R.id.tvCategoryStatus
+                    );
+
+
+            imgMenu =
+                    itemView.findViewById(
+                            R.id.imgMenu
+                    );
         }
     }
+
+
+    // =========================================================
+    // SEARCH FILTER
+    // =========================================================
 
     @Override
     public Filter getFilter() {
+
         return categoryFilter;
     }
 
-    private final Filter categoryFilter = new Filter() {
 
-        @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
+    private final Filter categoryFilter =
+            new Filter() {
 
-            ArrayList<Category> filteredList = new ArrayList<>();
+                @Override
+                protected FilterResults performFiltering(
+                        CharSequence constraint) {
 
-            if (constraint == null || constraint.length() == 0) {
+                    ArrayList<Category> filteredList =
+                            new ArrayList<>();
 
-                filteredList.addAll(categoryListFull);
 
-            } else {
+                    if (constraint == null ||
+                            constraint.length() == 0) {
 
-                String filterPattern = constraint.toString()
-                        .toLowerCase()
-                        .trim();
+                        filteredList.addAll(
+                                categoryListFull
+                        );
 
-                for (Category item : categoryListFull) {
+                    } else {
 
-                    if (item.getCategoryName().toLowerCase().contains(filterPattern)
-                            || item.getDescription().toLowerCase().contains(filterPattern)
-                            || item.getStatus().toLowerCase().contains(filterPattern)) {
+                        String filterPattern =
+                                constraint
+                                        .toString()
+                                        .toLowerCase()
+                                        .trim();
 
-                        filteredList.add(item);
+
+                        for (Category item :
+                                categoryListFull) {
+
+                            String name =
+                                    item.getCategoryName();
+
+                            String description =
+                                    item.getDescription();
+
+                            String status =
+                                    item.getStatus();
+
+
+                            if (name == null) {
+                                name = "";
+                            }
+
+                            if (description == null) {
+                                description = "";
+                            }
+
+                            if (status == null) {
+                                status = "";
+                            }
+
+
+                            if (name.toLowerCase()
+                                    .contains(filterPattern)
+
+                                    || description
+                                    .toLowerCase()
+                                    .contains(filterPattern)
+
+                                    || status
+                                    .toLowerCase()
+                                    .contains(filterPattern)) {
+
+                                filteredList.add(item);
+                            }
+                        }
                     }
+
+
+                    FilterResults results =
+                            new FilterResults();
+
+                    results.values =
+                            filteredList;
+
+                    return results;
                 }
-            }
 
-            FilterResults results = new FilterResults();
-            results.values = filteredList;
 
-            return results;
-        }
+                @SuppressWarnings("unchecked")
+                @Override
+                protected void publishResults(
+                        CharSequence constraint,
+                        FilterResults results) {
 
-        @SuppressWarnings("unchecked")
-        @Override
-        protected void publishResults(CharSequence constraint,
-                                      FilterResults results) {
+                    categoryList.clear();
 
-            categoryList.clear();
-            categoryList.addAll((ArrayList<Category>) results.values);
-            notifyDataSetChanged();
-        }
-    };
+                    categoryList.addAll(
+                            (ArrayList<Category>)
+                                    results.values
+                    );
+
+                    notifyDataSetChanged();
+                }
+            };
+
+
+    // =========================================================
+    // REFRESH LIST
+    // =========================================================
 
     public void refreshList(ArrayList<Category> newList) {
 

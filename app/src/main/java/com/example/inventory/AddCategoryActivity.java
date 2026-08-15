@@ -50,8 +50,6 @@ public class AddCategoryActivity extends AppCompatActivity {
                 .getReference("Categories")
                 .child(user.getUid());
 
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setCancelable(false);
 
         // Spinner Items
         String[] status = {
@@ -89,6 +87,18 @@ public class AddCategoryActivity extends AppCompatActivity {
 
         String id = databaseReference.push().getKey();
 
+        if (id == null) {
+            progressDialog.dismiss();
+
+            Toast.makeText(
+                    this,
+                    "Failed to generate category ID",
+                    Toast.LENGTH_SHORT
+            ).show();
+
+            return;
+        }
+
         Category category = new Category();
 
         category.setId(id);
@@ -100,8 +110,6 @@ public class AddCategoryActivity extends AppCompatActivity {
                 .setValue(category)
                 .addOnSuccessListener(unused -> {
 
-                    progressDialog.dismiss();
-
                     Toast.makeText(
                             AddCategoryActivity.this,
                             "Category Added Successfully",
@@ -112,8 +120,6 @@ public class AddCategoryActivity extends AppCompatActivity {
 
                 })
                 .addOnFailureListener(e -> {
-
-                    progressDialog.dismiss();
 
                     Toast.makeText(
                             AddCategoryActivity.this,
