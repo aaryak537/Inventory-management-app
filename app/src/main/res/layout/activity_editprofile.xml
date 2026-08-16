@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -19,10 +20,16 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <!-- ===================================================== -->
+            <!-- HEADER -->
+            <!-- ===================================================== -->
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="310dp"
                 android:background="@drawable/bg_dashboard_header">
+
+                <!-- TOP BAR -->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -36,6 +43,7 @@
                         android:id="@+id/btnBack"
                         android:layout_width="26dp"
                         android:layout_height="26dp"
+                        android:contentDescription="Back"
                         android:src="@android:drawable/ic_media_previous"
                         app:tint="@android:color/white" />
 
@@ -53,12 +61,15 @@
                         android:id="@+id/btnSave"
                         android:layout_width="26dp"
                         android:layout_height="26dp"
+                        android:contentDescription="Save"
                         android:src="@android:drawable/ic_menu_save"
                         app:tint="@android:color/white" />
 
                 </LinearLayout>
 
-                <!-- Profile -->
+                <!-- ================================================= -->
+                <!-- PROFILE -->
+                <!-- ================================================= -->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -76,9 +87,12 @@
                             android:id="@+id/profileImage"
                             android:layout_width="130dp"
                             android:layout_height="130dp"
+                            android:contentDescription="Profile Image"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/profile"
-                            app:shapeAppearanceOverlay="@style/CircleImage"/>
+                            android:src="@drawable/ic_person"
+                            app:shapeAppearanceOverlay="@style/CircleImage" />
+
+                        <!-- Camera icon -->
 
                         <com.google.android.material.card.MaterialCardView
                             android:layout_width="42dp"
@@ -93,21 +107,25 @@
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_gravity="center"
+                                android:contentDescription="Camera"
                                 android:src="@android:drawable/ic_menu_camera"
-                                app:tint="#1976D2"/>
+                                app:tint="#1976D2" />
 
                         </com.google.android.material.card.MaterialCardView>
 
                     </FrameLayout>
 
+                    <!-- Dynamic name -->
+
                     <TextView
+                        android:id="@+id/tvProfileName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="14dp"
-                        android:text="User Name"
+                        android:text="Loading..."
                         android:textColor="@android:color/white"
                         android:textSize="24sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -115,15 +133,15 @@
                         android:layout_marginTop="5dp"
                         android:text="Inventory Administrator"
                         android:textColor="#EAF7FF"
-                        android:textSize="15sp"/>
+                        android:textSize="15sp" />
 
                 </LinearLayout>
 
             </FrameLayout>
 
-            <!-- ========================= -->
+            <!-- ===================================================== -->
             <!-- WHITE CONTENT -->
-            <!-- ========================= -->
+            <!-- ===================================================== -->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -133,14 +151,17 @@
                 android:orientation="vertical"
                 android:padding="20dp">
 
+                <!-- ================================================= -->
+                <!-- STATISTICS - PRODUCTS + ACCOUNT -->
+                <!-- ================================================= -->
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:weightSum="3">
+                    android:weightSum="2">
 
-                    <!-- Products -->
+                    <!-- PRODUCTS -->
 
                     <com.google.android.material.card.MaterialCardView
                         android:layout_width="0dp"
@@ -159,32 +180,34 @@
                             <ImageView
                                 android:layout_width="24dp"
                                 android:layout_height="24dp"
+                                android:contentDescription="Products"
                                 android:src="@drawable/ic_package"
-                                app:tint="#1976D2"/>
+                                app:tint="#1976D2" />
 
                             <TextView
+                                android:id="@+id/tvProductCount"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
                                 android:gravity="center"
-                                android:text="248"
+                                android:text="0"
                                 android:textColor="#263238"
                                 android:textSize="20sp"
-                                android:textStyle="bold"/>
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:gravity="center"
                                 android:text="Products"
-                                android:gravity="center"
                                 android:textColor="#78909C"
-                                android:textSize="12sp"/>
+                                android:textSize="12sp" />
 
                         </LinearLayout>
 
                     </com.google.android.material.card.MaterialCardView>
 
-                    <!-- Reports -->
+                    <!-- ACCOUNT -->
 
                     <com.google.android.material.card.MaterialCardView
                         android:layout_width="0dp"
@@ -203,70 +226,27 @@
                             <ImageView
                                 android:layout_width="24dp"
                                 android:layout_height="24dp"
-                                android:src="@drawable/ic_report"
-                                android:tint="#1976D2"/>
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:text="84"
-                                android:gravity="center"
-                                android:textColor="#263238"
-                                android:textSize="20sp"
-                                android:textStyle="bold"/>
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Reports"
-                                android:gravity="center"
-                                android:textColor="#78909C"
-                                android:textSize="12sp"/>
-
-                        </LinearLayout>
-
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <!-- Level -->
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="0dp"
-                        android:layout_height="110dp"
-                        android:layout_margin="5dp"
-                        android:layout_weight="1"
-                        app:cardCornerRadius="20dp"
-                        app:cardElevation="6dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
+                                android:contentDescription="Account"
                                 android:src="@android:drawable/btn_star_big_on"
-                                app:tint="#1976D2"/>
+                                app:tint="#1976D2" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
-                                android:text="PRO"
                                 android:gravity="center"
+                                android:text="PRO"
                                 android:textColor="#263238"
                                 android:textSize="18sp"
-                                android:textStyle="bold"/>
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Account"
                                 android:gravity="center"
+                                android:text="Account"
                                 android:textColor="#78909C"
-                                android:textSize="12sp"/>
+                                android:textSize="12sp" />
 
                         </LinearLayout>
 
@@ -274,7 +254,9 @@
 
                 </LinearLayout>
 
-                <!-- SECTION TITLE -->
+                <!-- ================================================= -->
+                <!-- ACCOUNT INFORMATION -->
+                <!-- ================================================= -->
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -283,7 +265,7 @@
                     android:text="Account Information"
                     android:textColor="#263238"
                     android:textSize="20sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -291,7 +273,11 @@
                     android:layout_marginBottom="18dp"
                     android:text="Manage your personal information"
                     android:textColor="#90A4AE"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
+
+                <!-- ================================================= -->
+                <!-- FULL NAME -->
+                <!-- ================================================= -->
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
@@ -312,16 +298,16 @@
                             android:text="Full Name"
                             android:textColor="#607D8B"
                             android:textSize="13sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                         <com.google.android.material.textfield.TextInputLayout
                             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:boxCornerRadiusTopStart="16dp"
-                            app:boxCornerRadiusTopEnd="16dp"
-                            app:boxCornerRadiusBottomStart="16dp"
                             app:boxCornerRadiusBottomEnd="16dp"
+                            app:boxCornerRadiusBottomStart="16dp"
+                            app:boxCornerRadiusTopEnd="16dp"
+                            app:boxCornerRadiusTopStart="16dp"
                             app:startIconDrawable="@drawable/ic_person">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -329,14 +315,18 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:hint="Enter full name"
-                                android:text="User Name"
-                                android:textSize="16sp"/>
+                                android:inputType="textPersonName"
+                                android:textSize="16sp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
 
                     </LinearLayout>
 
                 </com.google.android.material.card.MaterialCardView>
+
+                <!-- ================================================= -->
+                <!-- EMAIL -->
+                <!-- ================================================= -->
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
@@ -357,16 +347,16 @@
                             android:text="Email Address"
                             android:textColor="#607D8B"
                             android:textSize="13sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                         <com.google.android.material.textfield.TextInputLayout
                             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:boxCornerRadiusTopStart="16dp"
-                            app:boxCornerRadiusTopEnd="16dp"
-                            app:boxCornerRadiusBottomStart="16dp"
                             app:boxCornerRadiusBottomEnd="16dp"
+                            app:boxCornerRadiusBottomStart="16dp"
+                            app:boxCornerRadiusTopEnd="16dp"
+                            app:boxCornerRadiusTopStart="16dp"
                             app:startIconDrawable="@drawable/ic_email">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -375,7 +365,7 @@
                                 android:layout_height="wrap_content"
                                 android:hint="Enter email"
                                 android:inputType="textEmailAddress"
-                                android:text="user@gmail.com"/>
+                                android:textSize="16sp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -383,9 +373,9 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- ========================= -->
+                <!-- ================================================= -->
                 <!-- PHONE -->
-                <!-- ========================= -->
+                <!-- ================================================= -->
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
@@ -406,16 +396,16 @@
                             android:text="Mobile Number"
                             android:textColor="#607D8B"
                             android:textSize="13sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                         <com.google.android.material.textfield.TextInputLayout
                             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:boxCornerRadiusTopStart="16dp"
-                            app:boxCornerRadiusTopEnd="16dp"
-                            app:boxCornerRadiusBottomStart="16dp"
                             app:boxCornerRadiusBottomEnd="16dp"
+                            app:boxCornerRadiusBottomStart="16dp"
+                            app:boxCornerRadiusTopEnd="16dp"
+                            app:boxCornerRadiusTopStart="16dp"
                             app:startIconDrawable="@drawable/ic_phone">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -424,16 +414,17 @@
                                 android:layout_height="wrap_content"
                                 android:hint="Enter phone number"
                                 android:inputType="phone"
-                                android:text="+91 9876543210"/>
+                                android:textSize="16sp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
 
                     </LinearLayout>
 
                 </com.google.android.material.card.MaterialCardView>
-                <!-- ========================= -->
+
+                <!-- ================================================= -->
                 <!-- COMPANY INFORMATION -->
-                <!-- ========================= -->
+                <!-- ================================================= -->
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -443,9 +434,9 @@
                     android:text="Company Information"
                     android:textColor="#263238"
                     android:textSize="20sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
-                <!-- Company Name -->
+                <!-- COMPANY NAME -->
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
@@ -466,23 +457,24 @@
                             android:text="Company Name"
                             android:textColor="#607D8B"
                             android:textSize="13sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                         <com.google.android.material.textfield.TextInputLayout
                             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:startIconDrawable="@drawable/ic_home"
-                            app:boxCornerRadiusTopStart="16dp"
-                            app:boxCornerRadiusTopEnd="16dp"
+                            app:boxCornerRadiusBottomEnd="16dp"
                             app:boxCornerRadiusBottomStart="16dp"
-                            app:boxCornerRadiusBottomEnd="16dp">
+                            app:boxCornerRadiusTopEnd="16dp"
+                            app:boxCornerRadiusTopStart="16dp"
+                            app:startIconDrawable="@drawable/ic_home">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/etCompany"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="Company name"/>
+                                android:hint="Company name"
+                                android:inputType="textCapWords" />
 
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -490,7 +482,7 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- Username -->
+                <!-- USERNAME -->
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
@@ -511,23 +503,24 @@
                             android:text="Username"
                             android:textColor="#607D8B"
                             android:textSize="13sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                         <com.google.android.material.textfield.TextInputLayout
                             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:startIconDrawable="@drawable/ic_person"
-                            app:boxCornerRadiusTopStart="16dp"
-                            app:boxCornerRadiusTopEnd="16dp"
+                            app:boxCornerRadiusBottomEnd="16dp"
                             app:boxCornerRadiusBottomStart="16dp"
-                            app:boxCornerRadiusBottomEnd="16dp">
+                            app:boxCornerRadiusTopEnd="16dp"
+                            app:boxCornerRadiusTopStart="16dp"
+                            app:startIconDrawable="@drawable/ic_person">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/etUsername"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="Username"/>
+                                android:hint="Username"
+                                android:inputType="text" />
 
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -535,7 +528,7 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- Employee ID -->
+                <!-- EMPLOYEE ID -->
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
@@ -556,23 +549,24 @@
                             android:text="Employee ID"
                             android:textColor="#607D8B"
                             android:textSize="13sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                         <com.google.android.material.textfield.TextInputLayout
                             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:startIconDrawable="@android:drawable/btn_star_big_on"
-                            app:boxCornerRadiusTopStart="16dp"
-                            app:boxCornerRadiusTopEnd="16dp"
+                            app:boxCornerRadiusBottomEnd="16dp"
                             app:boxCornerRadiusBottomStart="16dp"
-                            app:boxCornerRadiusBottomEnd="16dp">
+                            app:boxCornerRadiusTopEnd="16dp"
+                            app:boxCornerRadiusTopStart="16dp"
+                            app:startIconDrawable="@android:drawable/btn_star_big_on">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/etEmployeeId"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="Employee ID"/>
+                                android:hint="Employee ID"
+                                android:inputType="text" />
 
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -580,7 +574,9 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- Business Type -->
+                <!-- ================================================= -->
+                <!-- BUSINESS TYPE -->
+                <!-- ================================================= -->
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
@@ -601,25 +597,25 @@
                             android:text="Business Type"
                             android:textColor="#607D8B"
                             android:textSize="13sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                         <com.google.android.material.textfield.TextInputLayout
                             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:startIconDrawable="@drawable/ic_category"
-                            app:endIconMode="dropdown_menu"
-                            app:boxCornerRadiusTopStart="16dp"
-                            app:boxCornerRadiusTopEnd="16dp"
+                            app:boxCornerRadiusBottomEnd="16dp"
                             app:boxCornerRadiusBottomStart="16dp"
-                            app:boxCornerRadiusBottomEnd="16dp">
+                            app:boxCornerRadiusTopEnd="16dp"
+                            app:boxCornerRadiusTopStart="16dp"
+                            app:endIconMode="dropdown_menu"
+                            app:startIconDrawable="@drawable/ic_category">
 
                             <AutoCompleteTextView
                                 android:id="@+id/actBusinessType"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:hint="Select business type"
-                                android:inputType="none"/>
+                                android:inputType="none" />
 
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -627,9 +623,9 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- ========================= -->
+                <!-- ================================================= -->
                 <!-- SAVE BUTTON -->
-                <!-- ========================= -->
+                <!-- ================================================= -->
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnSaveChanges"
@@ -643,11 +639,17 @@
                     android:textColor="@android:color/white"
                     android:textSize="17sp"
                     android:textStyle="bold"
-                    app:cornerRadius="30dp"/>
+                    app:cornerRadius="30dp" />
 
             </LinearLayout>
+
         </LinearLayout>
+
     </androidx.core.widget.NestedScrollView>
+
+    <!-- ========================================================= -->
+    <!-- FLOATING ACTION BUTTON -->
+    <!-- ========================================================= -->
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabEditPhoto"
@@ -655,8 +657,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="24dp"
+        android:contentDescription="Change profile photo"
         android:src="@android:drawable/ic_menu_camera"
         android:tint="@android:color/white"
-        app:backgroundTint="#1976D2"/>
+        app:backgroundTint="#1976D2" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

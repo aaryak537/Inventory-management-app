@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,7 +27,7 @@ import java.util.ArrayList;
 public class ProductActivity extends AppCompatActivity {
 
     EditText etSearch;
-    TextView tvTotalProducts, tvStockValue,tvLowStock;
+    TextView tvTotalProducts, tvStockValue, tvLowStock;
     RecyclerView recyclerProducts;
     FloatingActionButton fabAdd;
 
@@ -42,18 +41,39 @@ public class ProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
 
+        // =========================
+        // INITIALIZE VIEWS
+        // =========================
+
         fabAdd = findViewById(R.id.fabAddProduct);
         etSearch = findViewById(R.id.etSearch);
+
         tvTotalProducts = findViewById(R.id.tvTotalProducts);
         tvStockValue = findViewById(R.id.tvStockValue);
-        recyclerProducts = findViewById(R.id.recyclerProducts);
         tvLowStock = findViewById(R.id.tvLowStock);
+
+        recyclerProducts = findViewById(R.id.recyclerProducts);
+
+        // =========================
+        // INITIALIZE LIST
+        // =========================
+
         productList = new ArrayList<>();
 
-        recyclerProducts.setLayoutManager(new LinearLayoutManager(this));
+        recyclerProducts.setLayoutManager(
+                new LinearLayoutManager(ProductActivity.this)
+        );
 
-        adapter = new ProductAdapter(this, productList);
+        adapter = new ProductAdapter(
+                ProductActivity.this,
+                productList
+        );
+
         recyclerProducts.setAdapter(adapter);
+
+        // =========================
+        // FIREBASE
+        // =========================
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -62,85 +82,188 @@ public class ProductActivity extends AppCompatActivity {
             databaseReference = FirebaseDatabase.getInstance()
                     .getReference("Products")
                     .child(user.getUid());
+
             loadProducts();
+
+        } else {
+
+            Toast.makeText(
+                    ProductActivity.this,
+                    "User not logged in",
+                    Toast.LENGTH_SHORT
+            ).show();
         }
+
+        // =========================
+        // SEARCH
+        // =========================
 
         searchProduct();
 
+        // =========================
+        // ADD PRODUCT
+        // =========================
+
         fabAdd.setOnClickListener(v -> {
-            Intent intent = new Intent(ProductActivity.this,
-                    AddProActivity.class);
+
+            Intent intent = new Intent(
+                    ProductActivity.this,
+                    AddProActivity.class
+            );
+
             startActivity(intent);
         });
     }
+
+    // =========================================================
+    // RELOAD WHEN ACTIVITY BECOMES VISIBLE
+    // =========================================================
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (databaseReference != null) {
+            loadProducts();
+        }
+    }
+
+    // =========================================================
+    // LOAD PRODUCTS
+    // =========================================================
+
     private void loadProducts() {
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        if (databaseReference == null) {
+            return;
+        }
 
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+        databaseReference.addListenerForSingleValueEvent(
+                new ValueEventListener() {
 
-                productList.clear();
+                    @Override
+                    public void onDataChange(
+                            @NonNull DataSnapshot snapshot) {
 
-                double stockValue = 0;
-                int lowStockCount = 0;
+                        productList.clear();
 
-                for (DataSnapshot ds : snapshot.getChildren()) {
+                        double stockValue = 0;
+                        int lowStockCount = 0;
 
-                    Product product = ds.getValue(Product.class);
+                        // =========================
+                        // READ PRODUCTS
+                        // =========================
 
-                    if (product == null) {
+                        for (DataSnapshot ds : snapshot.getChildren()) {
 
-                        Toast.makeText(ProductActivity.this,
-                                "NULL Product : " + ds.getKey(),
-                                Toast.LENGTH_SHORT).show();
+                            Product product =
+                                    ds.getValue(Product.class);
 
-                    } else {
+                            if (product != null) {
 
-                        product.setProductId(ds.getKey());
-                        productList.add(product);
+                                product.setProductId(ds.getKey());
 
-                        // Calculate Stock Value
-                        stockValue += product.getCostPrice() * product.getQuantity();
+                                productList.add(product);
 
-                        // Calculate Low Stock
-                        if (product.getQuantity() <= 10) {
-                            lowStockCount++;
+                                // Stock Value
+                                stockValue +=
+                                        product.getCostPrice()
+                                                * product.getQuantity();
+
+                                // Low Stock
+                                if (product.getQuantity() <= 10) {
+                                    lowStockCount++;
+                                }
+
+                            } else {
+
+                                Toast.makeText(
+                                        ProductActivity.this,
+                                        "Invalid product: "
+                                                + ds.getKey(),
+                                        Toast.LENGTH_SHORT
+                                ).show();
+                            }
                         }
+
+                        // =========================
+                        // UPDATE SUMMARY
+                        // =========================
+
+                        int totalProducts =
+                                productList.size();
+
+                        tvTotalProducts.setText(
+                                String.valueOf(totalProducts)
+                        );
+
+                        tvStockValue.setText(
+                                "₹" + String.format(
+                                        "%.2f",
+                                        stockValue
+                                )
+                        );
+
+                        tvLowStock.setText(
+                                String.valueOf(lowStockCount)
+                        );
+
+                        // =================================================
+                        // VERY IMPORTANT
+                        // TELL RECYCLERVIEW THAT DATA HAS CHANGED
+                        // =================================================
+
+                        adapter.notifyDataSetChanged();
+
+                    }
+
+                    @Override
+                    public void onCancelled(
+                            @NonNull DatabaseError error) {
+
+                        Toast.makeText(
+                                ProductActivity.this,
+                                "Failed to load products: "
+                                        + error.getMessage(),
+                                Toast.LENGTH_SHORT
+                        ).show();
                     }
                 }
-
-                int totalProducts = snapshot.getChildrenCount() > Integer.MAX_VALUE
-                        ? Integer.MAX_VALUE
-                        : (int) snapshot.getChildrenCount();
-
-                tvTotalProducts.setText(String.valueOf(totalProducts));
-                tvStockValue.setText("₹" + String.format("%.2f", stockValue));
-                 tvLowStock.setText(String.valueOf(lowStockCount));
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-                Toast.makeText(ProductActivity.this, error.getMessage(),
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
+        );
     }
+
+    // =========================================================
+    // SEARCH PRODUCTS
+    // =========================================================
+
     private void searchProduct() {
 
-        etSearch.addTextChangedListener(new TextWatcher() {
+        etSearch.addTextChangedListener(
+                new TextWatcher() {
 
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+                    @Override
+                    public void beforeTextChanged(
+                            CharSequence s,
+                            int start,
+                            int count,
+                            int after) {
+                    }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                adapter.getFilter().filter(s);
-            }
+                    @Override
+                    public void onTextChanged(
+                            CharSequence s,
+                            int start,
+                            int before,
+                            int count) {
 
-            @Override
-            public void afterTextChanged(Editable s) {}
-        });
+                        adapter.getFilter().filter(s);
+                    }
+
+                    @Override
+                    public void afterTextChanged(
+                            Editable s) {
+                    }
+                }
+        );
     }
 }
