@@ -3,73 +3,156 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+
+    android:layout_margin="8dp"
+
     app:cardCornerRadius="20dp"
-    app:cardElevation="7dp">
+    app:cardElevation="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:orientation="horizontal"
+        android:gravity="center_vertical"
+
         android:padding="16dp">
+
+
+        <!-- ============================================== -->
+        <!-- SUPPLIER ICON -->
+        <!-- ============================================== -->
 
         <ImageView
             android:id="@+id/imgSupplier"
+
             android:layout_width="65dp"
             android:layout_height="65dp"
+
             android:background="@drawable/circle_blue"
+
             android:padding="14dp"
+
             android:src="@drawable/ic_supply"
-            app:tint="#FFFFFF"/>
+
+            android:contentDescription="Supplier"
+
+            app:tint="#FFFFFF" />
+
+
+        <!-- ============================================== -->
+        <!-- SUPPLIER INFORMATION -->
+        <!-- ============================================== -->
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
+
             android:layout_weight="1"
+            android:layout_marginStart="15dp"
+
             android:orientation="vertical">
 
+
+            <!-- Supplier Name -->
+
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:id="@+id/txtSupplierName"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
                 android:text="ABC Traders"
+
+                android:textColor="#111111"
+                android:textSize="19sp"
                 android:textStyle="bold"
-                android:textSize="20sp"
-                android:textColor="#111111"/>
+
+                android:maxLines="1"
+                android:ellipsize="end" />
+
+
+            <!-- Company -->
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:id="@+id/txtCompany"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="3dp"
+
                 android:text="Electronics Supplier"
-                android:textColor="#666666"/>
+
+                android:textColor="#666666"
+                android:textSize="14sp"
+
+                android:maxLines="1"
+                android:ellipsize="end" />
+
+
+            <!-- Phone -->
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:id="@+id/txtPhone"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="3dp"
+
                 android:text="+91 9876543210"
-                android:textColor="#666666"/>
+
+                android:textColor="#666666"
+                android:textSize="14sp"
+
+                android:maxLines="1"
+                android:ellipsize="end" />
+
+
+            <!-- Email -->
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:id="@+id/txtEmail"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="3dp"
+
                 android:text="abc@gmail.com"
-                android:textColor="#666666"/>
+
+                android:textColor="#666666"
+                android:textSize="14sp"
+
+                android:maxLines="1"
+                android:ellipsize="end" />
 
         </LinearLayout>
 
+
+        <!-- ============================================== -->
+        <!-- MORE BUTTON -->
+        <!-- ============================================== -->
+
         <ImageButton
             android:id="@+id/btnMore"
+
             android:layout_width="48dp"
             android:layout_height="48dp"
+
+            android:layout_marginStart="5dp"
+
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@android:drawable/ic_input_add"
-            app:tint="#2563EB"/>
+
+            android:contentDescription="Supplier options"
+
+            android:src="@drawable/ic_add"
+
+            app:tint="#2563EB" />
 
     </LinearLayout>
 

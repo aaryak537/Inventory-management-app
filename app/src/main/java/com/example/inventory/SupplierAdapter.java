@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
-
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
@@ -19,6 +18,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
@@ -26,196 +27,543 @@ import java.util.ArrayList;
 public class SupplierAdapter extends RecyclerView.Adapter<SupplierAdapter.ViewHolder>
         implements Filterable {
 
-    Context context;
-    ArrayList<Supplier> supplierList;
-    ArrayList<Supplier> supplierListFull;
+    private final Context context;
 
-    public SupplierAdapter(Context context, ArrayList<Supplier> supplierList) {
+    // Displayed list
+    private final ArrayList<Supplier> supplierList;
+
+    // Complete list used for searching
+    private final ArrayList<Supplier> supplierListFull;
+
+
+    // =========================================================
+    // CONSTRUCTOR
+    // =========================================================
+
+    public SupplierAdapter(
+            Context context,
+            ArrayList<Supplier> supplierList) {
 
         this.context = context;
-        this.supplierList = supplierList;
-        this.supplierListFull = new ArrayList<>(supplierList);
+
+        // IMPORTANT:
+        // Make independent copies.
+        this.supplierList =
+                new ArrayList<>(supplierList);
+
+        this.supplierListFull =
+                new ArrayList<>(supplierList);
     }
+
+
+    // =========================================================
+    // CREATE VIEW HOLDER
+    // =========================================================
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(
+            @NonNull ViewGroup parent,
+            int viewType) {
 
-        View view = LayoutInflater.from(context)
-                .inflate(R.layout.item_supplier, parent,
-                        false);
+        View view =
+                LayoutInflater
+                        .from(context)
+                        .inflate(
+                                R.layout.item_supplier,
+                                parent,
+                                false
+                        );
+
         return new ViewHolder(view);
     }
 
+
+    // =========================================================
+    // BIND SUPPLIER
+    // =========================================================
+
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(
+            @NonNull ViewHolder holder,
+            int position) {
 
-        Supplier supplier = supplierList.get(position);
+        Supplier supplier =
+                supplierList.get(position);
 
-        holder.txtSupplierName.setText(supplier.getName());
-        holder.txtCompany.setText(supplier.getCompany());
-        holder.txtPhone.setText(supplier.getPhone());
-        holder.txtEmail.setText(supplier.getEmail());
+
+        // Supplier name
+        holder.txtSupplierName.setText(
+                safeText(supplier.getName())
+        );
+
+
+        // Company
+        holder.txtCompany.setText(
+                safeText(supplier.getCompany())
+        );
+
+
+        // Phone
+        holder.txtPhone.setText(
+                safeText(supplier.getPhone())
+        );
+
+
+        // Email
+        holder.txtEmail.setText(
+                safeText(supplier.getEmail())
+        );
+
+
+        // =====================================================
+        // MORE BUTTON
+        // =====================================================
 
         holder.btnMore.setOnClickListener(v -> {
 
-            PopupMenu popupMenu = new PopupMenu(context, holder.btnMore);
+            PopupMenu popupMenu =
+                    new PopupMenu(
+                            context,
+                            holder.btnMore
+                    );
 
-            MenuInflater inflater = popupMenu.getMenuInflater();
-          //  inflater.inflate(R.menu.supplier_menu,
-                //    popupMenu.getMenu());
 
-        //    popupMenu.setOnMenuItemClickListener(item -> {
+            MenuInflater inflater =
+                    popupMenu.getMenuInflater();
 
-            //    if (item.getItemId() == R.id.menuEdit) {
 
-               //     Intent intent = new Intent(context,
-                    //        EditSupplierActivity.class);
+            inflater.inflate(
+                    R.menu.supplier_menu,
+                    popupMenu.getMenu()
+            );
 
-                //    intent.putExtra("id",
-                //            supplier.getId());
 
-                //    intent.putExtra("name",
-               //             supplier.getName());
+            popupMenu.setOnMenuItemClickListener(
+                    item -> {
 
-                  //  intent.putExtra("company",
-                //   supplier.getCompany());
 
-                   // intent.putExtra("phone",
-                   //         supplier.getPhone());
+                        // =====================================
+                        // EDIT
+                        // =====================================
 
-                 //   intent.putExtra("email",
-                 //           supplier.getEmail());
+                        if (item.getItemId()
+                                == R.id.menuEdit) {
 
-                //    context.startActivity(intent);
+                            Intent intent =
+                                    new Intent(
+                                            context,
+                                            EditSupplierActivity.class
+                                    );
 
-                  //  return true;
 
-              //  } else if (item.getItemId() == R.id.menuDelete) {
+                            intent.putExtra(
+                                    "id",
+                                    supplier.getId()
+                            );
 
-                   // deleteSupplier(supplier);
 
-                 //   return true;
-              //  }
+                            intent.putExtra(
+                                    "name",
+                                    supplier.getName()
+                            );
 
-            //   return false;
-         //   });
-           popupMenu.show();
+
+                            intent.putExtra(
+                                    "company",
+                                    supplier.getCompany()
+                            );
+
+
+                            intent.putExtra(
+                                    "phone",
+                                    supplier.getPhone()
+                            );
+
+
+                            intent.putExtra(
+                                    "email",
+                                    supplier.getEmail()
+                            );
+
+
+                            context.startActivity(intent);
+
+                            return true;
+                        }
+
+
+                        // =====================================
+                        // DELETE
+                        // =====================================
+
+                        if (item.getItemId()
+                                == R.id.menuDelete) {
+
+                            deleteSupplier(
+                                    supplier
+                            );
+
+                            return true;
+                        }
+
+
+                        return false;
+                    }
+            );
+
+
+            popupMenu.show();
         });
     }
-    private void deleteSupplier(Supplier supplier) {
+
+
+    // =========================================================
+    // DELETE SUPPLIER
+    // =========================================================
+
+    private void deleteSupplier(
+            Supplier supplier) {
 
         new AlertDialog.Builder(context)
+
                 .setTitle("Delete Supplier")
-                .setMessage("Are you sure you want to delete this supplier?")
-                .setPositiveButton("Delete",
-                        (dialog, which) -> {
 
-                            FirebaseDatabase.getInstance()
-                                    .getReference("Suppliers")
-                                    .child(supplier.getId())
-                                    .removeValue();
+                .setMessage(
+                        "Are you sure you want to delete "
+                                + safeText(
+                                supplier.getName()
+                        )
+                                + "?"
+                )
 
-                            Toast.makeText(context, "Supplier Deleted",
-                                    Toast.LENGTH_SHORT).show();
-                        })
-                .setNegativeButton("Cancel", null)
+                .setPositiveButton(
+                        "Delete",
+                        (dialog, which) ->
+                                deleteFromFirebase(supplier)
+                )
+
+                .setNegativeButton(
+                        "Cancel",
+                        null
+                )
+
                 .show();
     }
 
+
+    // =========================================================
+    // DELETE FROM FIREBASE
+    // =========================================================
+
+    private void deleteFromFirebase(
+            Supplier supplier) {
+
+        FirebaseUser user =
+                FirebaseAuth
+                        .getInstance()
+                        .getCurrentUser();
+
+
+        if (user == null) {
+
+            Toast.makeText(
+                    context,
+                    "Please login first",
+                    Toast.LENGTH_SHORT
+            ).show();
+
+            return;
+        }
+
+
+        if (supplier.getId() == null
+                ||
+                supplier.getId().trim().isEmpty()) {
+
+            Toast.makeText(
+                    context,
+                    "Supplier ID not found",
+                    Toast.LENGTH_SHORT
+            ).show();
+
+            return;
+        }
+
+
+        FirebaseDatabase
+                .getInstance()
+                .getReference("Suppliers")
+                .child(user.getUid())
+                .child(supplier.getId())
+                .removeValue()
+
+                .addOnSuccessListener(unused -> {
+
+                    Toast.makeText(
+                            context,
+                            "Supplier Deleted Successfully",
+                            Toast.LENGTH_SHORT
+                    ).show();
+
+                })
+
+                .addOnFailureListener(e -> {
+
+                    Toast.makeText(
+                            context,
+                            "Delete failed: "
+                                    + e.getMessage(),
+                            Toast.LENGTH_LONG
+                    ).show();
+
+                });
+    }
+
+
+    // =========================================================
+    // ITEM COUNT
+    // =========================================================
+
     @Override
     public int getItemCount() {
+
         return supplierList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView imgSupplier;
-        TextView txtSupplierName, txtCompany, txtPhone, txtEmail;
-        ImageButton btnMore;
+    // =========================================================
+    // UPDATE LIST
+    // =========================================================
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
+    public void updateList(
+            ArrayList<Supplier> list) {
 
-            imgSupplier = itemView.findViewById(R.id.imgSupplier);
+        /*
+         * IMPORTANT:
+         *
+         * Do NOT keep the Activity's ArrayList
+         * reference.
+         *
+         * Make a copy first.
+         */
 
-            txtSupplierName = itemView.findViewById(R.id.txtSupplierName);
+        supplierList.clear();
 
-            txtCompany = itemView.findViewById(R.id.txtCompany);
+        if (list != null) {
 
-            txtPhone = itemView.findViewById(R.id.txtPhone);
-
-            txtEmail = itemView.findViewById(R.id.txtEmail);
-
-            btnMore = itemView.findViewById(R.id.btnMore);
+            supplierList.addAll(
+                    new ArrayList<>(list)
+            );
         }
+
+
+        supplierListFull.clear();
+
+        if (list != null) {
+
+            supplierListFull.addAll(
+                    new ArrayList<>(list)
+            );
+        }
+
+
+        notifyDataSetChanged();
     }
+
+
+    // =========================================================
+    // SEARCH
+    // =========================================================
 
     @Override
     public Filter getFilter() {
+
         return supplierFilter;
     }
 
-    private final Filter supplierFilter = new Filter() {
 
-        @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
+    private final Filter supplierFilter =
+            new Filter() {
 
-            ArrayList<Supplier> filteredList = new ArrayList<>();
+                @Override
+                protected FilterResults performFiltering(
+                        CharSequence constraint) {
 
-            if (constraint == null || constraint.length() == 0) {
+                    ArrayList<Supplier> filteredList =
+                            new ArrayList<>();
 
-                filteredList.addAll(supplierListFull);
 
-            } else {
-                String filterPattern = constraint.toString()
-                                .toLowerCase()
-                                .trim();
-
-                for (Supplier supplier : supplierListFull) {
-
-                    if (supplier.getName()
-                            .toLowerCase()
-                            .contains(filterPattern)
+                    // No search
+                    if (constraint == null
                             ||
-                            supplier.getCompany()
-                                    .toLowerCase()
-                                    .contains(filterPattern)
-                            ||
-                            supplier.getPhone()
-                                    .contains(filterPattern)
-                            ||
-                            supplier.getEmail()
-                                    .toLowerCase()
-                                    .contains(filterPattern)) {
+                            constraint.length() == 0) {
 
-                        filteredList.add(supplier);
+                        filteredList.addAll(
+                                supplierListFull
+                        );
+
+                    } else {
+
+                        String filterPattern =
+                                constraint
+                                        .toString()
+                                        .toLowerCase()
+                                        .trim();
+
+
+                        for (Supplier supplier :
+                                supplierListFull) {
+
+                            String name =
+                                    safeText(
+                                            supplier.getName()
+                                    ).toLowerCase();
+
+
+                            String company =
+                                    safeText(
+                                            supplier.getCompany()
+                                    ).toLowerCase();
+
+
+                            String phone =
+                                    safeText(
+                                            supplier.getPhone()
+                                    );
+
+
+                            String email =
+                                    safeText(
+                                            supplier.getEmail()
+                                    ).toLowerCase();
+
+
+                            if (name.contains(
+                                    filterPattern)
+
+                                    ||
+
+                                    company.contains(
+                                            filterPattern)
+
+                                    ||
+
+                                    phone.contains(
+                                            filterPattern)
+
+                                    ||
+
+                                    email.contains(
+                                            filterPattern)) {
+
+                                filteredList.add(
+                                        supplier
+                                );
+                            }
+                        }
                     }
+
+
+                    FilterResults results =
+                            new FilterResults();
+
+                    results.values =
+                            filteredList;
+
+                    return results;
                 }
-            }
 
-            FilterResults results = new FilterResults();
-            results.values = filteredList;
-            return results;
+
+                @Override
+                protected void publishResults(
+                        CharSequence constraint,
+                        FilterResults results) {
+
+                    supplierList.clear();
+
+
+                    if (results.values != null) {
+
+                        supplierList.addAll(
+                                (ArrayList<Supplier>)
+                                        results.values
+                        );
+                    }
+
+
+                    notifyDataSetChanged();
+                }
+            };
+
+
+    // =========================================================
+    // SAFE TEXT
+    // =========================================================
+
+    private String safeText(String value) {
+
+        return value == null ? "" : value;
+    }
+
+
+    // =========================================================
+    // VIEW HOLDER
+    // =========================================================
+
+    public static class ViewHolder
+            extends RecyclerView.ViewHolder {
+
+        ImageView imgSupplier;
+
+        TextView txtSupplierName;
+        TextView txtCompany;
+        TextView txtPhone;
+        TextView txtEmail;
+
+        ImageButton btnMore;
+
+
+        public ViewHolder(
+                @NonNull View itemView) {
+
+            super(itemView);
+
+
+            imgSupplier =
+                    itemView.findViewById(
+                            R.id.imgSupplier
+                    );
+
+
+            txtSupplierName =
+                    itemView.findViewById(
+                            R.id.txtSupplierName
+                    );
+
+
+            txtCompany =
+                    itemView.findViewById(
+                            R.id.txtCompany
+                    );
+
+
+            txtPhone =
+                    itemView.findViewById(
+                            R.id.txtPhone
+                    );
+
+
+            txtEmail =
+                    itemView.findViewById(
+                            R.id.txtEmail
+                    );
+
+
+            btnMore =
+                    itemView.findViewById(
+                            R.id.btnMore
+                    );
         }
-
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-
-            supplierList.clear();
-            supplierList.addAll(
-                    (ArrayList<Supplier>) results.values);
-            notifyDataSetChanged();
-        }
-    };
-    public void updateList(ArrayList<Supplier> list) {
-
-        supplierList.clear();
-        supplierList.addAll(list);
-
-        supplierListFull.clear();
-        supplierListFull.addAll(list);
-
-        notifyDataSetChanged();
     }
 }

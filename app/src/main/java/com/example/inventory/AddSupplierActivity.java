@@ -3,7 +3,6 @@ package com.example.inventory;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -17,97 +16,182 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class AddSupplierActivity extends AppCompatActivity {
 
-    private EditText etSupplierName, etCompany, etPhone, etEmail;
+    private EditText etSupplierName;
+    private EditText etCompany;
+    private EditText etPhone;
+    private EditText etEmail;
+
     private Button btnSaveSupplier;
+
     private DatabaseReference supplierRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_addsupplier);
 
         etSupplierName = findViewById(R.id.etSupplierName);
         etCompany = findViewById(R.id.etCompany);
         etPhone = findViewById(R.id.etPhone);
         etEmail = findViewById(R.id.etEmail);
+
         btnSaveSupplier = findViewById(R.id.btnSaveSupplier);
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseUser user =
+                FirebaseAuth.getInstance().getCurrentUser();
 
+        // Check login
         if (user == null) {
-            Toast.makeText(this, "Please login first", Toast.LENGTH_SHORT).show();
+
+            Toast.makeText(
+                    this,
+                    "Please login first",
+                    Toast.LENGTH_SHORT
+            ).show();
+
             finish();
             return;
         }
 
-        supplierRef = FirebaseDatabase.getInstance()
-                .getReference("Suppliers")
-                .child(user.getUid());
+        /*
+         * IMPORTANT:
+         *
+         * Suppliers
+         *     └── USER_UID
+         *          └── SUPPLIER_ID
+         */
 
-        btnSaveSupplier.setOnClickListener(v -> saveSupplier());
+        supplierRef =
+                FirebaseDatabase.getInstance()
+                        .getReference("Suppliers")
+                        .child(user.getUid());
+
+        btnSaveSupplier.setOnClickListener(
+                v -> saveSupplier()
+        );
     }
 
     private void saveSupplier() {
 
-        String name = etSupplierName.getText().toString().trim();
-        String company = etCompany.getText().toString().trim();
-        String phone = etPhone.getText().toString().trim();
-        String email = etEmail.getText().toString().trim();
+        String name =
+                etSupplierName.getText()
+                        .toString()
+                        .trim();
 
+        String company =
+                etCompany.getText()
+                        .toString()
+                        .trim();
+
+        String phone =
+                etPhone.getText()
+                        .toString()
+                        .trim();
+
+        String email =
+                etEmail.getText()
+                        .toString()
+                        .trim();
+
+        // Supplier name
         if (TextUtils.isEmpty(name)) {
-            etSupplierName.setError("Enter supplier name");
+
+            etSupplierName.setError(
+                    "Enter supplier name"
+            );
+
             etSupplierName.requestFocus();
             return;
         }
 
+        // Company
         if (TextUtils.isEmpty(company)) {
-            etCompany.setError("Enter company name");
+
+            etCompany.setError(
+                    "Enter company name"
+            );
+
             etCompany.requestFocus();
             return;
         }
 
+        // Phone
         if (TextUtils.isEmpty(phone)) {
-            etPhone.setError("Enter phone number");
+
+            etPhone.setError(
+                    "Enter phone number"
+            );
+
             etPhone.requestFocus();
             return;
         }
 
         if (phone.length() < 10) {
-            etPhone.setError("Invalid phone number");
+
+            etPhone.setError(
+                    "Enter valid phone number"
+            );
+
             etPhone.requestFocus();
             return;
         }
 
+        // Email
         if (TextUtils.isEmpty(email)) {
-            etEmail.setError("Enter email");
+
+            etEmail.setError(
+                    "Enter email address"
+            );
+
             etEmail.requestFocus();
             return;
         }
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            etEmail.setError("Invalid email address");
+        if (!Patterns.EMAIL_ADDRESS
+                .matcher(email)
+                .matches()) {
+
+            etEmail.setError(
+                    "Enter valid email address"
+            );
+
             etEmail.requestFocus();
             return;
         }
 
-        String supplierId = supplierRef.push().getKey();
+        btnSaveSupplier.setEnabled(false);
+
+        // Generate Supplier ID
+        String supplierId =
+                supplierRef.push().getKey();
 
         if (supplierId == null) {
-            Toast.makeText(this,
+
+            btnSaveSupplier.setEnabled(true);
+
+            Toast.makeText(
+                    this,
                     "Unable to generate supplier ID",
-                    Toast.LENGTH_SHORT).show();
+                    Toast.LENGTH_SHORT
+            ).show();
+
             return;
         }
 
-        Supplier supplier = new Supplier(
-                supplierId,
-                name,
-                company,
-                phone,
-                email
-        );
+        // Create Supplier object
+        Supplier supplier =
+                new Supplier(
+                        supplierId,
+                        name,
+                        company,
+                        phone,
+                        email
+                );
 
-        supplierRef.child(supplierId)
+        // Save
+        supplierRef
+                .child(supplierId)
                 .setValue(supplier)
                 .addOnSuccessListener(unused -> {
 
@@ -116,6 +200,7 @@ public class AddSupplierActivity extends AppCompatActivity {
                             "Supplier Added Successfully",
                             Toast.LENGTH_SHORT
                     ).show();
+
                     finish();
                 })
                 .addOnFailureListener(e -> {
@@ -124,7 +209,8 @@ public class AddSupplierActivity extends AppCompatActivity {
 
                     Toast.makeText(
                             AddSupplierActivity.this,
-                            e.getMessage(),
+                            "Failed to add supplier: "
+                                    + e.getMessage(),
                             Toast.LENGTH_LONG
                     ).show();
                 });

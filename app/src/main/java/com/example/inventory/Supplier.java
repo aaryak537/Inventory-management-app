@@ -2,13 +2,21 @@ package com.example.inventory;
 
 public class Supplier {
 
-    private String id,name,company,phone,email;
+    private String id;
+    private String name;
+    private String company;
+    private String phone;
+    private String email;
 
+    // Required for Firebase
     public Supplier() {
-        // Required for Firebase
     }
 
-    public Supplier(String id, String name, String company, String phone, String email) {
+    public Supplier(String id,
+                    String name,
+                    String company,
+                    String phone,
+                    String email) {
 
         this.id = id;
         this.name = name;

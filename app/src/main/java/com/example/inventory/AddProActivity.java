@@ -455,12 +455,14 @@ public class AddProActivity extends AppCompatActivity {
                     );
 
 
+            // Profit per product
             double profits =
                     sell - cost;
 
 
+            // Stock Value = Quantity × Cost Price
             double stockVal =
-                    sell * stocks;
+                    cost * stocks;
 
 
             profit.setText(
@@ -491,6 +493,7 @@ public class AddProActivity extends AppCompatActivity {
                 );
             }
 
+
         } catch (Exception e) {
 
             profit.setText("₹0");
@@ -500,7 +503,6 @@ public class AddProActivity extends AppCompatActivity {
             stockStatus.setText("-");
         }
     }
-
 
     // =========================================================
     // SAVE PRODUCT
