@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -29,45 +28,55 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class AddProActivity extends AppCompatActivity {
 
+    private EditText proName;
+    private EditText costPrice;
+    private EditText sellingPrice;
+    private EditText stock;
+    private EditText description;
+    private EditText productId;
+    private EditText brand;
+
+    private AutoCompleteTextView autoCategory;
+
+    private ImageView back;
+    private ImageView proImg;
+
+    private Button savePro;
+
+    private TextView stockStatus;
+    private TextView profit;
+    private TextView stockValue;
+
+    private DatabaseReference productsReference;
+    private DatabaseReference categoriesReference;
+
     private ActivityResultLauncher<Intent> imagePickerLauncher;
 
-    EditText proName;
-    EditText costPrice;
-    EditText sellingPrice;
-    EditText stock;
-    EditText description;
-    EditText productId;
-    EditText brand;
+    private Uri imageUri;
 
-    AutoCompleteTextView autoCategory;
-
-    ArrayAdapter<String> categoryAdapter;
-
-    // Stores Firebase category objects
-    ArrayList<Category> categoryList;
-
-    int quantity;
-
-    ImageView back;
-    ImageView proImg;
-
-    Button savePro;
-
-    DatabaseReference databaseReference;
-    DatabaseReference categoryReference;
-
-    TextView stockStatus;
-    TextView profit;
-    TextView stockValue;
-
-    Uri imageUri;
-
-    // Selected Firebase category
     private String selectedCategoryId = "";
     private String selectedCategoryName = "";
+
+    private final List<String> BASIC_CATEGORIES =
+            Arrays.asList(
+                    "Electronics",
+                    "Grocery",
+                    "Clothing",
+                    "Beauty & Personal Care",
+                    "Home & Kitchen",
+                    "Stationery",
+                    "Sports",
+                    "Toys",
+                    "Furniture",
+                    "Books",
+                    "Automotive",
+                    "Other"
+            );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,586 +86,291 @@ public class AddProActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_addpro);
 
-
-
-
         proName = findViewById(R.id.etProductName);
-
         costPrice = findViewById(R.id.etCostPrice);
-
         sellingPrice = findViewById(R.id.etSellingPrice);
-
         stock = findViewById(R.id.etStock);
-
         description = findViewById(R.id.etDescription);
+        productId = findViewById(R.id.etProductId);
+        brand = findViewById(R.id.etBrand);
+
+        autoCategory = findViewById(R.id.autoCategory);
 
         savePro = findViewById(R.id.btnSaveProduct);
 
         back = findViewById(R.id.btnBack);
-
         proImg = findViewById(R.id.imgProduct);
 
-        autoCategory = findViewById(R.id.autoCategory);
-
-        productId = findViewById(R.id.etProductId);
-
-        brand = findViewById(R.id.etBrand);
-
         stockStatus = findViewById(R.id.tvStockStatus);
-
         profit = findViewById(R.id.tvProfit);
-
         stockValue = findViewById(R.id.tvStockValue);
 
-
-
-        FirebaseUser user =
-                FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         if (user == null) {
-
-            Toast.makeText(
-                    this,
-                    "Please login first",
+            Toast.makeText(this, "Please login first",
                     Toast.LENGTH_SHORT
             ).show();
-
             finish();
             return;
         }
 
+        String uid = user.getUid();
 
-
-        databaseReference =
-                FirebaseDatabase.getInstance()
+        productsReference = FirebaseDatabase.getInstance()
                         .getReference("Products")
-                        .child(user.getUid());
+                        .child(uid);
 
-
-        categoryReference =
-                FirebaseDatabase.getInstance()
+        categoriesReference = FirebaseDatabase.getInstance()
                         .getReference("Categories")
-                        .child(user.getUid();
+                        .child(uid);
 
-        categoryList = new ArrayList<>();
+        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this,
+                        android.R.layout.simple_dropdown_item_1line,
+                        new ArrayList<>(BASIC_CATEGORIES));
 
-
-
-        ArrayList<String> categoryNames =
-                new ArrayList<>();
-
-        categoryAdapter =
-                new ArrayAdapter<>(
-                        this,
-                        android.R.layout
-                                .simple_dropdown_item_1line,
-                        categoryNames
-                );
-
-        autoCategory.setAdapter(
-                categoryAdapter
-        );
-
-        loadCategories();
-
+        autoCategory.setAdapter(categoryAdapter);
+        autoCategory.setKeyListener(null);
+        autoCategory.setOnClickListener(v -> autoCategory.showDropDown());
 
         autoCategory.setOnItemClickListener(
                 (parent, view, position, id) -> {
 
-                    if (position < categoryList.size()) {
+                    selectedCategoryName = parent.getItemAtPosition(position)
+                                    .toString();
 
-                        Category selectedCategory =
-                                categoryList.get(position);
-
-                        selectedCategoryId =
-                                selectedCategory.getId();
-
-                        selectedCategoryName =
-                                selectedCategory
-                                        .getCategoryName();
-
-                        Toast.makeText(
-                                AddProActivity.this,
-                                "Selected: "
-                                        + selectedCategoryName,
-                                Toast.LENGTH_SHORT
-                        ).show();
-                    }
+                    selectedCategoryId = createCategoryKey(selectedCategoryName);
                 }
         );
 
+        initializeBasicCategories();
 
-
-
-        autoCategory.setOnClickListener(
-                v -> autoCategory.showDropDown()
-        );
-
-
-
-
-        imagePickerLauncher =
-                registerForActivityResult(
-                        new ActivityResultContracts
-                                .StartActivityForResult(),
-
-                        result -> {
-
-                            if (result.getResultCode()
-                                    == RESULT_OK
-                                    && result.getData()
-                                    != null) {
-
-                                imageUri =
-                                        result.getData()
-                                                .getData();
-
-                                proImg.setImageURI(
-                                        imageUri
-                                );
+        imagePickerLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                                imageUri = result.getData().getData();
+                                proImg.setImageURI(imageUri);
                             }
                         }
                 );
 
+        proImg.setOnClickListener(v -> openGallery());
 
-        proImg.setOnClickListener(
-                v -> openGallery()
-        );
+        costPrice.addTextChangedListener(textWatcher);
+        sellingPrice.addTextChangedListener(textWatcher);
+        stock.addTextChangedListener(textWatcher);
 
-
-        costPrice.addTextChangedListener(
-                textWatcher
-        );
-
-        sellingPrice.addTextChangedListener(
-                textWatcher
-        );
-
-        stock.addTextChangedListener(
-                textWatcher
-        );
-
-
-
-
-        savePro.setOnClickListener(
-                v -> saveProduct()
-        );
-
-
-
+        savePro.setOnClickListener(v -> saveProduct());
 
         back.setOnClickListener(v -> {
-
-            Intent intent =
-                    new Intent(
-                            AddProActivity.this,
-                            DashActivity.class
-                    );
-
+            Intent intent = new Intent(AddProActivity.this, DashActivity.class);
             startActivity(intent);
-
             finish();
         });
     }
+    private void initializeBasicCategories() {
 
+        for (String categoryName : BASIC_CATEGORIES) {
+            String categoryId = createCategoryKey(categoryName);
 
-    private void loadCategories() {
+            DatabaseReference categoryRef = categoriesReference.child(categoryId);
 
-        categoryReference.addValueEventListener(
-                new ValueEventListener() {
+            categoryRef.addListenerForSingleValueEvent(
+                    new ValueEventListener() {
 
-                    @Override
-                    public void onDataChange(
-                            @NonNull DataSnapshot snapshot) {
+                        @Override
+                        public void onDataChange(
+                                @NonNull DataSnapshot snapshot) {
 
-                        categoryList.clear();
+                            if (!snapshot.exists()) {
 
-                        categoryAdapter.clear();
+                                Category category = new Category();
 
+                                category.setId(categoryId);
 
-                        for (DataSnapshot ds :
-                                snapshot.getChildren()) {
+                                category.setCategoryName(categoryName);
 
-                            Category category =
-                                    ds.getValue(
-                                            Category.class
-                                    );
+                                category.setDescription("");
 
-                            if (category != null) {
+                                category.setStatus("Active");
 
+                                category.setProductCount(0);
 
-
-                                category.setId(
-                                        ds.getKey()
-                                );
-
-                                categoryList.add(
-                                        category
-                                );
-
-                                categoryAdapter.add(
-                                        category
-                                                .getCategoryName()
-                                );
+                                categoryRef.setValue(category);
                             }
                         }
 
-
-                        categoryAdapter.notifyDataSetChanged();
-
-
-                        if (categoryList.isEmpty()) {
-
-                            Toast.makeText(
-                                    AddProActivity.this,
-                                    "No categories found. Add a category first.",
-                                    Toast.LENGTH_LONG
-                            ).show();
-                        }
+                        @Override
+                        public void onCancelled(
+                                @NonNull DatabaseError error) {}
                     }
-
-
-                    @Override
-                    public void onCancelled(
-                            @NonNull DatabaseError error) {
-
-                        Toast.makeText(
-                                AddProActivity.this,
-                                "Failed to load categories: "
-                                        + error.getMessage(),
-                                Toast.LENGTH_SHORT
-                        ).show();
-                    }
-                }
-        );
-    }
-
-
-
-    private void openGallery() {
-
-        Intent intent =
-                new Intent(
-                        Intent.ACTION_PICK
-                );
-
-        intent.setType("image/*");
-
-        imagePickerLauncher.launch(intent);
-    }
-
-
-
-
-    TextWatcher textWatcher =
-            new TextWatcher() {
-
-                @Override
-                public void beforeTextChanged(
-                        CharSequence s,
-                        int start,
-                        int count,
-                        int after) {
-                }
-
-                @Override
-                public void onTextChanged(
-                        CharSequence s,
-                        int start,
-                        int before,
-                        int count) {
-
-                    calculateValues();
-                }
-
-                @Override
-                public void afterTextChanged(
-                        Editable s) {
-                }
-            };
-
-
-    private void calculateValues() {
-
-        try {
-
-            double cost =
-                    Double.parseDouble(
-                            costPrice
-                                    .getText()
-                                    .toString()
-                    );
-
-            double sell =
-                    Double.parseDouble(
-                            sellingPrice
-                                    .getText()
-                                    .toString()
-                    );
-
-            int stocks =
-                    Integer.parseInt(
-                            stock
-                                    .getText()
-                                    .toString()
-                    );
-
-
-
-            double profits =
-                    sell - cost;
-
-
-
-            double stockVal =
-                    cost * stocks;
-
-
-            profit.setText(
-                    "₹ " + profits
             );
-
-            stockValue.setText(
-                    "₹ " + stockVal
-            );
-
-
-            if (stocks == 0) {
-
-                stockStatus.setText(
-                        "Out of Stock"
-                );
-
-            } else if (stocks <= 10) {
-
-                stockStatus.setText(
-                        "Low Stock"
-                );
-
-            } else {
-
-                stockStatus.setText(
-                        "In Stock"
-                );
-            }
-
-
-        } catch (Exception e) {
-
-            profit.setText("₹0");
-
-            stockValue.setText("₹0");
-
-            stockStatus.setText("-");
         }
     }
 
+    private String createCategoryKey(
+            String categoryName) {
 
+        return categoryName
+                .toLowerCase()
+                .replace("&", "and")
+                .replace(" ", "_")
+                .replace("/", "_");
+    }
 
     private void saveProduct() {
 
-        String productName =
-                proName.getText()
-                        .toString()
-                        .trim();
+        String productName = proName.getText().toString().trim();
 
+        String proId = productId.getText().toString().trim();
 
-        String proId =
-                productId.getText()
-                        .toString()
-                        .trim();
+        String category = autoCategory.getText().toString().trim();
 
+        String brandName = brand.getText().toString().trim();
 
-        String category =
-                autoCategory.getText()
-                        .toString()
-                        .trim();
+        String stockText = stock.getText().toString().trim();
 
+        String describe = description.getText().toString().trim();
 
-        String brandName =
-                brand.getText()
-                        .toString()
-                        .trim();
-
-
-        String stockText =
-                stock.getText()
-                        .toString()
-                        .trim();
-
-
-        String describe =
-                description.getText()
-                        .toString()
-                        .trim();
-
-
-
-        if (productName.isEmpty()
-                || proId.isEmpty()
-                || category.isEmpty()
-                || costPrice.getText()
-                .toString()
-                .trim()
-                .isEmpty()
-                || sellingPrice.getText()
-                .toString()
-                .trim()
-                .isEmpty()
+        if (productName.isEmpty() || proId.isEmpty() || category.isEmpty()
+                || costPrice.getText().toString().trim().isEmpty()
+                || sellingPrice.getText().toString().trim().isEmpty()
                 || stockText.isEmpty()) {
-
-            Toast.makeText(
-                    this,
-                    "Fill all required fields",
+            Toast.makeText(this, "Fill all required fields",
                     Toast.LENGTH_SHORT
             ).show();
-
             return;
         }
 
+        if (!BASIC_CATEGORIES.contains(category)) {
 
-
-
-        if (selectedCategoryId.isEmpty()) {
-
-            Toast.makeText(
-                    this,
-                    "Please select a category from the list",
+            Toast.makeText(this, "Please select a category from the dropdown",
                     Toast.LENGTH_SHORT
             ).show();
-
             autoCategory.requestFocus();
-
             return;
         }
-
-
 
         double cPrice;
-
         double sellPrice;
+        int quantity;
 
         try {
+            cPrice = Double.parseDouble(costPrice.getText().toString().trim());
 
-            cPrice =
-                    Double.parseDouble(
-                            costPrice
-                                    .getText()
-                                    .toString()
-                                    .trim()
-                    );
+            sellPrice = Double.parseDouble(sellingPrice.getText().toString().trim());
 
-            sellPrice =
-                    Double.parseDouble(
-                            sellingPrice
-                                    .getText()
-                                    .toString()
-                                    .trim()
-                    );
-
-            quantity =
-                    Integer.parseInt(
-                            stockText
-                    );
-
+            quantity = Integer.parseInt(stockText);
         } catch (NumberFormatException e) {
-
-            Toast.makeText(
-                    this,
-                    "Enter valid price and stock values",
+            Toast.makeText(this, "Enter valid price and stock values",
                     Toast.LENGTH_SHORT
             ).show();
-
             return;
         }
-
-
-
 
         String stockStatusValue;
 
         if (quantity <= 0) {
-
-            stockStatusValue =
-                    "Out of Stock";
-
+            stockStatusValue = "Out of Stock";
         } else if (quantity <= 10) {
-
-            stockStatusValue =
-                    "Low Stock";
-
+            stockStatusValue = "Low Stock";
         } else {
-
-            stockStatusValue =
-                    "In Stock";
+            stockStatusValue = "In Stock";
         }
 
+        String categoryId = createCategoryKey(category);
 
-
-        String imageUrl = "";
-
-
-
-
-        Product product =
-                new Product(
+        Product product = new Product(
                         productName,
-
-                        selectedCategoryId,
-
-                        selectedCategoryName,
-
+                        categoryId,
+                        category,
                         quantity,
-
                         brandName,
-
                         cPrice,
-
                         sellPrice,
-
                         stockStatusValue,
-
                         describe,
-
-                        imageUrl
+                        ""
                 );
 
-        databaseReference
-                .child(proId)
-                .setValue(product)
-
+        productsReference.child(proId).setValue(product)
                 .addOnSuccessListener(
                         unused -> {
 
-                            Toast.makeText(
-                                    this,
-                                    "Product Added Successfully",
-                                    Toast.LENGTH_SHORT
+                            Toast.makeText(AddProActivity.this,
+                                    "Product Added Successfully", Toast.LENGTH_SHORT
                             ).show();
 
-
-                            NotifyHelper.addNotification(
-                                    "Product Added",
-                                    productName
-                                            + " added successfully"
+                            NotifyHelper.addNotification("Product Added",
+                                    productName + " added successfully"
                             );
-
-
                             finish();
                         }
                 )
-
                 .addOnFailureListener(
                         e -> {
-
-                            Toast.makeText(
-                                    this,
-                                    "Failed: "
+                            Toast.makeText(AddProActivity.this, "Failed: "
                                             + e.getMessage(),
-                                    Toast.LENGTH_SHORT
+                                    Toast.LENGTH_LONG
                             ).show();
                         }
                 );
+    }
+
+    private void openGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        imagePickerLauncher.launch(intent);
+    }
+
+    private final TextWatcher textWatcher =
+            new TextWatcher() {
+
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count,
+                                              int after) {}
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    calculateValues();
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {}
+            };
+
+    private void calculateValues() {
+
+        try {
+            double cost = Double.parseDouble(costPrice.getText().toString());
+
+            double sell = Double.parseDouble(sellingPrice.getText().toString());
+
+            int stocks = Integer.parseInt(stock.getText().toString());
+
+            double profits = sell - cost;
+
+            double stockVal = cost * stocks;
+
+            profit.setText("₹ " + profits);
+
+            stockValue.setText("₹ " + stockVal);
+
+            if (stocks <= 0) {
+                stockStatus.setText("Out of Stock");
+
+            } else if (stocks <= 10) {
+                stockStatus.setText("Low Stock");
+
+            } else {
+                stockStatus.setText("In Stock");
+            }
+
+        } catch (Exception e) {
+            profit.setText("₹0");
+            stockValue.setText("₹0");
+            stockStatus.setText("-");
+        }
     }
 }

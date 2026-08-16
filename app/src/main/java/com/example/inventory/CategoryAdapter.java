@@ -21,34 +21,26 @@ public class CategoryAdapter
         implements Filterable {
 
     private final Context context;
+
     private final ArrayList<Category> categoryList;
+
     private final ArrayList<Category> categoryListFull;
+
     private final OnCategoryActionListener listener;
 
-
-
     public interface OnCategoryActionListener {
-
         void onEdit(Category category);
-
         void onDelete(Category category);
     }
 
-
-
-    public CategoryAdapter(
-            Context context,
-            ArrayList<Category> categoryList,
+    public CategoryAdapter(Context context, ArrayList<Category> categoryList,
             OnCategoryActionListener listener) {
 
         this.context = context;
         this.categoryList = categoryList;
         this.listener = listener;
-
-        this.categoryListFull =
-                new ArrayList<>(categoryList);
+        this.categoryListFull = new ArrayList<>(categoryList);
     }
-
 
     @NonNull
     @Override
@@ -56,14 +48,9 @@ public class CategoryAdapter
             @NonNull ViewGroup parent,
             int viewType) {
 
-        View view =
-                LayoutInflater.from(context)
-                        .inflate(
-                                R.layout.item_category,
-                                parent,
-                                false
+        View view = LayoutInflater.from(context).inflate(R.layout.item_category,
+                                parent, false
                         );
-
         return new ViewHolder(view);
     }
 
@@ -72,150 +59,87 @@ public class CategoryAdapter
             @NonNull ViewHolder holder,
             int position) {
 
-        Category category =
-                categoryList.get(position);
+        Category category = categoryList.get(position);
 
+        String categoryName = category.getCategoryName();
 
-
-
-        holder.tvCategoryName.setText(
-                category.getCategoryName()
-        );
-
-
-
-
-        String description =
-                category.getDescription();
-
-        if (description == null ||
-                description.trim().isEmpty()) {
-
-            holder.tvCategoryDescription
-                    .setVisibility(View.GONE);
-
-        } else {
-
-            holder.tvCategoryDescription
-                    .setVisibility(View.VISIBLE);
-
-            holder.tvCategoryDescription
-                    .setText(description);
+        if (categoryName == null || categoryName.trim().isEmpty()) {
+            categoryName = "Unnamed Category";
         }
 
+        holder.tvCategoryName.setText(categoryName);
 
+        String description = category.getDescription();
 
-        int count =
-                category.getProductCount();
+        if (description == null || description.trim().isEmpty()) {
+
+            holder.tvCategoryDescription.setVisibility(View.GONE);
+        } else {
+            holder.tvCategoryDescription.setVisibility(View.VISIBLE);
+
+            holder.tvCategoryDescription.setText(description);
+        }
+        int count = category.getProductCount();
 
         if (count == 1) {
-
-            holder.tvProductCount.setText(
-                    "1 Product"
-            );
-
+            holder.tvProductCount.setText("1 Product");
         } else {
-
-            holder.tvProductCount.setText(
-                    count + " Products"
-            );
+            holder.tvProductCount.setText(count + " Products");
         }
 
+        String status = category.getStatus();
 
-
-
-        String status =
-                category.getStatus();
-
-        if (status == null) {
+        if (status == null || status.trim().isEmpty()) {
             status = "Inactive";
         }
 
-        holder.tvCategoryStatus.setText(
-                status
-        );
-
+        holder.tvCategoryStatus.setText(status);
 
         if ("Active".equalsIgnoreCase(status)) {
 
-            holder.tvCategoryStatus
-                    .setBackgroundResource(
-                            R.drawable.bg_status_active
-                    );
-
+            holder.tvCategoryStatus.setBackgroundResource(R.drawable.bg_status_active);
         } else {
 
-            holder.tvCategoryStatus
-                    .setBackgroundResource(
-                            R.drawable.bg_status_inactive
-                    );
+            holder.tvCategoryStatus.setBackgroundResource(R.drawable.bg_status_inactive);
         }
-
-
-
 
         holder.imgMenu.setOnClickListener(v -> {
 
-            PopupMenu popupMenu =
-                    new PopupMenu(
-                            context,
-                            holder.imgMenu
-                    );
+            PopupMenu popupMenu = new PopupMenu(context, holder.imgMenu);
 
-            MenuInflater inflater =
-                    popupMenu.getMenuInflater();
+            MenuInflater inflater = popupMenu.getMenuInflater();
 
-            inflater.inflate(
-                    R.menu.menu_category,
-                    popupMenu.getMenu()
-            );
+            inflater.inflate(R.menu.menu_category, popupMenu.getMenu());
 
+            popupMenu.setOnMenuItemClickListener(item -> {
 
-            popupMenu.setOnMenuItemClickListener(
-                    item -> {
-
-                        int id =
-                                item.getItemId();
-
+                        int id = item.getItemId();
 
                         if (id == R.id.menuEdit) {
-
-                            listener.onEdit(category);
-
+                            if (listener != null) {
+                                listener.onEdit(category);
+                            }
                             return true;
                         }
-
-
                         if (id == R.id.menuDelete) {
-
-                            listener.onDelete(category);
-
+                            if (listener != null) {
+                                listener.onDelete(category);
+                            }
                             return true;
                         }
-
-
                         return false;
                     }
             );
-
             popupMenu.show();
         });
     }
 
-
-
-
     @Override
     public int getItemCount() {
-
         return categoryList.size();
     }
 
-
-
-
-    public static class ViewHolder
-            extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvCategoryName;
         TextView tvCategoryDescription;
@@ -224,92 +148,51 @@ public class CategoryAdapter
 
         ImageView imgMenu;
 
-
         public ViewHolder(
                 @NonNull View itemView) {
 
             super(itemView);
 
+            tvCategoryName = itemView.findViewById(R.id.tvCategoryName);
 
-            tvCategoryName =
-                    itemView.findViewById(
-                            R.id.tvCategoryName
-                    );
+            tvCategoryDescription =itemView.findViewById(R.id.tvCategoryDescription);
 
+            tvProductCount = itemView.findViewById(R.id.tvProductCount);
 
-            tvCategoryDescription =
-                    itemView.findViewById(
-                            R.id.tvCategoryDescription
-                    );
+            tvCategoryStatus =itemView.findViewById(R.id.tvCategoryStatus);
 
-
-            tvProductCount =
-                    itemView.findViewById(
-                            R.id.tvProductCount
-                    );
-
-
-            tvCategoryStatus =
-                    itemView.findViewById(
-                            R.id.tvCategoryStatus
-                    );
-
-
-            imgMenu =
-                    itemView.findViewById(
-                            R.id.imgMenu
-                    );
+            imgMenu = itemView.findViewById(R.id.imgMenu);
         }
     }
 
-
-
     @Override
     public Filter getFilter() {
-
         return categoryFilter;
     }
-
 
     private final Filter categoryFilter =
             new Filter() {
 
                 @Override
-                protected FilterResults performFiltering(
-                        CharSequence constraint) {
+                protected FilterResults performFiltering(CharSequence constraint) {
 
-                    ArrayList<Category> filteredList =
-                            new ArrayList<>();
+                    ArrayList<Category> filteredList = new ArrayList<>();
 
+                    if (constraint == null || constraint.length() == 0) {
 
-                    if (constraint == null ||
-                            constraint.length() == 0) {
-
-                        filteredList.addAll(
-                                categoryListFull
-                        );
-
+                        filteredList.addAll(categoryListFull);
                     } else {
 
-                        String filterPattern =
-                                constraint
-                                        .toString()
-                                        .toLowerCase()
+                        String filterPattern = constraint.toString().toLowerCase()
                                         .trim();
 
+                        for (Category item : categoryListFull) {
 
-                        for (Category item :
-                                categoryListFull) {
+                            String name = item.getCategoryName();
 
-                            String name =
-                                    item.getCategoryName();
+                            String description = item.getDescription();
 
-                            String description =
-                                    item.getDescription();
-
-                            String status =
-                                    item.getStatus();
-
+                            String status = item.getStatus();
 
                             if (name == null) {
                                 name = "";
@@ -323,60 +206,46 @@ public class CategoryAdapter
                                 status = "";
                             }
 
-
-                            if (name.toLowerCase()
-                                    .contains(filterPattern)
-
+                            if (name.toLowerCase().contains(filterPattern)
                                     || description
                                     .toLowerCase()
                                     .contains(filterPattern)
-
                                     || status
                                     .toLowerCase()
                                     .contains(filterPattern)) {
-
                                 filteredList.add(item);
                             }
                         }
                     }
-
-
-                    FilterResults results =
-                            new FilterResults();
-
-                    results.values =
-                            filteredList;
-
+                    FilterResults results = new FilterResults();
+                    results.values = filteredList;
                     return results;
                 }
 
-
                 @SuppressWarnings("unchecked")
                 @Override
-                protected void publishResults(
-                        CharSequence constraint,
-                        FilterResults results) {
-
+                protected void publishResults(CharSequence constraint, FilterResults results) {
                     categoryList.clear();
-
-                    categoryList.addAll(
-                            (ArrayList<Category>)
-                                    results.values
-                    );
-
+                    if (results.values != null) {
+                        categoryList.addAll((ArrayList<Category>)
+                                        results.values
+                        );
+                    }
                     notifyDataSetChanged();
                 }
             };
-
-
-    public void refreshList(ArrayList<Category> newList) {
+    public void refreshList(
+            ArrayList<Category> newList) {
 
         categoryList.clear();
-        categoryList.addAll(newList);
 
+        if (newList != null) {
+            categoryList.addAll(newList);
+        }
         categoryListFull.clear();
-        categoryListFull.addAll(newList);
-
+        if (newList != null) {
+            categoryListFull.addAll(newList);
+        }
         notifyDataSetChanged();
     }
 }

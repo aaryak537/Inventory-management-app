@@ -6,19 +6,11 @@ public class Category {
     private String categoryName;
     private String description;
     private String status;
-
-
     private int productCount;
 
+    public Category() {}
 
-    public Category() {
-    }
-
-
-    public Category(String id,
-                    String categoryName,
-                    String description,
-                    String status) {
+    public Category(String id, String categoryName, String description, String status) {
 
         this.id = id;
         this.categoryName = categoryName;
@@ -26,8 +18,6 @@ public class Category {
         this.status = status;
         this.productCount = 0;
     }
-
-
 
     public String getId() {
         return id;
@@ -37,8 +27,6 @@ public class Category {
         this.id = id;
     }
 
-
-
     public String getCategoryName() {
         return categoryName;
     }
@@ -46,9 +34,6 @@ public class Category {
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
-
-
-
 
     public String getDescription() {
         return description;
@@ -58,8 +43,6 @@ public class Category {
         this.description = description;
     }
 
-
-
     public String getStatus() {
         return status;
     }
@@ -67,7 +50,6 @@ public class Category {
     public void setStatus(String status) {
         this.status = status;
     }
-
 
     public int getProductCount() {
         return productCount;
