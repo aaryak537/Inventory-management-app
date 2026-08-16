@@ -7,16 +7,14 @@ public class Category {
     private String description;
     private String status;
 
-    // Used only for displaying the number of products
-    // in the Category screen.
-    // It does NOT have to be stored in Firebase.
+
     private int productCount;
 
-    // Required empty constructor for Firebase
+
     public Category() {
     }
 
-    // Constructor
+
     public Category(String id,
                     String categoryName,
                     String description,
@@ -29,9 +27,7 @@ public class Category {
         this.productCount = 0;
     }
 
-    // ==============================
-    // ID
-    // ==============================
+
 
     public String getId() {
         return id;
@@ -42,9 +38,6 @@ public class Category {
     }
 
 
-    // ==============================
-    // CATEGORY NAME
-    // ==============================
 
     public String getCategoryName() {
         return categoryName;
@@ -55,9 +48,7 @@ public class Category {
     }
 
 
-    // ==============================
-    // DESCRIPTION
-    // ==============================
+
 
     public String getDescription() {
         return description;
@@ -68,9 +59,6 @@ public class Category {
     }
 
 
-    // ==============================
-    // STATUS
-    // ==============================
 
     public String getStatus() {
         return status;
@@ -80,10 +68,6 @@ public class Category {
         this.status = status;
     }
 
-
-    // ==============================
-    // PRODUCT COUNT
-    // ==============================
 
     public int getProductCount() {
         return productCount;

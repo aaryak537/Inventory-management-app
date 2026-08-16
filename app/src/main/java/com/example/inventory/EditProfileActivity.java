@@ -33,9 +33,7 @@ import java.util.Map;
 
 public class EditProfileActivity extends AppCompatActivity {
 
-    // =========================================================
-    // PROFILE FIELDS
-    // =========================================================
+
 
     private TextInputEditText etName;
     private TextInputEditText etEmail;
@@ -46,16 +44,12 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private AutoCompleteTextView actBusinessType;
 
-    // =========================================================
-    // HEADER / STATISTICS
-    // =========================================================
+
 
     private TextView tvProfileName;
     private TextView tvProductCount;
 
-    // =========================================================
-    // BUTTONS
-    // =========================================================
+
 
     private ImageView btnBack;
     private ImageView btnSave;
@@ -63,37 +57,26 @@ public class EditProfileActivity extends AppCompatActivity {
     private MaterialButton btnSaveChanges;
     private FloatingActionButton fabEditPhoto;
 
-    // =========================================================
-    // PROFILE IMAGE
-    // =========================================================
+
 
     private ImageView profileImage;
 
     private Uri imageUri;
 
-    // =========================================================
-    // FIREBASE AUTH
-    // =========================================================
+
 
     private FirebaseAuth firebaseAuth;
 
-    // =========================================================
-    // FIREBASE DATABASE
-    // =========================================================
 
     private DatabaseReference userRef;
     private DatabaseReference productsRef;
 
-    // =========================================================
-    // FIREBASE STORAGE
-    // =========================================================
+
 
     private FirebaseStorage firebaseStorage;
     private StorageReference profileImageRef;
 
-    // =========================================================
-    // IMAGE PICKER
-    // =========================================================
+
 
     private final ActivityResultLauncher<String> imagePicker =
             registerForActivityResult(
@@ -104,21 +87,18 @@ public class EditProfileActivity extends AppCompatActivity {
 
                             imageUri = uri;
 
-                            // Show selected image immediately
+
                             if (profileImage != null) {
 
                                 profileImage.setImageURI(uri);
                             }
 
-                            // Upload image to Firebase Storage
                             uploadProfileImage(uri);
                         }
                     }
             );
 
-    // =========================================================
-    // ON CREATE
-    // =========================================================
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,9 +106,6 @@ public class EditProfileActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_editprofile);
 
-        // =====================================================
-        // INITIALIZE FIREBASE AUTH
-        // =====================================================
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -147,63 +124,30 @@ public class EditProfileActivity extends AppCompatActivity {
             return;
         }
 
-        // =====================================================
-        // GET USER UID
-        // =====================================================
+
 
         String uid = currentUser.getUid();
 
-        // =====================================================
-        // FIREBASE DATABASE REFERENCES
-        // =====================================================
 
-        /*
-         *
-         * Users
-         *   └── UID
-         *       ├── name
-         *       ├── phone
-         *       ├── company
-         *       ├── username
-         *       ├── employeeId
-         *       ├── businessType
-         *       └── profileImageUrl
-         *
-         */
+
 
         userRef = FirebaseDatabase
                 .getInstance()
                 .getReference("Users")
                 .child(uid);
 
-        /*
-         *
-         * Products
-         *   └── UID
-         *       ├── product1
-         *       ├── product2
-         *       └── product3
-         *
-         */
 
         productsRef = FirebaseDatabase
                 .getInstance()
                 .getReference("Products")
                 .child(uid);
 
-        // =====================================================
-        // FIREBASE STORAGE
-        // =====================================================
+
 
         firebaseStorage =
                 FirebaseStorage.getInstance();
 
-        /*
-         * Storage:
-         *
-         * profile_images/
-         *       UID.jpg
-         */
+
 
         profileImageRef =
                 firebaseStorage
@@ -211,9 +155,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         .child("profile_images")
                         .child(uid + ".jpg");
 
-        // =====================================================
-        // FIND VIEWS
-        // =====================================================
+
 
         etName =
                 findViewById(R.id.etName);
@@ -257,66 +199,48 @@ public class EditProfileActivity extends AppCompatActivity {
         fabEditPhoto =
                 findViewById(R.id.fabEditPhoto);
 
-        // =====================================================
-        // BACK BUTTON
-        // =====================================================
+
 
         btnBack.setOnClickListener(v -> {
 
             finish();
         });
 
-        // =====================================================
-        // TOP SAVE BUTTON
-        // =====================================================
+
 
         btnSave.setOnClickListener(v -> {
 
             saveProfile();
         });
 
-        // =====================================================
-        // BOTTOM SAVE BUTTON
-        // =====================================================
+
 
         btnSaveChanges.setOnClickListener(v -> {
 
             saveProfile();
         });
 
-        // =====================================================
-        // PROFILE PHOTO BUTTON
-        // =====================================================
+
 
         fabEditPhoto.setOnClickListener(v -> {
 
             imagePicker.launch("image/*");
         });
 
-        // =====================================================
-        // BUSINESS TYPE
-        // =====================================================
+
 
         setupBusinessTypeDropdown();
 
-        // =====================================================
-        // LOAD PROFILE
-        // =====================================================
+
 
         loadProfileData();
 
-        // =====================================================
-        // LOAD PRODUCT COUNT
-        // =====================================================
+
 
         loadProductCount();
     }
 
-    // =========================================================
-    // BUSINESS TYPE DROPDOWN
-    // =========================================================
-
-    private void setupBusinessTypeDropdown() {
+        private void setupBusinessTypeDropdown() {
 
         String[] businessTypes = {
 
@@ -346,9 +270,7 @@ public class EditProfileActivity extends AppCompatActivity {
         });
     }
 
-    // =========================================================
-    // LOAD PROFILE DATA
-    // =========================================================
+
 
     private void loadProfileData() {
 
@@ -359,9 +281,7 @@ public class EditProfileActivity extends AppCompatActivity {
             return;
         }
 
-        // =====================================================
-        // LOAD EMAIL FROM FIREBASE AUTH
-        // =====================================================
+
 
         String email =
                 currentUser.getEmail();
@@ -370,17 +290,12 @@ public class EditProfileActivity extends AppCompatActivity {
 
             etEmail.setText(email);
 
-            /*
-             * Email is controlled by Firebase Authentication.
-             * Therefore it is not editable here.
-             */
+
 
             etEmail.setEnabled(false);
         }
 
-        // =====================================================
-        // LOAD DATA FROM USERS/{UID}
-        // =====================================================
+
 
         userRef.addListenerForSingleValueEvent(
                 new ValueEventListener() {
@@ -398,9 +313,7 @@ public class EditProfileActivity extends AppCompatActivity {
                             return;
                         }
 
-                        // =================================================
-                        // NAME
-                        // =================================================
+
 
                         String name =
                                 getStringValue(
@@ -421,9 +334,7 @@ public class EditProfileActivity extends AppCompatActivity {
                             );
                         }
 
-                        // =================================================
-                        // PHONE
-                        // =================================================
+
 
                         String phone =
                                 getStringValue(
@@ -436,9 +347,7 @@ public class EditProfileActivity extends AppCompatActivity {
                             etPhone.setText(phone);
                         }
 
-                        // =================================================
-                        // COMPANY
-                        // =================================================
+
 
                         String company =
                                 getStringValue(
@@ -451,9 +360,7 @@ public class EditProfileActivity extends AppCompatActivity {
                             etCompany.setText(company);
                         }
 
-                        // =================================================
-                        // USERNAME
-                        // =================================================
+
 
                         String username =
                                 getStringValue(
@@ -466,9 +373,6 @@ public class EditProfileActivity extends AppCompatActivity {
                             etUsername.setText(username);
                         }
 
-                        // =================================================
-                        // EMPLOYEE ID
-                        // =================================================
 
                         String employeeId =
                                 getStringValue(
@@ -481,9 +385,6 @@ public class EditProfileActivity extends AppCompatActivity {
                             etEmployeeId.setText(employeeId);
                         }
 
-                        // =================================================
-                        // BUSINESS TYPE
-                        // =================================================
 
                         String businessType =
                                 getStringValue(
@@ -499,9 +400,7 @@ public class EditProfileActivity extends AppCompatActivity {
                             );
                         }
 
-                        // =================================================
-                        // PROFILE IMAGE
-                        // =================================================
+
 
                         String imageUrl =
                                 getStringValue(
@@ -540,9 +439,6 @@ public class EditProfileActivity extends AppCompatActivity {
         );
     }
 
-    // =========================================================
-    // LOAD PRODUCT COUNT
-    // =========================================================
 
     private void loadProductCount() {
 
@@ -571,9 +467,6 @@ public class EditProfileActivity extends AppCompatActivity {
         );
     }
 
-    // =========================================================
-    // UPLOAD PROFILE IMAGE
-    // =========================================================
 
     private void uploadProfileImage(Uri uri) {
 
@@ -587,15 +480,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 Toast.LENGTH_SHORT
         ).show();
 
-        /*
-         * Upload selected image to:
-         *
-         * Firebase Storage
-         *      ↓
-         * profile_images
-         *      ↓
-         * UID.jpg
-         */
+
 
         profileImageRef
                 .putFile(uri)
@@ -603,9 +488,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 .addOnSuccessListener(
                         taskSnapshot -> {
 
-                            // =============================================
-                            // GET DOWNLOAD URL
-                            // =============================================
+
 
                             profileImageRef
                                     .getDownloadUrl()
@@ -616,10 +499,6 @@ public class EditProfileActivity extends AppCompatActivity {
                                                 String imageUrl =
                                                         downloadUri
                                                                 .toString();
-
-                                                // =========================
-                                                // SAVE URL TO DATABASE
-                                                // =========================
 
                                                 userRef
                                                         .child(
@@ -678,9 +557,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 );
     }
 
-    // =========================================================
-    // SAVE PROFILE
-    // =========================================================
+
 
     private void saveProfile() {
 
@@ -697,10 +574,6 @@ public class EditProfileActivity extends AppCompatActivity {
 
             return;
         }
-
-        // =====================================================
-        // GET VALUES
-        // =====================================================
 
         String name =
                 getText(etName);
@@ -723,9 +596,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         .toString()
                         .trim();
 
-        // =====================================================
-        // VALIDATION
-        // =====================================================
+
 
         if (TextUtils.isEmpty(name)) {
 
@@ -782,9 +653,6 @@ public class EditProfileActivity extends AppCompatActivity {
             return;
         }
 
-        // =====================================================
-        // CREATE UPDATE MAP
-        // =====================================================
 
         Map<String, Object> profileData =
                 new HashMap<>();
@@ -819,9 +687,6 @@ public class EditProfileActivity extends AppCompatActivity {
                 businessType
         );
 
-        // =====================================================
-        // SAVE TO USERS/{UID}
-        // =====================================================
 
         userRef
                 .updateChildren(profileData)
@@ -854,9 +719,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 );
     }
 
-    // =========================================================
-    // GET STRING FROM FIREBASE
-    // =========================================================
+
 
     private String getStringValue(
             DataSnapshot snapshot,
@@ -872,9 +735,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 : "";
     }
 
-    // =========================================================
-    // GET TEXT FROM EDIT TEXT
-    // =========================================================
+
 
     private String getText(
             TextInputEditText editText) {

@@ -137,7 +137,7 @@ public class AddSupplierActivity extends AppCompatActivity {
             return;
         }
 
-        // Email
+
         if (TextUtils.isEmpty(email)) {
 
             etEmail.setError(
@@ -162,7 +162,7 @@ public class AddSupplierActivity extends AppCompatActivity {
 
         btnSaveSupplier.setEnabled(false);
 
-        // Generate Supplier ID
+
         String supplierId =
                 supplierRef.push().getKey();
 
@@ -179,7 +179,7 @@ public class AddSupplierActivity extends AppCompatActivity {
             return;
         }
 
-        // Create Supplier object
+
         Supplier supplier =
                 new Supplier(
                         supplierId,
@@ -189,7 +189,7 @@ public class AddSupplierActivity extends AppCompatActivity {
                         email
                 );
 
-        // Save
+
         supplierRef
                 .child(supplierId)
                 .setValue(supplier)

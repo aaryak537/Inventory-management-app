@@ -26,9 +26,6 @@ public class CategoryAdapter
     private final OnCategoryActionListener listener;
 
 
-    // =========================================================
-    // INTERFACE
-    // =========================================================
 
     public interface OnCategoryActionListener {
 
@@ -38,9 +35,6 @@ public class CategoryAdapter
     }
 
 
-    // =========================================================
-    // CONSTRUCTOR
-    // =========================================================
 
     public CategoryAdapter(
             Context context,
@@ -55,10 +49,6 @@ public class CategoryAdapter
                 new ArrayList<>(categoryList);
     }
 
-
-    // =========================================================
-    // CREATE VIEW HOLDER
-    // =========================================================
 
     @NonNull
     @Override
@@ -77,11 +67,6 @@ public class CategoryAdapter
         return new ViewHolder(view);
     }
 
-
-    // =========================================================
-    // BIND VIEW HOLDER
-    // =========================================================
-
     @Override
     public void onBindViewHolder(
             @NonNull ViewHolder holder,
@@ -91,14 +76,14 @@ public class CategoryAdapter
                 categoryList.get(position);
 
 
-        // Category Name
+
 
         holder.tvCategoryName.setText(
                 category.getCategoryName()
         );
 
 
-        // Description
+
 
         String description =
                 category.getDescription();
@@ -119,9 +104,6 @@ public class CategoryAdapter
         }
 
 
-        // =====================================================
-        // PRODUCT COUNT
-        // =====================================================
 
         int count =
                 category.getProductCount();
@@ -140,9 +122,7 @@ public class CategoryAdapter
         }
 
 
-        // =====================================================
-        // STATUS
-        // =====================================================
+
 
         String status =
                 category.getStatus();
@@ -172,9 +152,7 @@ public class CategoryAdapter
         }
 
 
-        // =====================================================
-        // POPUP MENU
-        // =====================================================
+
 
         holder.imgMenu.setOnClickListener(v -> {
 
@@ -225,9 +203,7 @@ public class CategoryAdapter
     }
 
 
-    // =========================================================
-    // ITEM COUNT
-    // =========================================================
+
 
     @Override
     public int getItemCount() {
@@ -236,9 +212,7 @@ public class CategoryAdapter
     }
 
 
-    // =========================================================
-    // VIEW HOLDER
-    // =========================================================
+
 
     public static class ViewHolder
             extends RecyclerView.ViewHolder {
@@ -289,9 +263,6 @@ public class CategoryAdapter
     }
 
 
-    // =========================================================
-    // SEARCH FILTER
-    // =========================================================
 
     @Override
     public Filter getFilter() {
@@ -397,10 +368,6 @@ public class CategoryAdapter
                 }
             };
 
-
-    // =========================================================
-    // REFRESH LIST
-    // =========================================================
 
     public void refreshList(ArrayList<Category> newList) {
 

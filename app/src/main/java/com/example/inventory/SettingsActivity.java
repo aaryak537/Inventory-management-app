@@ -24,9 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    // =========================================================
-    // VIEWS
-    // =========================================================
+
 
     private ImageView profileImg;
     private ImageView next;
@@ -41,16 +39,11 @@ public class SettingsActivity extends AppCompatActivity {
 
     private LinearLayout layoutAbout;
 
-    // =========================================================
-    // FIREBASE
-    // =========================================================
+
 
     private FirebaseAuth auth;
     private DatabaseReference userRef;
 
-    // =========================================================
-    // ON CREATE
-    // =========================================================
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,18 +51,13 @@ public class SettingsActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_settings);
 
-        // =====================================================
-        // FIREBASE AUTH
-        // =====================================================
 
         auth = FirebaseAuth.getInstance();
 
         FirebaseUser currentUser =
                 auth.getCurrentUser();
 
-        // =====================================================
-        // CHECK LOGIN
-        // =====================================================
+
 
         if (currentUser == null) {
 
@@ -84,9 +72,6 @@ public class SettingsActivity extends AppCompatActivity {
             return;
         }
 
-        // =====================================================
-        // FIREBASE USER REFERENCE
-        // =====================================================
 
         String uid =
                 currentUser.getUid();
@@ -96,9 +81,7 @@ public class SettingsActivity extends AppCompatActivity {
                         .getReference("Users")
                         .child(uid);
 
-        // =====================================================
-        // FIND VIEWS
-        // =====================================================
+
 
         profileImg =
                 findViewById(R.id.profileImage);
@@ -124,21 +107,15 @@ public class SettingsActivity extends AppCompatActivity {
         next =
                 findViewById(R.id.btnNext);
 
-        // =====================================================
-        // LOAD USER DATA
-        // =====================================================
+
 
         loadUserData();
 
-        // =====================================================
-        // LOAD PROFILE IMAGE
-        // =====================================================
+
 
         loadProfileImage();
 
-        // =====================================================
-        // EDIT PROFILE
-        // =====================================================
+
 
         btnEditProfile.setOnClickListener(v -> {
 
@@ -151,10 +128,6 @@ public class SettingsActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        // =====================================================
-        // ABOUT - NEXT BUTTON
-        // =====================================================
-
         next.setOnClickListener(v -> {
 
             Intent intent =
@@ -165,10 +138,6 @@ public class SettingsActivity extends AppCompatActivity {
 
             startActivity(intent);
         });
-
-        // =====================================================
-        // ABOUT APP
-        // =====================================================
 
         layoutAbout.setOnClickListener(v -> {
 
@@ -181,9 +150,6 @@ public class SettingsActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        // =====================================================
-        // NOTIFICATION SETTING
-        // =====================================================
 
         SharedPreferences preferences =
                 getSharedPreferences(
@@ -197,7 +163,7 @@ public class SettingsActivity extends AppCompatActivity {
                         true
                 );
 
-        // Set initial value BEFORE listener
+
         switchNotification.setChecked(notification);
 
         switchNotification.setOnCheckedChangeListener(
@@ -235,9 +201,7 @@ public class SettingsActivity extends AppCompatActivity {
                 }
         );
 
-        // =====================================================
-        // LOGOUT
-        // =====================================================
+
 
         btnLogout.setOnClickListener(v -> {
 
@@ -247,9 +211,6 @@ public class SettingsActivity extends AppCompatActivity {
         });
     }
 
-    // =========================================================
-    // LOAD USER DATA
-    // =========================================================
 
     private void loadUserData() {
 
@@ -260,9 +221,7 @@ public class SettingsActivity extends AppCompatActivity {
             return;
         }
 
-        // =====================================================
-        // EMAIL FROM FIREBASE AUTH
-        // =====================================================
+
 
         String authEmail =
                 user.getEmail();
@@ -277,9 +236,6 @@ public class SettingsActivity extends AppCompatActivity {
             email.setText("No email");
         }
 
-        // =====================================================
-        // LOAD NAME FROM USERS/{UID}
-        // =====================================================
 
         userRef.child("name")
                 .addListenerForSingleValueEvent(
@@ -303,10 +259,7 @@ public class SettingsActivity extends AppCompatActivity {
 
                                 } else {
 
-                                    /*
-                                     * If Firebase database doesn't
-                                     * have a name yet, check Auth.
-                                     */
+
 
                                     if (user.getDisplayName() != null &&
                                             !user.getDisplayName()
@@ -338,9 +291,6 @@ public class SettingsActivity extends AppCompatActivity {
                 );
     }
 
-    // =========================================================
-    // LOAD PROFILE IMAGE
-    // =========================================================
 
     private void loadProfileImage() {
 
@@ -364,9 +314,7 @@ public class SettingsActivity extends AppCompatActivity {
                                                 String.class
                                         );
 
-                                // =====================================
-                                // IMAGE EXISTS
-                                // =====================================
+
 
                                 if (imageUrl != null &&
                                         !imageUrl.trim().isEmpty()) {
@@ -385,9 +333,6 @@ public class SettingsActivity extends AppCompatActivity {
 
                                 }
 
-                                // =====================================
-                                // NO IMAGE
-                                // =====================================
 
                                 else {
 
@@ -409,9 +354,6 @@ public class SettingsActivity extends AppCompatActivity {
                 );
     }
 
-    // =========================================================
-    // GO TO LOGIN
-    // =========================================================
 
     private void goToLogin() {
 
@@ -431,22 +373,13 @@ public class SettingsActivity extends AppCompatActivity {
         finish();
     }
 
-    // =========================================================
-    // REFRESH DATA WHEN RETURNING FROM EDIT PROFILE
-    // =========================================================
 
     @Override
     protected void onResume() {
 
         super.onResume();
 
-        /*
-         * This is important.
-         *
-         * When you return from EditProfileActivity,
-         * SettingsActivity loads the updated name and
-         * profile picture again.
-         */
+
 
         if (auth != null &&
                 auth.getCurrentUser() != null) {

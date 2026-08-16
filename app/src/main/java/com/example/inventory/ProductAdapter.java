@@ -28,10 +28,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     private final Context context;
 
-    // Currently displayed products
+
     private final ArrayList<Product> list;
 
-    // Complete product list used for searching
+
     private final ArrayList<Product> fullList;
 
     public ProductAdapter(Context context, ArrayList<Product> list) {
@@ -39,31 +39,25 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         this.context = context;
         this.list = list;
 
-        // Keep a separate copy for search
+
         this.fullList = new ArrayList<>(list);
     }
 
-    // =========================================================
-    // UPDATE PRODUCT LIST
-    // =========================================================
 
     public void updateList(ArrayList<Product> newList) {
 
-        // Update displayed list
+
         list.clear();
         list.addAll(newList);
 
-        // IMPORTANT:
-        // Update fullList too so search works correctly
+
         fullList.clear();
         fullList.addAll(newList);
 
         notifyDataSetChanged();
     }
 
-    // =========================================================
-    // CREATE VIEW HOLDER
-    // =========================================================
+
 
     @NonNull
     @Override
@@ -77,9 +71,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         return new ViewHolder(view);
     }
 
-    // =========================================================
-    // BIND PRODUCT DATA
-    // =========================================================
+
 
     @Override
     public void onBindViewHolder(
@@ -120,9 +112,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                 "Quantity : " + product.getQuantity()
         );
 
-        // =====================================================
-        // STOCK STATUS
-        // =====================================================
+
 
         if (product.isInStock()) {
 
@@ -139,9 +129,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             holder.txtStatus.setBackgroundColor(Color.RED);
         }
 
-        // =====================================================
-        // EDIT PRODUCT
-        // =====================================================
+
 
         holder.btnEdit.setOnClickListener(v -> {
 
@@ -178,9 +166,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             context.startActivity(intent);
         });
 
-        // =====================================================
-        // DELETE PRODUCT
-        // =====================================================
 
         holder.btnDelete.setOnClickListener(v -> {
 
@@ -258,18 +243,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         });
     }
 
-    // =========================================================
-    // ITEM COUNT
-    // =========================================================
 
     @Override
     public int getItemCount() {
         return list.size();
     }
 
-    // =========================================================
-    // VIEW HOLDER
-    // =========================================================
 
     static class ViewHolder
             extends RecyclerView.ViewHolder {
@@ -324,9 +303,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         }
     }
 
-    // =========================================================
-    // SEARCH FILTER
-    // =========================================================
 
     @Override
     public Filter getFilter() {
@@ -340,7 +316,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                 ArrayList<Product> filtered =
                         new ArrayList<>();
 
-                // No search text
+
                 if (constraint == null ||
                         constraint.length() == 0) {
 

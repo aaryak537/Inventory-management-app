@@ -77,9 +77,8 @@ public class AddProActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_addpro);
 
-        // --------------------------------
-        // Initialize Views
-        // --------------------------------
+
+
 
         proName = findViewById(R.id.etProductName);
 
@@ -110,9 +109,6 @@ public class AddProActivity extends AppCompatActivity {
         stockValue = findViewById(R.id.tvStockValue);
 
 
-        // --------------------------------
-        // Firebase User
-        // --------------------------------
 
         FirebaseUser user =
                 FirebaseAuth.getInstance().getCurrentUser();
@@ -130,9 +126,6 @@ public class AddProActivity extends AppCompatActivity {
         }
 
 
-        // --------------------------------
-        // Products Reference
-        // --------------------------------
 
         databaseReference =
                 FirebaseDatabase.getInstance()
@@ -140,26 +133,14 @@ public class AddProActivity extends AppCompatActivity {
                         .child(user.getUid());
 
 
-        // --------------------------------
-        // Categories Reference
-        // --------------------------------
-
         categoryReference =
                 FirebaseDatabase.getInstance()
                         .getReference("Categories")
-                        .child(user.getUid());
-
-
-        // --------------------------------
-        // Category List
-        // --------------------------------
+                        .child(user.getUid();
 
         categoryList = new ArrayList<>();
 
 
-        // --------------------------------
-        // Category Adapter
-        // --------------------------------
 
         ArrayList<String> categoryNames =
                 new ArrayList<>();
@@ -176,17 +157,8 @@ public class AddProActivity extends AppCompatActivity {
                 categoryAdapter
         );
 
-
-        // --------------------------------
-        // Load Firebase Categories
-        // --------------------------------
-
         loadCategories();
 
-
-        // --------------------------------
-        // Category Selection
-        // --------------------------------
 
         autoCategory.setOnItemClickListener(
                 (parent, view, position, id) -> {
@@ -214,16 +186,14 @@ public class AddProActivity extends AppCompatActivity {
         );
 
 
-        // Show dropdown when clicked
+
 
         autoCategory.setOnClickListener(
                 v -> autoCategory.showDropDown()
         );
 
 
-        // --------------------------------
-        // Image Picker
-        // --------------------------------
+
 
         imagePickerLauncher =
                 registerForActivityResult(
@@ -254,10 +224,6 @@ public class AddProActivity extends AppCompatActivity {
         );
 
 
-        // --------------------------------
-        // Calculations
-        // --------------------------------
-
         costPrice.addTextChangedListener(
                 textWatcher
         );
@@ -271,18 +237,14 @@ public class AddProActivity extends AppCompatActivity {
         );
 
 
-        // --------------------------------
-        // Save Product
-        // --------------------------------
+
 
         savePro.setOnClickListener(
                 v -> saveProduct()
         );
 
 
-        // --------------------------------
-        // Back
-        // --------------------------------
+
 
         back.setOnClickListener(v -> {
 
@@ -298,10 +260,6 @@ public class AddProActivity extends AppCompatActivity {
         });
     }
 
-
-    // =========================================================
-    // LOAD CATEGORIES FROM FIREBASE
-    // =========================================================
 
     private void loadCategories() {
 
@@ -327,8 +285,7 @@ public class AddProActivity extends AppCompatActivity {
 
                             if (category != null) {
 
-                                // Make sure ID comes
-                                // from Firebase key
+
 
                                 category.setId(
                                         ds.getKey()
@@ -376,9 +333,6 @@ public class AddProActivity extends AppCompatActivity {
     }
 
 
-    // =========================================================
-    // OPEN GALLERY
-    // =========================================================
 
     private void openGallery() {
 
@@ -393,9 +347,7 @@ public class AddProActivity extends AppCompatActivity {
     }
 
 
-    // =========================================================
-    // TEXT WATCHER
-    // =========================================================
+
 
     TextWatcher textWatcher =
             new TextWatcher() {
@@ -425,10 +377,6 @@ public class AddProActivity extends AppCompatActivity {
             };
 
 
-    // =========================================================
-    // CALCULATE VALUES
-    // =========================================================
-
     private void calculateValues() {
 
         try {
@@ -455,12 +403,12 @@ public class AddProActivity extends AppCompatActivity {
                     );
 
 
-            // Profit per product
+
             double profits =
                     sell - cost;
 
 
-            // Stock Value = Quantity × Cost Price
+
             double stockVal =
                     cost * stocks;
 
@@ -504,9 +452,7 @@ public class AddProActivity extends AppCompatActivity {
         }
     }
 
-    // =========================================================
-    // SAVE PRODUCT
-    // =========================================================
+
 
     private void saveProduct() {
 
@@ -546,9 +492,6 @@ public class AddProActivity extends AppCompatActivity {
                         .trim();
 
 
-        // --------------------------------
-        // Validate fields
-        // --------------------------------
 
         if (productName.isEmpty()
                 || proId.isEmpty()
@@ -573,10 +516,7 @@ public class AddProActivity extends AppCompatActivity {
         }
 
 
-        // --------------------------------
-        // Make sure category was selected
-        // from Firebase
-        // --------------------------------
+
 
         if (selectedCategoryId.isEmpty()) {
 
@@ -592,9 +532,6 @@ public class AddProActivity extends AppCompatActivity {
         }
 
 
-        // --------------------------------
-        // Parse values
-        // --------------------------------
 
         double cPrice;
 
@@ -635,9 +572,7 @@ public class AddProActivity extends AppCompatActivity {
         }
 
 
-        // --------------------------------
-        // Stock status
-        // --------------------------------
+
 
         String stockStatusValue;
 
@@ -658,16 +593,11 @@ public class AddProActivity extends AppCompatActivity {
         }
 
 
-        // --------------------------------
-        // Image
-        // --------------------------------
 
         String imageUrl = "";
 
 
-        // --------------------------------
-        // Create Product
-        // --------------------------------
+
 
         Product product =
                 new Product(
@@ -691,11 +621,6 @@ public class AddProActivity extends AppCompatActivity {
 
                         imageUrl
                 );
-
-
-        // --------------------------------
-        // Save to Firebase
-        // --------------------------------
 
         databaseReference
                 .child(proId)

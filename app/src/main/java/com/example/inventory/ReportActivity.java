@@ -50,9 +50,7 @@ public class ReportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
 
-        // -----------------------------
-        // FIND VIEWS
-        // -----------------------------
+
         totalPro = findViewById(R.id.txtTotalProducts);
         lowStock = findViewById(R.id.txtLowStock);
         value = findViewById(R.id.txtValue);
@@ -63,9 +61,7 @@ public class ReportActivity extends AppCompatActivity {
         good = findViewById(R.id.progressGood);
         low = findViewById(R.id.progressLow);
 
-        // -----------------------------
-        // CHECK LOGIN
-        // -----------------------------
+
         FirebaseUser currentUser =
                 FirebaseAuth.getInstance().getCurrentUser();
 
@@ -81,22 +77,13 @@ public class ReportActivity extends AppCompatActivity {
             return;
         }
 
-        // -----------------------------
-        // GET CURRENT USER UID
-        // -----------------------------
         String uid = currentUser.getUid();
 
-        // -----------------------------
-        // IMPORTANT:
-        // Products/{uid}
-        // -----------------------------
+
         productRef = FirebaseDatabase.getInstance()
                 .getReference("Products")
                 .child(uid);
 
-        // -----------------------------
-        // GENERATE REPORT
-        // -----------------------------
         btnGenerate.setOnClickListener(v -> {
 
             loadReport();
@@ -108,22 +95,15 @@ public class ReportActivity extends AppCompatActivity {
             ).show();
         });
 
-        // -----------------------------
-        // EXPORT PDF
-        // -----------------------------
+
         btnExport.setOnClickListener(v -> {
             exportPDF();
         });
 
-        // -----------------------------
-        // LOAD REPORT AUTOMATICALLY
-        // -----------------------------
+
         loadReport();
     }
 
-    // =========================================================
-    // LOAD REPORT FROM FIREBASE
-    // =========================================================
 
     private void loadReport() {
 
@@ -174,25 +154,18 @@ public class ReportActivity extends AppCompatActivity {
                             goodStock = 0;
                         }
 
-                        // -----------------------------
-                        // UPDATE TOTAL PRODUCTS
-                        // -----------------------------
+
 
                         totalPro.setText(
                                 String.valueOf(totalProducts)
                         );
 
-                        // -----------------------------
-                        // UPDATE LOW STOCK
-                        // -----------------------------
 
                         lowStock.setText(
                                 String.valueOf(lowStocks)
                         );
 
-                        // -----------------------------
-                        // UPDATE INVENTORY VALUE
-                        // -----------------------------
+
 
                         value.setText(
                                 "₹" + String.format(
@@ -202,9 +175,7 @@ public class ReportActivity extends AppCompatActivity {
                                 )
                         );
 
-                        // -----------------------------
-                        // UPDATE PROGRESS BARS
-                        // -----------------------------
+
 
                         int max =
                                 Math.max(totalProducts, 1);
@@ -232,9 +203,7 @@ public class ReportActivity extends AppCompatActivity {
                 }
         );
     }
-    // =========================================================
-    // EXPORT PDF
-    // =========================================================
+
 
     private void exportPDF() {
 
@@ -248,7 +217,7 @@ public class ReportActivity extends AppCompatActivity {
 
         text.setTextSize(16);
 
-        // Create PDF page
+
         PdfDocument.PageInfo info =
                 new PdfDocument.PageInfo.Builder(
                         595,
@@ -260,7 +229,7 @@ public class ReportActivity extends AppCompatActivity {
 
         int y = 60;
 
-        // Title
+
         page.getCanvas().drawText(
                 "Smart Shelf Inventory Report",
                 110,
@@ -270,7 +239,7 @@ public class ReportActivity extends AppCompatActivity {
 
         y += 50;
 
-        // Date
+
         String date =
                 new java.text.SimpleDateFormat(
                         "dd MMM yyyy HH:mm",
@@ -286,7 +255,7 @@ public class ReportActivity extends AppCompatActivity {
 
         y += 40;
 
-        // Total products
+
         page.getCanvas().drawText(
                 "Total Products : " + totalProducts,
                 50,
@@ -296,7 +265,7 @@ public class ReportActivity extends AppCompatActivity {
 
         y += 30;
 
-        // Good stock
+
         int goodStock =
                 totalProducts - lowStocks - outStock;
 
@@ -313,7 +282,6 @@ public class ReportActivity extends AppCompatActivity {
 
         y += 30;
 
-        // Low stock
         page.getCanvas().drawText(
                 "Low Stock : " + lowStocks,
                 50,
@@ -323,7 +291,7 @@ public class ReportActivity extends AppCompatActivity {
 
         y += 30;
 
-        // Out of stock
+
         page.getCanvas().drawText(
                 "Out Of Stock : " + outStock,
                 50,
@@ -333,7 +301,7 @@ public class ReportActivity extends AppCompatActivity {
 
         y += 30;
 
-        // Inventory value
+
         page.getCanvas().drawText(
                 "Inventory Value : ₹"
                         + String.format(
@@ -348,7 +316,7 @@ public class ReportActivity extends AppCompatActivity {
 
         y += 60;
 
-        // Footer
+
         page.getCanvas().drawText(
                 "Thank you for using Smart Shelf",
                 50,
@@ -358,9 +326,7 @@ public class ReportActivity extends AppCompatActivity {
 
         pdf.finishPage(page);
 
-        // -----------------------------------------
-        // CREATE TEMP PDF FILE
-        // -----------------------------------------
+
 
         File tempFile = new File(
                 getCacheDir(),
@@ -377,9 +343,7 @@ public class ReportActivity extends AppCompatActivity {
             fos.close();
             pdf.close();
 
-            // -----------------------------------------
-            // OPEN SAVE FILE SCREEN
-            // -----------------------------------------
+
 
             Intent intent = new Intent(
                     Intent.ACTION_CREATE_DOCUMENT
@@ -396,7 +360,7 @@ public class ReportActivity extends AppCompatActivity {
                     "Smart_Shelf_Inventory_Report.pdf"
             );
 
-            // Store temporary file path
+
             exportedPdfPath =
                     tempFile.getAbsolutePath();
 

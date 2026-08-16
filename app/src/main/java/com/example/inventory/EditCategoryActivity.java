@@ -41,9 +41,7 @@ public class EditCategoryActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_editcategory);
 
-        // =========================================
-        // FIND VIEWS
-        // =========================================
+
 
         btnBack = findViewById(R.id.btnBack);
 
@@ -60,9 +58,7 @@ public class EditCategoryActivity extends AppCompatActivity {
                 findViewById(R.id.btnUpdateCategory);
 
 
-        // =========================================
-        // GET CURRENT USER
-        // =========================================
+
 
         FirebaseUser user =
                 FirebaseAuth.getInstance()
@@ -81,9 +77,7 @@ public class EditCategoryActivity extends AppCompatActivity {
         }
 
 
-        // =========================================
-        // FIREBASE REFERENCE
-        // =========================================
+
 
         databaseReference =
                 FirebaseDatabase.getInstance()
@@ -91,9 +85,6 @@ public class EditCategoryActivity extends AppCompatActivity {
                         .child(user.getUid());
 
 
-        // =========================================
-        // GET CATEGORY DATA
-        // =========================================
 
         categoryId =
                 getIntent().getStringExtra("categoryId");
@@ -107,10 +98,6 @@ public class EditCategoryActivity extends AppCompatActivity {
         String status =
                 getIntent().getStringExtra("status");
 
-
-        // =========================================
-        // CHECK CATEGORY ID
-        // =========================================
 
         if (categoryId == null ||
                 categoryId.isEmpty()) {
@@ -126,9 +113,6 @@ public class EditCategoryActivity extends AppCompatActivity {
         }
 
 
-        // =========================================
-        // SET EXISTING VALUES
-        // =========================================
 
         etCategoryName.setText(
                 categoryName != null
@@ -143,9 +127,6 @@ public class EditCategoryActivity extends AppCompatActivity {
         );
 
 
-        // =========================================
-        // STATUS DROPDOWN
-        // =========================================
 
         String[] statusList = {
                 "Active",
@@ -177,27 +158,18 @@ public class EditCategoryActivity extends AppCompatActivity {
         }
 
 
-        // =========================================
-        // BACK
-        // =========================================
 
         btnBack.setOnClickListener(v ->
                 finish()
         );
 
 
-        // =========================================
-        // UPDATE
-        // =========================================
 
         btnUpdateCategory.setOnClickListener(v ->
                 updateCategory()
         );
 
 
-        // =========================================
-        // PROGRESS DIALOG
-        // =========================================
 
         progressDialog =
                 new ProgressDialog(this);
@@ -206,9 +178,6 @@ public class EditCategoryActivity extends AppCompatActivity {
     }
 
 
-    // =========================================================
-    // UPDATE CATEGORY
-    // =========================================================
 
     private void updateCategory() {
 
@@ -231,9 +200,7 @@ public class EditCategoryActivity extends AppCompatActivity {
                         .trim();
 
 
-        // =========================================
-        // VALIDATION
-        // =========================================
+
 
         if (TextUtils.isEmpty(name)) {
 
@@ -259,9 +226,6 @@ public class EditCategoryActivity extends AppCompatActivity {
         }
 
 
-        // =========================================
-        // SHOW PROGRESS
-        // =========================================
 
         progressDialog.setMessage(
                 "Updating Category..."
@@ -270,9 +234,6 @@ public class EditCategoryActivity extends AppCompatActivity {
         progressDialog.show();
 
 
-        // =========================================
-        // UPDATE ONLY REQUIRED FIELDS
-        // =========================================
 
         databaseReference
                 .child(categoryId)

@@ -38,7 +38,7 @@ public class CategoryActivity extends AppCompatActivity
     ArrayList<Category> categoryList;
     CategoryAdapter adapter;
 
-    // Firebase references
+
     DatabaseReference databaseReference;
     DatabaseReference productsReference;
 
@@ -47,11 +47,6 @@ public class CategoryActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_category);
-
-        // --------------------------------
-        // Initialize Views
-        // --------------------------------
-
         recyclerCategory = findViewById(R.id.recyclerCategory);
 
         etSearchCategory = findViewById(R.id.etSearchCategory);
@@ -61,11 +56,6 @@ public class CategoryActivity extends AppCompatActivity
         layoutEmpty = findViewById(R.id.layoutEmpty);
 
         fabAddCategory = findViewById(R.id.fabAddCategory);
-
-
-        // --------------------------------
-        // RecyclerView
-        // --------------------------------
 
         recyclerCategory.setLayoutManager(
                 new LinearLayoutManager(this)
@@ -83,9 +73,6 @@ public class CategoryActivity extends AppCompatActivity
         recyclerCategory.setAdapter(adapter);
 
 
-        // --------------------------------
-        // Firebase User
-        // --------------------------------
 
         FirebaseUser user =
                 FirebaseAuth.getInstance().getCurrentUser();
@@ -103,9 +90,6 @@ public class CategoryActivity extends AppCompatActivity
         }
 
 
-        // --------------------------------
-        // Categories Reference
-        // --------------------------------
 
         databaseReference =
                 FirebaseDatabase.getInstance()
@@ -113,26 +97,17 @@ public class CategoryActivity extends AppCompatActivity
                         .child(user.getUid());
 
 
-        // --------------------------------
-        // Products Reference
-        // --------------------------------
-
         productsReference =
                 FirebaseDatabase.getInstance()
                         .getReference("Products")
                         .child(user.getUid());
 
 
-        // --------------------------------
-        // Load Categories
-        // --------------------------------
+
 
         loadCategories();
 
 
-        // --------------------------------
-        // Add Category
-        // --------------------------------
 
         fabAddCategory.setOnClickListener(v -> {
 
@@ -144,11 +119,6 @@ public class CategoryActivity extends AppCompatActivity
 
             startActivity(intent);
         });
-
-
-        // --------------------------------
-        // Search
-        // --------------------------------
 
         etSearchCategory.addTextChangedListener(
                 new TextWatcher() {
@@ -180,9 +150,7 @@ public class CategoryActivity extends AppCompatActivity
     }
 
 
-    // =========================================================
-    // LOAD CATEGORIES
-    // =========================================================
+
 
     private void loadCategories() {
 
@@ -227,9 +195,7 @@ public class CategoryActivity extends AppCompatActivity
         );
     }
 
-    // =========================================================
-    // COUNT PRODUCTS
-    // =========================================================
+
 
     private void loadProductCounts() {
 
@@ -240,7 +206,7 @@ public class CategoryActivity extends AppCompatActivity
                     public void onDataChange(
                             @NonNull DataSnapshot snapshot) {
 
-                        // Reset counts
+
                         for (Category category :
                                 categoryList) {
 
@@ -248,7 +214,7 @@ public class CategoryActivity extends AppCompatActivity
                         }
 
 
-                        // Loop through products
+
                         for (DataSnapshot productSnapshot :
                                 snapshot.getChildren()) {
 
@@ -263,17 +229,14 @@ public class CategoryActivity extends AppCompatActivity
                                             .getValue(String.class);
 
 
-                            // Find matching category
+
                             for (Category category :
                                     categoryList) {
 
                                 boolean matched = false;
 
 
-                                // --------------------------------
-                                // New products
-                                // Match using categoryId
-                                // --------------------------------
+
 
                                 if (categoryId != null
                                         && !categoryId.isEmpty()
@@ -284,10 +247,6 @@ public class CategoryActivity extends AppCompatActivity
                                 }
 
 
-                                // --------------------------------
-                                // Old products
-                                // Match using category name
-                                // --------------------------------
 
                                 if (!matched
                                         && (categoryId == null
@@ -312,18 +271,13 @@ public class CategoryActivity extends AppCompatActivity
                         }
 
 
-                        // --------------------------------
-                        // Refresh Category List
-                        // --------------------------------
+
                         adapter.refreshList(new ArrayList<>(categoryList));
 
                         tvTotalCategories.setText(
                                 String.valueOf(categoryList.size())
                         );
 
-                        // --------------------------------
-                        // Empty State
-                        // --------------------------------
 
                         if (categoryList.isEmpty()) {
 
@@ -364,9 +318,7 @@ public class CategoryActivity extends AppCompatActivity
     }
 
 
-    // =========================================================
-    // EDIT CATEGORY
-    // =========================================================
+
 
     @Override
     public void onEdit(Category category) {
@@ -401,9 +353,6 @@ public class CategoryActivity extends AppCompatActivity
     }
 
 
-    // =========================================================
-    // DELETE CATEGORY
-    // =========================================================
 
     @Override
     public void onDelete(Category category) {

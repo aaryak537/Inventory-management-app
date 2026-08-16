@@ -63,9 +63,6 @@ public class DashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dash);
 
 
-        // =========================================================
-        // FIND VIEWS
-        // =========================================================
 
         forward = findViewById(R.id.forwardBtn);
 
@@ -94,9 +91,6 @@ public class DashActivity extends AppCompatActivity {
         low = findViewById(R.id.tvLowStock);
 
 
-        // =========================================================
-        // NOTIFICATION SETUP
-        // =========================================================
 
         notifyList = new ArrayList<>();
 
@@ -106,9 +100,6 @@ public class DashActivity extends AppCompatActivity {
         );
 
 
-        // =========================================================
-        // FIREBASE USER
-        // =========================================================
 
         FirebaseUser user =
                 FirebaseAuth.getInstance().getCurrentUser();
@@ -116,12 +107,6 @@ public class DashActivity extends AppCompatActivity {
 
         if (user != null) {
 
-            // -----------------------------------------------------
-            // Products path
-            // Products
-            //      └── User UID
-            //              └── Product ID
-            // -----------------------------------------------------
 
             databaseReference =
                     FirebaseDatabase
@@ -130,9 +115,6 @@ public class DashActivity extends AppCompatActivity {
                             .child(user.getUid());
 
 
-            // -----------------------------------------------------
-            // Get user name
-            // -----------------------------------------------------
 
             FirebaseDatabase
                     .getInstance()
@@ -171,16 +153,10 @@ public class DashActivity extends AppCompatActivity {
         }
 
 
-        // =========================================================
-        // LOAD DASHBOARD
-        // =========================================================
 
         loadDashboard();
 
 
-        // =========================================================
-        // LOAD NOTIFICATIONS
-        // =========================================================
 
         DatabaseReference notificationRef =
                 FirebaseDatabase
@@ -232,10 +208,6 @@ public class DashActivity extends AppCompatActivity {
                 );
 
 
-        // =========================================================
-        // ADD PRODUCT BUTTON
-        // =========================================================
-
         addProduct.setOnClickListener(
                 new View.OnClickListener() {
 
@@ -253,9 +225,6 @@ public class DashActivity extends AppCompatActivity {
         );
 
 
-        // =========================================================
-        // NOTIFICATION BUTTON
-        // =========================================================
 
         notify.setOnClickListener(v -> {
 
@@ -269,9 +238,6 @@ public class DashActivity extends AppCompatActivity {
         });
 
 
-        // =========================================================
-        // FORWARD BUTTON
-        // =========================================================
 
         forward.setOnClickListener(
                 new View.OnClickListener() {
@@ -290,9 +256,7 @@ public class DashActivity extends AppCompatActivity {
         );
 
 
-        // =========================================================
-        // PRODUCT CARD
-        // =========================================================
+
 
         Pro.setOnClickListener(
                 new View.OnClickListener() {
@@ -311,9 +275,7 @@ public class DashActivity extends AppCompatActivity {
         );
 
 
-        // =========================================================
-        // SUPPLIER CARD
-        // =========================================================
+
 
         supplier.setOnClickListener(
                 new View.OnClickListener() {
@@ -332,9 +294,7 @@ public class DashActivity extends AppCompatActivity {
         );
 
 
-        // =========================================================
-        // CATEGORY CARD
-        // =========================================================
+
 
         QCategory.setOnClickListener(
                 new View.OnClickListener() {
@@ -354,9 +314,6 @@ public class DashActivity extends AppCompatActivity {
     }
 
 
-    // =============================================================
-    // LOAD DASHBOARD DATA
-    // =============================================================
 
     private void loadDashboard() {
 
@@ -387,9 +344,6 @@ public class DashActivity extends AppCompatActivity {
                         );
 
 
-                        // -------------------------------------------------
-                        // RESET VALUES
-                        // -------------------------------------------------
 
                         totalProducts = 0;
 
@@ -400,9 +354,6 @@ public class DashActivity extends AppCompatActivity {
                         categorySet.clear();
 
 
-                        // -------------------------------------------------
-                        // READ PRODUCTS
-                        // -------------------------------------------------
 
                         for (DataSnapshot ds :
                                 snapshot.getChildren()) {
@@ -432,16 +383,12 @@ public class DashActivity extends AppCompatActivity {
                             );
 
 
-                            // -------------------------------------------------
-                            // TOTAL PRODUCTS
-                            // -------------------------------------------------
+
 
                             totalProducts++;
 
 
-                            // -------------------------------------------------
-                            // LOW STOCK
-                            // -------------------------------------------------
+
 
                             if (product.getQuantity() < 10) {
 
@@ -449,26 +396,13 @@ public class DashActivity extends AppCompatActivity {
                             }
 
 
-                            // -------------------------------------------------
-                            // STOCK VALUE
-                            //
-                            // OLD:
-                            //
-                            // Selling Price × Quantity
-                            //
-                            // NEW:
-                            //
-                            // Cost Price × Quantity
-                            // -------------------------------------------------
 
                             totalStockValue +=
                                     product.getCostPrice()
                                             * product.getQuantity();
 
 
-                            // -------------------------------------------------
-                            // CATEGORIES
-                            // -------------------------------------------------
+
 
                             if (product.getCategory() != null
                                     && !product.getCategory()
@@ -482,9 +416,7 @@ public class DashActivity extends AppCompatActivity {
                         }
 
 
-                        // =================================================
-                        // UPDATE TOTAL PRODUCTS
-                        // =================================================
+
 
                         TotalPro.setText(
                                 String.valueOf(
@@ -493,9 +425,7 @@ public class DashActivity extends AppCompatActivity {
                         );
 
 
-                        // =================================================
-                        // UPDATE LOW STOCK
-                        // =================================================
+
 
                         low.setText(
                                 String.valueOf(
@@ -504,9 +434,7 @@ public class DashActivity extends AppCompatActivity {
                         );
 
 
-                        // =================================================
-                        // UPDATE CATEGORY COUNT
-                        // =================================================
+
 
                         category.setText(
                                 String.valueOf(
@@ -515,11 +443,7 @@ public class DashActivity extends AppCompatActivity {
                         );
 
 
-                        // =================================================
-                        // UPDATE STOCK VALUE
-                        //
-                        // Cost Price × Quantity
-                        // =================================================
+
 
                         revenue.setText(
                                 String.format(
@@ -530,11 +454,7 @@ public class DashActivity extends AppCompatActivity {
                         );
 
 
-                        // =================================================
-                        // SALES
-                        //
-                        // Keeping your existing logic
-                        // =================================================
+
 
                         sales.setText(
                                 String.valueOf(
@@ -557,9 +477,6 @@ public class DashActivity extends AppCompatActivity {
         );
 
 
-        // =============================================================
-        // BOTTOM NAVIGATION
-        // =============================================================
 
         bottomNavigation.setOnItemSelectedListener(
                 item -> {

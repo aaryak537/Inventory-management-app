@@ -41,9 +41,7 @@ public class ProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
 
-        // =========================
-        // INITIALIZE VIEWS
-        // =========================
+
 
         fabAdd = findViewById(R.id.fabAddProduct);
         etSearch = findViewById(R.id.etSearch);
@@ -54,9 +52,7 @@ public class ProductActivity extends AppCompatActivity {
 
         recyclerProducts = findViewById(R.id.recyclerProducts);
 
-        // =========================
-        // INITIALIZE LIST
-        // =========================
+
 
         productList = new ArrayList<>();
 
@@ -71,9 +67,6 @@ public class ProductActivity extends AppCompatActivity {
 
         recyclerProducts.setAdapter(adapter);
 
-        // =========================
-        // FIREBASE
-        // =========================
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -94,15 +87,10 @@ public class ProductActivity extends AppCompatActivity {
             ).show();
         }
 
-        // =========================
-        // SEARCH
-        // =========================
 
         searchProduct();
 
-        // =========================
-        // ADD PRODUCT
-        // =========================
+
 
         fabAdd.setOnClickListener(v -> {
 
@@ -115,9 +103,7 @@ public class ProductActivity extends AppCompatActivity {
         });
     }
 
-    // =========================================================
-    // RELOAD WHEN ACTIVITY BECOMES VISIBLE
-    // =========================================================
+
 
     @Override
     protected void onResume() {
@@ -128,9 +114,7 @@ public class ProductActivity extends AppCompatActivity {
         }
     }
 
-    // =========================================================
-    // LOAD PRODUCTS
-    // =========================================================
+
 
     private void loadProducts() {
 
@@ -150,9 +134,7 @@ public class ProductActivity extends AppCompatActivity {
                         double stockValue = 0;
                         int lowStockCount = 0;
 
-                        // =========================
-                        // READ PRODUCTS
-                        // =========================
+
 
                         for (DataSnapshot ds : snapshot.getChildren()) {
 
@@ -186,9 +168,6 @@ public class ProductActivity extends AppCompatActivity {
                             }
                         }
 
-                        // =========================
-                        // UPDATE SUMMARY
-                        // =========================
 
                         int totalProducts =
                                 productList.size();
@@ -208,10 +187,7 @@ public class ProductActivity extends AppCompatActivity {
                                 String.valueOf(lowStockCount)
                         );
 
-                        // =================================================
-                        // VERY IMPORTANT
-                        // TELL RECYCLERVIEW THAT DATA HAS CHANGED
-                        // =================================================
+
 
                         adapter.notifyDataSetChanged();
 
@@ -232,9 +208,7 @@ public class ProductActivity extends AppCompatActivity {
         );
     }
 
-    // =========================================================
-    // SEARCH PRODUCTS
-    // =========================================================
+
 
     private void searchProduct() {
 

@@ -28,9 +28,6 @@ import java.util.Set;
 
 public class SupplierActivity extends AppCompatActivity {
 
-    // =====================================================
-    // VIEWS
-    // =====================================================
 
     private EditText searchSupplier;
 
@@ -38,15 +35,13 @@ public class SupplierActivity extends AppCompatActivity {
 
     private FloatingActionButton fabAddSupplier;
 
-    // Statistics
+
     private TextView tvTotalSuppliers;
     private TextView tvSupplierCompanies;
     private TextView tvSuppliersWithEmail;
 
 
-    // =====================================================
-    // DATA
-    // =====================================================
+
 
     private ArrayList<Supplier> supplierList;
 
@@ -63,9 +58,7 @@ public class SupplierActivity extends AppCompatActivity {
         setContentView(R.layout.activity_supplier);
 
 
-        // =====================================================
-        // FIND VIEWS
-        // =====================================================
+
 
         searchSupplier =
                 findViewById(R.id.searchSupplier);
@@ -77,7 +70,7 @@ public class SupplierActivity extends AppCompatActivity {
                 findViewById(R.id.fabAddSupplier);
 
 
-        // Statistics
+
 
         tvTotalSuppliers =
                 findViewById(R.id.tvTotalSuppliers);
@@ -89,18 +82,14 @@ public class SupplierActivity extends AppCompatActivity {
                 findViewById(R.id.tvSuppliersWithEmail);
 
 
-        // =====================================================
-        // RECYCLER VIEW
-        // =====================================================
+
 
         recyclerSupplier.setLayoutManager(
                 new LinearLayoutManager(this)
         );
 
 
-        // =====================================================
-        // SUPPLIER LIST
-        // =====================================================
+
 
         supplierList =
                 new ArrayList<>();
@@ -116,9 +105,6 @@ public class SupplierActivity extends AppCompatActivity {
         recyclerSupplier.setAdapter(adapter);
 
 
-        // =====================================================
-        // CHECK LOGIN
-        // =====================================================
 
         FirebaseUser user =
                 FirebaseAuth
@@ -140,23 +126,7 @@ public class SupplierActivity extends AppCompatActivity {
         }
 
 
-        // =====================================================
-        // FIREBASE REFERENCE
-        // =====================================================
 
-        /*
-         *
-         * Firebase structure:
-         *
-         * Suppliers
-         *      |
-         *      └── USER_UID
-         *             |
-         *             ├── SUPPLIER_ID
-         *             ├── SUPPLIER_ID
-         *             └── SUPPLIER_ID
-         *
-         */
 
         supplierRef =
                 FirebaseDatabase
@@ -165,16 +135,10 @@ public class SupplierActivity extends AppCompatActivity {
                         .child(user.getUid());
 
 
-        // =====================================================
-        // LOAD SUPPLIERS
-        // =====================================================
 
         loadSuppliers();
 
 
-        // =====================================================
-        // ADD SUPPLIER BUTTON
-        // =====================================================
 
         fabAddSupplier.setOnClickListener(v -> {
 
@@ -188,9 +152,6 @@ public class SupplierActivity extends AppCompatActivity {
         });
 
 
-        // =====================================================
-        // SEARCH SUPPLIER
-        // =====================================================
 
         searchSupplier.addTextChangedListener(
                 new TextWatcher() {
@@ -226,9 +187,6 @@ public class SupplierActivity extends AppCompatActivity {
     }
 
 
-    // =========================================================
-    // LOAD SUPPLIERS FROM FIREBASE
-    // =========================================================
 
     private void loadSuppliers() {
 
@@ -239,31 +197,23 @@ public class SupplierActivity extends AppCompatActivity {
                     public void onDataChange(
                             @NonNull DataSnapshot snapshot) {
 
-                        // Clear old data
+
                         supplierList.clear();
 
 
-                        // =================================================
-                        // STATISTICS
-                        // =================================================
+
 
                         int totalSuppliers = 0;
 
                         int suppliersWithEmail = 0;
 
 
-                        /*
-                         * HashSet prevents duplicate company
-                         * names from being counted twice.
-                         */
+
 
                         Set<String> companies =
                                 new HashSet<>();
 
 
-                        // =================================================
-                        // READ SUPPLIERS
-                        // =================================================
 
                         for (DataSnapshot ds :
                                 snapshot.getChildren()) {
@@ -280,14 +230,7 @@ public class SupplierActivity extends AppCompatActivity {
                             }
 
 
-                            // =============================================
-                            // SUPPLIER ID
-                            // =============================================
 
-                            /*
-                             * If ID doesn't exist inside
-                             * Firebase, use the child key.
-                             */
 
                             if (supplier.getId() == null
                                     ||
@@ -301,25 +244,14 @@ public class SupplierActivity extends AppCompatActivity {
                             }
 
 
-                            // =============================================
-                            // ADD TO LIST
-                            // =============================================
-
                             supplierList.add(
                                     supplier
                             );
 
 
-                            // =============================================
-                            // TOTAL SUPPLIERS
-                            // =============================================
 
                             totalSuppliers++;
 
-
-                            // =============================================
-                            // COMPANY COUNT
-                            // =============================================
 
                             String company =
                                     supplier.getCompany();
@@ -339,9 +271,6 @@ public class SupplierActivity extends AppCompatActivity {
                             }
 
 
-                            // =============================================
-                            // EMAIL COUNT
-                            // =============================================
 
                             String email =
                                     supplier.getEmail();
@@ -358,18 +287,12 @@ public class SupplierActivity extends AppCompatActivity {
                         }
 
 
-                        // =================================================
-                        // UPDATE RECYCLER
-                        // =================================================
 
                         adapter.updateList(
                                 supplierList
                         );
 
 
-                        // =================================================
-                        // UPDATE TOTAL
-                        // =================================================
 
                         tvTotalSuppliers.setText(
                                 String.valueOf(
@@ -378,9 +301,6 @@ public class SupplierActivity extends AppCompatActivity {
                         );
 
 
-                        // =================================================
-                        // UPDATE COMPANIES
-                        // =================================================
 
                         tvSupplierCompanies.setText(
                                 String.valueOf(
@@ -389,9 +309,6 @@ public class SupplierActivity extends AppCompatActivity {
                         );
 
 
-                        // =================================================
-                        // UPDATE EMAIL COUNT
-                        // =================================================
 
                         tvSuppliersWithEmail.setText(
                                 String.valueOf(
@@ -401,9 +318,6 @@ public class SupplierActivity extends AppCompatActivity {
                     }
 
 
-                    // =====================================================
-                    // FIREBASE ERROR
-                    // =====================================================
 
                     @Override
                     public void onCancelled(

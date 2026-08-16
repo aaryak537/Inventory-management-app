@@ -29,16 +29,14 @@ public class SupplierAdapter extends RecyclerView.Adapter<SupplierAdapter.ViewHo
 
     private final Context context;
 
-    // Displayed list
+
     private final ArrayList<Supplier> supplierList;
 
-    // Complete list used for searching
+
     private final ArrayList<Supplier> supplierListFull;
 
 
-    // =========================================================
-    // CONSTRUCTOR
-    // =========================================================
+
 
     public SupplierAdapter(
             Context context,
@@ -46,8 +44,6 @@ public class SupplierAdapter extends RecyclerView.Adapter<SupplierAdapter.ViewHo
 
         this.context = context;
 
-        // IMPORTANT:
-        // Make independent copies.
         this.supplierList =
                 new ArrayList<>(supplierList);
 
@@ -56,9 +52,6 @@ public class SupplierAdapter extends RecyclerView.Adapter<SupplierAdapter.ViewHo
     }
 
 
-    // =========================================================
-    // CREATE VIEW HOLDER
-    // =========================================================
 
     @NonNull
     @Override
@@ -79,9 +72,7 @@ public class SupplierAdapter extends RecyclerView.Adapter<SupplierAdapter.ViewHo
     }
 
 
-    // =========================================================
-    // BIND SUPPLIER
-    // =========================================================
+
 
     @Override
     public void onBindViewHolder(
@@ -92,33 +83,31 @@ public class SupplierAdapter extends RecyclerView.Adapter<SupplierAdapter.ViewHo
                 supplierList.get(position);
 
 
-        // Supplier name
+
         holder.txtSupplierName.setText(
                 safeText(supplier.getName())
         );
 
 
-        // Company
+
         holder.txtCompany.setText(
                 safeText(supplier.getCompany())
         );
 
 
-        // Phone
+
         holder.txtPhone.setText(
                 safeText(supplier.getPhone())
         );
 
 
-        // Email
+
         holder.txtEmail.setText(
                 safeText(supplier.getEmail())
         );
 
 
-        // =====================================================
-        // MORE BUTTON
-        // =====================================================
+
 
         holder.btnMore.setOnClickListener(v -> {
 
@@ -143,9 +132,7 @@ public class SupplierAdapter extends RecyclerView.Adapter<SupplierAdapter.ViewHo
                     item -> {
 
 
-                        // =====================================
-                        // EDIT
-                        // =====================================
+
 
                         if (item.getItemId()
                                 == R.id.menuEdit) {
@@ -193,9 +180,7 @@ public class SupplierAdapter extends RecyclerView.Adapter<SupplierAdapter.ViewHo
                         }
 
 
-                        // =====================================
-                        // DELETE
-                        // =====================================
+
 
                         if (item.getItemId()
                                 == R.id.menuDelete) {
@@ -217,10 +202,6 @@ public class SupplierAdapter extends RecyclerView.Adapter<SupplierAdapter.ViewHo
         });
     }
 
-
-    // =========================================================
-    // DELETE SUPPLIER
-    // =========================================================
 
     private void deleteSupplier(
             Supplier supplier) {
@@ -252,9 +233,6 @@ public class SupplierAdapter extends RecyclerView.Adapter<SupplierAdapter.ViewHo
     }
 
 
-    // =========================================================
-    // DELETE FROM FIREBASE
-    // =========================================================
 
     private void deleteFromFirebase(
             Supplier supplier) {
@@ -321,9 +299,7 @@ public class SupplierAdapter extends RecyclerView.Adapter<SupplierAdapter.ViewHo
     }
 
 
-    // =========================================================
-    // ITEM COUNT
-    // =========================================================
+
 
     @Override
     public int getItemCount() {
@@ -332,21 +308,10 @@ public class SupplierAdapter extends RecyclerView.Adapter<SupplierAdapter.ViewHo
     }
 
 
-    // =========================================================
-    // UPDATE LIST
-    // =========================================================
 
     public void updateList(
             ArrayList<Supplier> list) {
 
-        /*
-         * IMPORTANT:
-         *
-         * Do NOT keep the Activity's ArrayList
-         * reference.
-         *
-         * Make a copy first.
-         */
 
         supplierList.clear();
 
@@ -372,9 +337,7 @@ public class SupplierAdapter extends RecyclerView.Adapter<SupplierAdapter.ViewHo
     }
 
 
-    // =========================================================
-    // SEARCH
-    // =========================================================
+
 
     @Override
     public Filter getFilter() {
@@ -394,7 +357,7 @@ public class SupplierAdapter extends RecyclerView.Adapter<SupplierAdapter.ViewHo
                             new ArrayList<>();
 
 
-                    // No search
+
                     if (constraint == null
                             ||
                             constraint.length() == 0) {
@@ -497,19 +460,12 @@ public class SupplierAdapter extends RecyclerView.Adapter<SupplierAdapter.ViewHo
             };
 
 
-    // =========================================================
-    // SAFE TEXT
-    // =========================================================
 
     private String safeText(String value) {
 
         return value == null ? "" : value;
     }
 
-
-    // =========================================================
-    // VIEW HOLDER
-    // =========================================================
 
     public static class ViewHolder
             extends RecyclerView.ViewHolder {
