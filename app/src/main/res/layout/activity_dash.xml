@@ -6,7 +6,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context=".DashActivity">
 
     <ScrollView
@@ -26,7 +25,7 @@
             android:orientation="vertical"
             android:paddingBottom="100dp">
 
-            <!-- ================= Header ================= -->
+            <!-- ================= HEADER ================= -->
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
@@ -155,7 +154,143 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- ================= Statistics ================= -->
+
+            <!-- ================= STATISTICS ================= -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="24dp"
+                android:text="Business Analytics"
+                android:textColor="#1F2937"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal">
+
+
+                <!-- ================= REVENUE ================= -->
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="170dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="22dp"
+                    app:cardElevation="6dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#EEF4FF"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="18dp">
+
+                        <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:background="@drawable/circle_blue"
+                            android:padding="14dp"
+                            android:src="@drawable/ic_money"
+                            app:tint="@android:color/white" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="14dp"
+                            android:text="Revenue"
+                            android:textColor="#64748B"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/tvRevenue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="₹0"
+                            android:textColor="#2563EB"
+                            android:textSize="26sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="Total Sales"
+                            android:textColor="#94A3B8"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <!-- ================= SALES ================= -->
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="170dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="22dp"
+                    app:cardElevation="6dp">
+
+                    <LinearLayout
+                        android:id="@+id/llSales"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#F0FFF4"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="18dp">
+
+                        <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:background="@drawable/circle_green"
+                            android:padding="14dp"
+                            android:src="@drawable/ic_sales"
+                            app:tint="@android:color/white" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="14dp"
+                            android:text="Sales"
+                            android:textColor="#64748B"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/tvSales"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="0"
+                            android:textColor="#16A34A"
+                            android:textSize="26sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="Quantity Sold"
+                            android:textColor="#94A3B8"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -167,7 +302,8 @@
                 android:textSize="20sp"
                 android:textStyle="bold"/>
 
-            <!-- Total Products -->
+
+            <!-- ================= TOTAL PRODUCTS ================= -->
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
@@ -179,6 +315,7 @@
                 app:cardElevation="5dp">
 
                 <LinearLayout
+                    android:id="@+id/llProduct"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
@@ -191,7 +328,7 @@
                         android:background="@drawable/circle_blue"
                         android:padding="14dp"
                         android:src="@drawable/ic_package"
-                        app:tint="@android:color/white"/>
+                        app:tint="@android:color/white" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -205,7 +342,7 @@
                             android:layout_height="wrap_content"
                             android:text="Total Products"
                             android:textColor="#6B7280"
-                            android:textSize="15sp"/>
+                            android:textSize="15sp" />
 
                         <TextView
                             android:id="@+id/tvTotalProducts"
@@ -214,7 +351,7 @@
                             android:text="0"
                             android:textColor="#111827"
                             android:textSize="34sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -223,13 +360,14 @@
                         android:layout_width="28dp"
                         android:layout_height="28dp"
                         android:src="@drawable/ic_arrow_forward"
-                        app:tint="#9CA3AF"/>
+                        app:tint="#9CA3AF" />
 
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Low Stock + Categories -->
+
+            <!-- ================= LOW STOCK + CATEGORIES ================= -->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -239,7 +377,8 @@
                 android:layout_marginEnd="16dp"
                 android:orientation="horizontal">
 
-                <!-- Low Stock -->
+
+                <!-- LOW STOCK -->
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
@@ -283,7 +422,8 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- Categories -->
+
+                <!-- CATEGORIES -->
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
@@ -297,7 +437,6 @@
                         android:id="@+id/llCategory"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="8dp"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="16dp">
@@ -331,232 +470,81 @@
                 </com.google.android.material.card.MaterialCardView>
 
             </LinearLayout>
-            <!-- ================= Revenue & Sales ================= -->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="24dp"
-                android:text="Business Analytics"
-                android:textColor="#1F2937"
-                android:textSize="20sp"
-                android:textStyle="bold" />
 
-            <LinearLayout
+            <!-- ================= SUPPLIERS ================= -->
+
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="110dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:orientation="horizontal">
-
-                <!-- Revenue Card -->
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="0dp"
-                    android:layout_height="170dp"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="8dp"
-                    app:cardCornerRadius="22dp"
-                    app:cardElevation="6dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="#EEF4FF"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="18dp">
-
-                        <ImageView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:background="@drawable/circle_blue"
-                            android:padding="14dp"
-                            android:src="@drawable/ic_money"
-                            app:tint="@android:color/white" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="14dp"
-                            android:text="Revenue"
-                            android:textColor="#64748B"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:id="@+id/tvRevenue"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:text="₹0"
-                            android:textColor="#2563EB"
-                            android:textSize="26sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:text="Inventory Value"
-                            android:textColor="#94A3B8"
-                            android:textSize="12sp" />
-
-                    </LinearLayout>
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <!-- Sales Card -->
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="0dp"
-                    android:layout_height="170dp"
-                    android:layout_weight="1"
-                    android:layout_marginStart="8dp"
-                    app:cardCornerRadius="22dp"
-                    app:cardElevation="6dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="#F0FFF4"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="18dp">
-
-                        <ImageView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:background="@drawable/circle_green"
-                            android:padding="14dp"
-                            android:src="@drawable/ic_sales"
-                            app:tint="@android:color/white" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="14dp"
-                            android:text="Sales"
-                            android:textColor="#64748B"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:id="@+id/tvSales"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:text="0"
-                            android:textColor="#16A34A"
-                            android:textSize="26sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:text="Products Added"
-                            android:textColor="#94A3B8"
-                            android:textSize="12sp" />
-
-                    </LinearLayout>
-
-                </com.google.android.material.card.MaterialCardView>
-
-            </LinearLayout>
-            <!-- ================= Quick Actions ================= -->
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="24dp"
-                android:text="Quick Actions"
-                android:textColor="#1F2937"
-                android:textSize="20sp"
-                android:textStyle="bold"/>
-
-            <!-- Row 1 -->
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:orientation="horizontal">
-
-                <!-- Products -->
+                app:cardCornerRadius="22dp"
+                app:cardElevation="5dp">
 
                 <LinearLayout
-                    android:id="@+id/llProduct"
-                    android:layout_width="0dp"
-                    android:layout_height="135dp"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/bg_action_card"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    android:id="@+id/llSupplier"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="18dp">
 
                     <ImageView
                         android:layout_width="58dp"
                         android:layout_height="58dp"
-                        android:background="@drawable/circle_blue"
+                        android:background="@drawable/circle_orange"
                         android:padding="14dp"
-                        android:src="@drawable/ic_package"
-                        app:tint="@android:color/white"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="14dp"
-                        android:text="Products"
-                        android:textColor="#111827"
-                        android:textSize="17sp"
-                        android:textStyle="bold"/>
-
-                </LinearLayout>
-                    <!-- Suppliers -->
+                        android:src="@drawable/ic_supplier"
+                        app:tint="@android:color/white" />
 
                     <LinearLayout
-                        android:id="@+id/llSupply"
                         android:layout_width="0dp"
-                        android:layout_height="135dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="18dp"
                         android:layout_weight="1"
-                        android:layout_marginEnd="8dp"
-                        android:background="@drawable/bg_action_card"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="16dp">
-
-                        <ImageView
-                            android:layout_width="58dp"
-                            android:layout_height="58dp"
-                            android:background="@drawable/circle_orange"
-                            android:padding="14dp"
-                            android:src="@drawable/ic_supplier"
-                            app:tint="@android:color/white"/>
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="14dp"
                             android:text="Suppliers"
+                            android:textColor="#6B7280"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/tvSuppliers"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
                             android:textColor="#111827"
-                            android:textSize="17sp"
-                            android:textStyle="bold"/>
+                            android:textSize="34sp"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
-            </LinearLayout>
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/ic_arrow_forward"
+                        app:tint="#9CA3AF" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <!-- ================= BUSINESS ANALYTICS ================= -->
+
+
         </LinearLayout>
 
     </ScrollView>
+
+
+    <!-- ================= FLOATING ADD PRODUCT ================= -->
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddProduct"
         android:layout_width="60dp"
@@ -571,6 +559,10 @@
         app:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+
+
+    <!-- ================= BOTTOM NAVIGATION ================= -->
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
         android:layout_width="0dp"
@@ -584,5 +576,6 @@
         app:menu="@menu/bottom_nav_menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

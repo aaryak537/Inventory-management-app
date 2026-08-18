@@ -81,6 +81,14 @@
             android:name=".EditProActivity"
             android:exported="false"/>
 
+        <activity
+            android:name=".OutgoingSalesActivity"
+            android:exported="false"/>
+
+        <activity
+            android:name=".AddSaleActivity"
+            android:exported="false"/>
+
 
         <!-- Other Screens -->
 
