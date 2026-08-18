@@ -537,7 +537,7 @@
                 android:background="@drawable/bg_outline_button"
                 android:text="Export Full Report to Excel"
                 android:textAllCaps="false"
-                android:textColor="#1565C0"
+                android:textColor="#FFFFFF"
                 android:textSize="17sp"/>
 
 

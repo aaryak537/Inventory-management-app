@@ -82,7 +82,15 @@
             android:exported="false"/>
 
         <activity
+            android:name=".IncomingPurchaseActivity"
+            android:exported="false"/>
+
+        <activity
             android:name=".OutgoingSalesActivity"
+            android:exported="false"/>
+
+        <activity
+            android:name=".AddPurchaseActivity"
             android:exported="false"/>
 
         <activity
