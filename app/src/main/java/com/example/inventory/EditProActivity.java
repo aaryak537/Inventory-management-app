@@ -139,66 +139,66 @@ public class EditProActivity extends AppCompatActivity {
         databaseReference.child(proId)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
 
-                            @Override
-                            public void onDataChange(
-                                    @NonNull DataSnapshot snapshot) {
+                    @Override
+                    public void onDataChange(
+                            @NonNull DataSnapshot snapshot) {
 
-                                if (!snapshot.exists()) {
+                        if (!snapshot.exists()) {
 
-                                    Toast.makeText(EditProActivity.this,
-                                            "Product not found",
-                                            Toast.LENGTH_SHORT).show();
-                                    finish();
-                                    return;
-                                }
+                            Toast.makeText(EditProActivity.this,
+                                    "Product not found",
+                                    Toast.LENGTH_SHORT).show();
+                            finish();
+                            return;
+                        }
 
-                                Product product = snapshot.getValue(Product.class);
+                        Product product = snapshot.getValue(Product.class);
 
-                                if (product == null)
-                                    return;
+                        if (product == null)
+                            return;
 
-                                productName.setText(product.getProductName());
+                        productName.setText(product.getProductName());
 
-                                costPrice.setText(String.valueOf(
-                                                product.getCostPrice()));
+                        costPrice.setText(String.valueOf(
+                                product.getCostPrice()));
 
-                                sellingPrice.setText(String.valueOf(
-                                                product.getSellingPrice()));
+                        sellingPrice.setText(String.valueOf(
+                                product.getSellingPrice()));
 
-                                etStock.setText(String.valueOf(
-                                                product.getQuantity()));
+                        etStock.setText(String.valueOf(
+                                product.getQuantity()));
 
-                                etDescription.setText(product.getDescription());
+                        etDescription.setText(product.getDescription());
 
-                                imgUrl = product.getImageUrl();
+                        imgUrl = product.getImageUrl();
 
-                                if (imgUrl != null && !imgUrl.isEmpty()) {
+                        if (imgUrl != null && !imgUrl.isEmpty()) {
 
-                                    Glide.with(EditProActivity.this)
-                                            .load(imgUrl)
-                                            .into(imgPro);
+                            Glide.with(EditProActivity.this)
+                                    .load(imgUrl)
+                                    .into(imgPro);
 
-                                }
+                        }
 
-                                for (int i = 0; i < categories.length; i++) {
+                        for (int i = 0; i < categories.length; i++) {
 
-                                    if (categories[i].equalsIgnoreCase(
-                                            product.getCategory())) {
+                            if (categories[i].equalsIgnoreCase(
+                                    product.getCategory())) {
 
-                                        spCategory.setText(categories[i], false);
-                                        break;
-                                    }
-                                }
+                                spCategory.setText(categories[i], false);
+                                break;
                             }
+                        }
+                    }
 
-                            @Override
-                            public void onCancelled(
-                                    @NonNull DatabaseError error) {
+                    @Override
+                    public void onCancelled(
+                            @NonNull DatabaseError error) {
 
-                                Toast.makeText(EditProActivity.this, error.getMessage(),
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        Toast.makeText(EditProActivity.this, error.getMessage(),
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
     private void uploadImage() {
 
@@ -270,7 +270,7 @@ public class EditProActivity extends AppCompatActivity {
 
         if (quantity <= 0) {
             stockStatus = "Out of Stock";
-        } else if (quantity <= 10) {
+        } else if (quantity <= StockUtils.LOW_STOCK_LIMIT) {
             stockStatus = "Low Stock";
         } else {
             stockStatus = "In Stock";

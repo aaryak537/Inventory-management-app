@@ -522,24 +522,24 @@ public class AddPurchaseActivity extends AppCompatActivity {
                                     return;
                                 }
 
-                                if (snapshot.hasChild("stock")) {
-
-                                    currentStock =
-                                            getIntValue(
-                                                    snapshot.child(
-                                                            "stock"
-                                                    )
-                                            );
-
-                                } else if (
-                                        snapshot.hasChild(
-                                                "quantity"
-                                        )) {
+                                // Quantity is the source of truth.
+                                // "stock" is a status string in current records.
+                                if (snapshot.hasChild("quantity")) {
 
                                     currentStock =
                                             getIntValue(
                                                     snapshot.child(
                                                             "quantity"
+                                                    )
+                                            );
+
+                                } else if (snapshot.hasChild("stock")) {
+
+                                    // Legacy records may contain numeric stock.
+                                    currentStock =
+                                            getIntValue(
+                                                    snapshot.child(
+                                                            "stock"
                                                     )
                                             );
                                 }
@@ -929,7 +929,7 @@ public class AddPurchaseActivity extends AppCompatActivity {
 
         stockUpdates.put(
                 "stock",
-                newStock
+                StockUtils.getStockStatus(newStock)
         );
 
         stockUpdates.put(
@@ -971,7 +971,7 @@ public class AddPurchaseActivity extends AppCompatActivity {
 
                                                 revert.put(
                                                         "stock",
-                                                        currentStock
+                                                        StockUtils.getStockStatus(currentStock)
                                                 );
 
                                                 revert.put(

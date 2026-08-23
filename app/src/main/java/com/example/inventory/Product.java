@@ -350,7 +350,7 @@ public class Product {
     public String getStockStatus() {
 
         return getCalculatedStockStatus(
-                quantity
+                getEffectiveQuantity()
         );
     }
 
@@ -359,18 +359,7 @@ public class Product {
             int quantity
     ) {
 
-        if (quantity <= 0) {
-
-            return "Out of Stock";
-
-        } else if (quantity <= 10) {
-
-            return "Low Stock";
-
-        } else {
-
-            return "In Stock";
-        }
+        return StockUtils.getStockStatus(quantity);
     }
 
 
@@ -383,7 +372,41 @@ public class Product {
     @Exclude
     public boolean isInStock() {
 
-        return quantity > 0;
+        return getEffectiveQuantity() > 0;
+    }
+
+
+    // ============================================================
+    // EFFECTIVE QUANTITY
+    //
+    // Quantity is the primary source of truth. For older Firebase
+    // records that stored a numeric value in "stock" instead of
+    // "quantity", use that numeric stock as a safe fallback.
+    // ============================================================
+
+    @Exclude
+    public int getEffectiveQuantity() {
+
+        if (quantity > 0) {
+            return quantity;
+        }
+
+        if (stock != null) {
+
+            try {
+                double numericStock =
+                        Double.parseDouble(stock.trim());
+
+                if (numericStock >= 0) {
+                    return (int) numericStock;
+                }
+
+            } catch (Exception ignored) {
+                // Stock contains a status such as "Low Stock".
+            }
+        }
+
+        return 0;
     }
 
 

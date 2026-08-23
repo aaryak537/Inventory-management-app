@@ -104,6 +104,10 @@
             android:name=".ReportActivity"
             android:exported="false"/>
 
+        <activity
+            android:name=".InventoryMovementActivity"
+            android:exported="false"/>
+
 
         <activity
             android:name=".SettingsActivity"

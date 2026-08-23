@@ -118,16 +118,16 @@ public class AddProActivity extends AppCompatActivity {
         String uid = user.getUid();
 
         productsReference = FirebaseDatabase.getInstance()
-                        .getReference("Products")
-                        .child(uid);
+                .getReference("Products")
+                .child(uid);
 
         categoriesReference = FirebaseDatabase.getInstance()
-                        .getReference("Categories")
-                        .child(uid);
+                .getReference("Categories")
+                .child(uid);
 
         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this,
-                        android.R.layout.simple_dropdown_item_1line,
-                        new ArrayList<>(BASIC_CATEGORIES));
+                android.R.layout.simple_dropdown_item_1line,
+                new ArrayList<>(BASIC_CATEGORIES));
 
         autoCategory.setAdapter(categoryAdapter);
         autoCategory.setKeyListener(null);
@@ -137,7 +137,7 @@ public class AddProActivity extends AppCompatActivity {
                 (parent, view, position, id) -> {
 
                     selectedCategoryName = parent.getItemAtPosition(position)
-                                    .toString();
+                            .toString();
 
                     selectedCategoryId = createCategoryKey(selectedCategoryName);
                 }
@@ -149,11 +149,11 @@ public class AddProActivity extends AppCompatActivity {
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                                imageUri = result.getData().getData();
-                                proImg.setImageURI(imageUri);
-                            }
-                        }
-                );
+                        imageUri = result.getData().getData();
+                        proImg.setImageURI(imageUri);
+                    }
+                }
+        );
 
         proImg.setOnClickListener(v -> openGallery());
 
@@ -273,7 +273,7 @@ public class AddProActivity extends AppCompatActivity {
 
         if (quantity <= 0) {
             stockStatusValue = "Out of Stock";
-        } else if (quantity <= 10) {
+        } else if (quantity <= StockUtils.LOW_STOCK_LIMIT) {
             stockStatusValue = "Low Stock";
         } else {
             stockStatusValue = "In Stock";
@@ -282,17 +282,17 @@ public class AddProActivity extends AppCompatActivity {
         String categoryId = createCategoryKey(category);
 
         Product product = new Product(
-                        productName,
-                        categoryId,
-                        category,
-                        quantity,
-                        brandName,
-                        cPrice,
-                        sellPrice,
-                        stockStatusValue,
-                        describe,
-                        ""
-                );
+                productName,
+                categoryId,
+                category,
+                quantity,
+                brandName,
+                cPrice,
+                sellPrice,
+                stockStatusValue,
+                describe,
+                ""
+        );
 
         productsReference.child(proId).setValue(product)
                 .addOnSuccessListener(
@@ -360,7 +360,7 @@ public class AddProActivity extends AppCompatActivity {
             if (stocks <= 0) {
                 stockStatus.setText("Out of Stock");
 
-            } else if (stocks <= 10) {
+            } else if (stocks <= StockUtils.LOW_STOCK_LIMIT) {
                 stockStatus.setText("Low Stock");
 
             } else {

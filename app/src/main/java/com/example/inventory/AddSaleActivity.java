@@ -360,7 +360,7 @@ public class AddSaleActivity extends AppCompatActivity {
                                  * Only show products that
                                  * actually have stock.
                                  */
-                                if (product.getQuantity() > 0) {
+                                if (product.getEffectiveQuantity() > 0) {
 
                                     productList.add(product);
 
@@ -441,7 +441,7 @@ public class AddSaleActivity extends AppCompatActivity {
         // Available stock
         tvAvailableStock.setText(
                 String.valueOf(
-                        selectedProduct.getQuantity()
+                        selectedProduct.getEffectiveQuantity()
                 )
         );
 
@@ -581,7 +581,7 @@ public class AddSaleActivity extends AppCompatActivity {
         // --------------------------------------------------------
 
         int availableStock =
-                selectedProduct.getQuantity();
+                selectedProduct.getEffectiveQuantity();
 
         if (availableStock <= 0) {
 
@@ -813,9 +813,7 @@ public class AddSaleActivity extends AppCompatActivity {
 
         productUpdates.put(
                 "stock",
-                newStock > 0
-                        ? "In Stock"
-                        : "Out of Stock"
+                StockUtils.getStockStatus(newStock)
         );
 
 

@@ -33,7 +33,7 @@
             android:text="Business Reports"
             android:textColor="#FFFFFF"
             android:textSize="28sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -41,7 +41,7 @@
             android:layout_marginTop="6dp"
             android:text="Inventory, sales and business performance"
             android:textColor="#DDEEFF"
-            android:textSize="15sp"/>
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/txtReportDate"
@@ -50,13 +50,13 @@
             android:layout_marginTop="18dp"
             android:text="Report ready"
             android:textColor="#FFFFFF"
-            android:textSize="13sp"/>
+            android:textSize="13sp" />
 
     </LinearLayout>
 
 
     <!-- ========================================================= -->
-    <!-- CONTENT -->
+    <!-- SCROLL CONTENT -->
     <!-- ========================================================= -->
 
     <ScrollView
@@ -85,24 +85,23 @@
                 android:text="Inventory Summary"
                 android:textColor="#1565C0"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="8dp"/>
+                android:textStyle="bold" />
 
+
+            <!-- TOTAL PRODUCTS + LOW STOCK -->
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal"
                 android:weightSum="2">
-
-
-                <!-- TOTAL PRODUCTS -->
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
                     android:layout_height="125dp"
-                    android:layout_weight="1"
                     android:layout_margin="5dp"
+                    android:layout_weight="1"
                     app:cardCornerRadius="18dp"
                     app:cardElevation="5dp">
 
@@ -110,14 +109,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="10dp">
+                        android:orientation="vertical">
 
                         <ImageView
                             android:layout_width="35dp"
                             android:layout_height="35dp"
-                            android:src="@drawable/ic_package"
-                            android:contentDescription="Products"/>
+                            android:contentDescription="Products"
+                            android:src="@drawable/ic_package" />
 
                         <TextView
                             android:id="@+id/txtTotalProducts"
@@ -127,26 +125,24 @@
                             android:text="0"
                             android:textColor="#1565C0"
                             android:textSize="27sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Products"
-                            android:textSize="13sp"/>
+                            android:textSize="13sp" />
 
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
 
 
-                <!-- LOW STOCK -->
-
                 <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
                     android:layout_height="125dp"
-                    android:layout_weight="1"
                     android:layout_margin="5dp"
+                    android:layout_weight="1"
                     app:cardCornerRadius="18dp"
                     app:cardElevation="5dp">
 
@@ -154,30 +150,29 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="10dp">
+                        android:orientation="vertical">
 
-                        <ImageView
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:src="@android:drawable/ic_dialog_alert"
-                            android:contentDescription="Low Stock"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="⚠"
+                            android:textColor="#FB8C00"
+                            android:textSize="30sp" />
 
                         <TextView
                             android:id="@+id/txtLowStock"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
                             android:text="0"
                             android:textColor="#FB8C00"
                             android:textSize="27sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Low Stock"
-                            android:textSize="13sp"/>
+                            android:textSize="13sp" />
 
                     </LinearLayout>
 
@@ -192,14 +187,15 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="110dp"
                 android:layout_marginTop="10dp"
                 app:cardCornerRadius="18dp"
                 app:cardElevation="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
                     android:orientation="vertical"
                     android:padding="18dp">
 
@@ -207,27 +203,25 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Current Inventory Value"
-                        android:textColor="#1565C0"
-                        android:textSize="16sp"
-                        android:textStyle="bold"/>
+                        android:textColor="#555555"
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/txtValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="₹0"
-                        android:textColor="#009688"
-                        android:textSize="30sp"
-                        android:textStyle="bold"/>
+                        android:layout_marginTop="4dp"
+                        android:text="₹0.00"
+                        android:textColor="#00897B"
+                        android:textSize="27sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:text="Based on current stock × cost price"
-                        android:textColor="#777777"
-                        android:textSize="12sp"/>
+                        android:text="Quantity × Cost Price"
+                        android:textColor="#888888"
+                        android:textSize="11sp" />
 
                 </LinearLayout>
 
@@ -238,10 +232,20 @@
             <!-- STOCK STATUS -->
             <!-- ================================================= -->
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:text="Stock Status"
+                android:textColor="#1565C0"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="8dp"
                 app:cardCornerRadius="18dp"
                 app:cardElevation="5dp">
 
@@ -252,19 +256,20 @@
                     android:padding="18dp">
 
                     <TextView
+                        android:id="@+id/txtOutStock"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Stock Status"
-                        android:textColor="#1565C0"
-                        android:textSize="18sp"
-                        android:textStyle="bold"/>
+                        android:text="0"
+                        android:textColor="#E53935"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="14dp"
                         android:text="Out of Stock"
-                        android:textSize="13sp"/>
+                        android:textColor="#555555"
+                        android:textSize="13sp" />
 
                     <ProgressBar
                         android:id="@+id/progressOut"
@@ -273,15 +278,18 @@
                         android:layout_height="9dp"
                         android:layout_marginTop="5dp"
                         android:max="100"
-                        android:progress="0"/>
+                        android:progress="0" />
 
 
                     <TextView
+                        android:id="@+id/txtLowStockStatus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="14dp"
                         android:text="Low Stock"
-                        android:textSize="13sp"/>
+                        android:textColor="#FB8C00"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
 
                     <ProgressBar
                         android:id="@+id/progressLow"
@@ -290,15 +298,25 @@
                         android:layout_height="9dp"
                         android:layout_marginTop="5dp"
                         android:max="100"
-                        android:progress="0"/>
+                        android:progress="0" />
 
+
+                    <TextView
+                        android:id="@+id/txtGoodStock"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:text="0"
+                        android:textColor="#00897B"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="14dp"
                         android:text="Healthy Stock"
-                        android:textSize="13sp"/>
+                        android:textColor="#555555"
+                        android:textSize="13sp" />
 
                     <ProgressBar
                         android:id="@+id/progressGood"
@@ -307,7 +325,7 @@
                         android:layout_height="9dp"
                         android:layout_marginTop="5dp"
                         android:max="100"
-                        android:progress="0"/>
+                        android:progress="0" />
 
                 </LinearLayout>
 
@@ -322,27 +340,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="22dp"
-                android:layout_marginBottom="8dp"
                 android:text="Outgoing Sales"
                 android:textColor="#1565C0"
                 android:textSize="20sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal"
                 android:weightSum="2">
-
-
-                <!-- SALES REVENUE -->
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
                     android:layout_height="120dp"
-                    android:layout_weight="1"
                     android:layout_margin="5dp"
+                    android:layout_weight="1"
                     app:cardCornerRadius="18dp"
                     app:cardElevation="5dp">
 
@@ -350,38 +365,35 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="8dp">
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Sales Revenue"
                             android:textColor="#555555"
-                            android:textSize="13sp"/>
+                            android:textSize="13sp" />
 
                         <TextView
                             android:id="@+id/txtSalesRevenue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
-                            android:text="₹0"
+                            android:text="₹0.00"
                             android:textColor="#00897B"
                             android:textSize="23sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
 
 
-                <!-- PRODUCTS SOLD -->
-
                 <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
                     android:layout_height="120dp"
-                    android:layout_weight="1"
                     android:layout_margin="5dp"
+                    android:layout_weight="1"
                     app:cardCornerRadius="18dp"
                     app:cardElevation="5dp">
 
@@ -389,15 +401,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="8dp">
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Products Sold"
                             android:textColor="#555555"
-                            android:textSize="13sp"/>
+                            android:textSize="13sp" />
 
                         <TextView
                             android:id="@+id/txtProductsSold"
@@ -407,7 +418,7 @@
                             android:text="0"
                             android:textColor="#7E57C2"
                             android:textSize="27sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -430,8 +441,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:gravity="center_vertical"
+                    android:orientation="horizontal"
                     android:padding="18dp">
 
                     <LinearLayout
@@ -445,7 +456,7 @@
                             android:layout_height="wrap_content"
                             android:text="Total Transactions"
                             android:textColor="#555555"
-                            android:textSize="14sp"/>
+                            android:textSize="14sp" />
 
                         <TextView
                             android:id="@+id/txtTransactions"
@@ -455,16 +466,16 @@
                             android:text="0"
                             android:textColor="#1565C0"
                             android:textSize="25sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Outgoing Sales"
+                        android:text="Sales"
                         android:textColor="#888888"
-                        android:textSize="12sp"/>
+                        android:textSize="12sp" />
 
                 </LinearLayout>
 
@@ -472,13 +483,56 @@
 
 
             <!-- ================================================= -->
-            <!-- REPORT CONTENT -->
+            <!-- INVENTORY MOVEMENT -->
+            <!-- ================================================= -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:text="Inventory Movement"
+                android:textColor="#1565C0"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:id="@+id/movementContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="4dp">
+
+                    <TextView
+                        android:id="@+id/txtMovementEmpty"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="20dp"
+                        android:text="No inventory movement available"
+                        android:textColor="#777777"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <!-- ================================================= -->
+            <!-- EXCEL REPORT -->
             <!-- ================================================= -->
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="18dp"
                 app:cardCornerRadius="18dp"
                 app:cardElevation="5dp">
 
@@ -494,15 +548,15 @@
                         android:text="Excel Report"
                         android:textColor="#1565C0"
                         android:textSize="19sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
-                        android:text="The exported Excel file will contain complete inventory details, outgoing sales, category summary, revenue, cost and profit."
+                        android:text="Export inventory, purchases, sales and inventory movement into an Excel file."
                         android:textColor="#666666"
-                        android:textSize="13sp"/>
+                        android:textSize="13sp" />
 
                 </LinearLayout>
 
@@ -522,11 +576,11 @@
                 android:text="Generate Report"
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
-                android:textSize="17sp"/>
+                android:textSize="17sp" />
 
 
             <!-- ================================================= -->
-            <!-- EXPORT EXCEL -->
+            <!-- EXPORT -->
             <!-- ================================================= -->
 
             <Button
@@ -538,12 +592,12 @@
                 android:text="Export Full Report to Excel"
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
-                android:textSize="17sp"/>
+                android:textSize="17sp" />
 
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="30dp"/>
+                android:layout_height="30dp" />
 
         </LinearLayout>
 

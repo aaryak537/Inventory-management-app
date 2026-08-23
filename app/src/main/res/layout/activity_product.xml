@@ -232,6 +232,17 @@
                 android:paddingBottom="90dp"
                 tools:listitem="@layout/item_product"/>
 
+            <TextView
+                android:id="@+id/tvEmptyProducts"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="32dp"
+                android:text="No products found"
+                android:textColor="#64748B"
+                android:textSize="16sp"
+                android:visibility="gone"/>
+
         </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

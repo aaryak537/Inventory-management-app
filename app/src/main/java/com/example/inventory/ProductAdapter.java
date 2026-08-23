@@ -39,6 +39,15 @@ public class ProductAdapter
     // Complete unfiltered list
     private final ArrayList<Product> fullList;
 
+    private Runnable listChangedListener;
+
+
+    public void setOnListChangedListener(
+            Runnable listener
+    ) {
+        this.listChangedListener = listener;
+    }
+
 
     // ============================================================
     // CONSTRUCTOR
@@ -88,6 +97,10 @@ public class ProductAdapter
         }
 
         notifyDataSetChanged();
+
+        if (listChangedListener != null) {
+            listChangedListener.run();
+        }
     }
 
 
@@ -205,7 +218,7 @@ public class ProductAdapter
         // ========================================================
 
         int quantity =
-                product.getQuantity();
+                product.getEffectiveQuantity();
 
         holder.txtQuantity.setText(
                 "Quantity : " + quantity
@@ -236,7 +249,7 @@ public class ProductAdapter
                     Color.RED
             );
 
-        } else if (quantity <= 10) {
+        } else if (quantity <= StockUtils.LOW_STOCK_LIMIT) {
 
             holder.txtStatus.setText(
                     "Low Stock"
@@ -516,6 +529,10 @@ public class ProductAdapter
 
 
         notifyDataSetChanged();
+
+        if (listChangedListener != null) {
+            listChangedListener.run();
+        }
     }
 
 
@@ -782,6 +799,10 @@ public class ProductAdapter
 
 
                 notifyDataSetChanged();
+
+                if (listChangedListener != null) {
+                    listChangedListener.run();
+                }
             }
         };
     }

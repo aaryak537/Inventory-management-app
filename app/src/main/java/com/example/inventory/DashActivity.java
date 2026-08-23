@@ -34,7 +34,7 @@ public class DashActivity extends AppCompatActivity {
     /*
      * Products with quantity <= 10 are considered Low Stock.
      */
-    private static final int LOW_STOCK_LIMIT = 10;
+    private static final int LOW_STOCK_LIMIT = StockUtils.LOW_STOCK_LIMIT;
 
 
     // ============================================================
@@ -1082,8 +1082,7 @@ public class DashActivity extends AppCompatActivity {
                     if (id == R.id.nav_reports) {
 
                         startActivity(
-                                new Intent(
-                                        this,
+                                new Intent(this,
                                         ReportActivity.class
                                 )
                         );
