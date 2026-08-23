@@ -28,61 +28,82 @@ import java.util.Locale;
 public class DashActivity extends AppCompatActivity {
 
     // ============================================================
+    // CONSTANTS
+    // ============================================================
+
+    /*
+     * Products with quantity <= 10 are considered Low Stock.
+     */
+    private static final int LOW_STOCK_LIMIT = 10;
+
+
+    // ============================================================
     // UI
     // ============================================================
 
-    ImageView notify;
+    private ImageView notify;
 
-    FloatingActionButton addProduct;
+    private FloatingActionButton addProduct;
 
-    BottomNavigationView bottomNavigation;
+    private BottomNavigationView bottomNavigation;
+
 
     // Dashboard clickable cards
-    LinearLayout QCategory;
-    LinearLayout Qsales;
-    LinearLayout QProduct;
-    LinearLayout QSupplier;
-    LinearLayout QIncomingPurchase;
+    private LinearLayout QCategory;
+    private LinearLayout Qsales;
+    private LinearLayout QProduct;
+    private LinearLayout QSupplier;
+    private LinearLayout QIncomingPurchase;
+
 
     // Dashboard statistics
-    TextView TotalPro;
-    TextView low;
-    TextView userName;
-    TextView category;
-    TextView suppliers;
-    TextView revenue;
-    TextView sales;
-    TextView incomingPurchases;
+    private TextView TotalPro;
+    private TextView low;
+    private TextView userName;
+    private TextView category;
+    private TextView suppliers;
+    private TextView revenue;
+    private TextView sales;
+    private TextView incomingPurchases;
+
 
     // ============================================================
     // FIREBASE
     // ============================================================
 
-    DatabaseReference databaseReference;
-    DatabaseReference salesReference;
-    DatabaseReference suppliersReference;
-    DatabaseReference purchasesReference;
+    private DatabaseReference databaseReference;
+    private DatabaseReference salesReference;
+    private DatabaseReference suppliersReference;
+    private DatabaseReference purchasesReference;
+
 
     // ============================================================
     // DASHBOARD VALUES
     // ============================================================
 
-    int totalProducts = 0;
-    int lowStock = 0;
-    int totalSuppliers = 0;
-    int totalIncomingPurchases = 0;
+    private int totalProducts = 0;
 
-    int totalQuantitySold = 0;
+    private int lowStock = 0;
 
-    double totalRevenue = 0;
+    private int totalSuppliers = 0;
 
-    final HashSet<String> categorySet = new HashSet<>();
+    private int totalIncomingPurchases = 0;
+
+    private int totalQuantitySold = 0;
+
+    private double totalRevenue = 0.0;
+
+
+    private final HashSet<String> categorySet =
+            new HashSet<>();
+
 
     // ============================================================
     // NOTIFICATIONS
     // ============================================================
 
     private NotifyAdapter notifyAdapter;
+
     private ArrayList<NotifyModel> notifyList;
 
 
@@ -91,65 +112,146 @@ public class DashActivity extends AppCompatActivity {
     // ============================================================
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(
+            Bundle savedInstanceState
+    ) {
 
-        setContentView(R.layout.activity_dash);
+        super.onCreate(
+                savedInstanceState
+        );
+
+
+        setContentView(
+                R.layout.activity_dash
+        );
+
 
         // ========================================================
         // INITIALIZE VIEWS
         // ========================================================
 
-        Qsales = findViewById(R.id.llSales);
+        Qsales =
+                findViewById(
+                        R.id.llSales
+                );
 
-        QCategory = findViewById(R.id.llCategory);
 
-        QProduct = findViewById(R.id.llProduct);
+        QCategory =
+                findViewById(
+                        R.id.llCategory
+                );
 
-        QSupplier = findViewById(R.id.llSupplier);
+
+        QProduct =
+                findViewById(
+                        R.id.llProduct
+                );
+
+
+        QSupplier =
+                findViewById(
+                        R.id.llSupplier
+                );
+
 
         QIncomingPurchase =
-                findViewById(R.id.llIncomingPurchase);
+                findViewById(
+                        R.id.llIncomingPurchase
+                );
+
 
         userName =
-                findViewById(R.id.tvUsername);
+                findViewById(
+                        R.id.tvUsername
+                );
+
 
         addProduct =
-                findViewById(R.id.fabAddProduct);
+                findViewById(
+                        R.id.fabAddProduct
+                );
+
 
         bottomNavigation =
-                findViewById(R.id.bottomNavigation);
+                findViewById(
+                        R.id.bottomNavigation
+                );
+
 
         suppliers =
-                findViewById(R.id.tvSuppliers);
+                findViewById(
+                        R.id.tvSuppliers
+                );
+
 
         revenue =
-                findViewById(R.id.tvRevenue);
+                findViewById(
+                        R.id.tvRevenue
+                );
+
 
         sales =
-                findViewById(R.id.tvSales);
+                findViewById(
+                        R.id.tvSales
+                );
+
 
         incomingPurchases =
-                findViewById(R.id.tvIncomingPurchases);
+                findViewById(
+                        R.id.tvIncomingPurchases
+                );
+
 
         notify =
-                findViewById(R.id.imgNotify);
+                findViewById(
+                        R.id.imgNotify
+                );
+
 
         TotalPro =
-                findViewById(R.id.tvTotalProducts);
+                findViewById(
+                        R.id.tvTotalProducts
+                );
+
 
         low =
-                findViewById(R.id.tvLowStock);
+                findViewById(
+                        R.id.tvLowStock
+                );
+
 
         category =
-                findViewById(R.id.tvCategories);
+                findViewById(
+                        R.id.tvCategories
+                );
+
+
+        // ========================================================
+        // INITIAL VALUES
+        // ========================================================
+
+        TotalPro.setText("0");
+
+        low.setText("0");
+
+        category.setText("0");
+
+        suppliers.setText("0");
+
+        sales.setText("0");
+
+        revenue.setText("₹0.00");
+
+        incomingPurchases.setText("0");
 
 
         // ========================================================
         // NOTIFICATION ADAPTER
         // ========================================================
 
-        notifyList = new ArrayList<>();
+        notifyList =
+                new ArrayList<>();
+
 
         notifyAdapter =
                 new NotifyAdapter(
@@ -168,105 +270,74 @@ public class DashActivity extends AppCompatActivity {
                         .getCurrentUser();
 
 
-        if (user != null) {
+        if (user == null) {
 
-            String userId = user.getUid();
+            Log.e(
+                    "Dashboard",
+                    "No authenticated Firebase user"
+            );
 
-
-            // ====================================================
-            // PRODUCTS
-            // ====================================================
-
-            databaseReference =
-                    FirebaseDatabase
-                            .getInstance()
-                            .getReference("Products")
-                            .child(userId);
-
-
-            // ====================================================
-            // SALES
-            // ====================================================
-
-            salesReference =
-                    FirebaseDatabase
-                            .getInstance()
-                            .getReference("Sales")
-                            .child(userId);
-
-
-            // ====================================================
-            // SUPPLIERS
-            // ====================================================
-
-            suppliersReference =
-                    FirebaseDatabase
-                            .getInstance()
-                            .getReference("Suppliers")
-                            .child(userId);
-
-
-            // ====================================================
-            // INCOMING PURCHASES
-            // ====================================================
-
-            purchasesReference =
-                    FirebaseDatabase
-                            .getInstance()
-                            .getReference("Purchases")
-                            .child(userId);
-
-
-            // ====================================================
-            // LOAD USER NAME
-            // ====================================================
-
-            FirebaseDatabase
-                    .getInstance()
-                    .getReference("Users")
-                    .child(userId)
-                    .child("name")
-                    .addListenerForSingleValueEvent(
-                            new ValueEventListener() {
-
-                                @Override
-                                public void onDataChange(
-                                        @NonNull DataSnapshot snapshot) {
-
-                                    if (snapshot.exists()) {
-
-                                        String name =
-                                                snapshot.getValue(
-                                                        String.class
-                                                );
-
-                                        if (name != null) {
-
-                                            userName.setText(
-                                                    name
-                                            );
-                                        }
-                                    }
-                                }
-
-
-                                @Override
-                                public void onCancelled(
-                                        @NonNull DatabaseError error) {
-
-                                    Log.e(
-                                            "Dashboard",
-                                            "Failed to load username: "
-                                                    + error.getMessage()
-                                    );
-                                }
-                            }
-                    );
+            return;
         }
 
 
+        String userId =
+                user.getUid();
+
+
         // ========================================================
-        // LOAD DASHBOARD DATA
+        // PRODUCTS
+        // ========================================================
+
+        databaseReference =
+                FirebaseDatabase
+                        .getInstance()
+                        .getReference("Products")
+                        .child(userId);
+
+
+        // ========================================================
+        // SALES
+        // ========================================================
+
+        salesReference =
+                FirebaseDatabase
+                        .getInstance()
+                        .getReference("Sales")
+                        .child(userId);
+
+
+        // ========================================================
+        // SUPPLIERS
+        // ========================================================
+
+        suppliersReference =
+                FirebaseDatabase
+                        .getInstance()
+                        .getReference("Suppliers")
+                        .child(userId);
+
+
+        // ========================================================
+        // PURCHASES
+        // ========================================================
+
+        purchasesReference =
+                FirebaseDatabase
+                        .getInstance()
+                        .getReference("Purchases")
+                        .child(userId);
+
+
+        // ========================================================
+        // LOAD USER NAME
+        // ========================================================
+
+        loadUserName(userId);
+
+
+        // ========================================================
+        // LOAD DASHBOARD
         // ========================================================
 
         loadDashboard();
@@ -282,326 +353,188 @@ public class DashActivity extends AppCompatActivity {
         // NOTIFICATIONS
         // ========================================================
 
-        DatabaseReference notificationRef =
-                FirebaseDatabase
-                        .getInstance()
-                        .getReference("Notifications");
+        loadNotifications();
 
 
-        notificationRef
-                .limitToLast(5)
-                .addValueEventListener(
+        // ========================================================
+        // BUTTONS
+        // ========================================================
+
+        setupClickListeners();
+    }
+
+
+    // ============================================================
+    // LOAD USER NAME
+    // ============================================================
+
+    private void loadUserName(
+            String userId
+    ) {
+
+        FirebaseDatabase
+                .getInstance()
+                .getReference("Users")
+                .child(userId)
+                .child("name")
+                .addListenerForSingleValueEvent(
                         new ValueEventListener() {
 
                             @Override
                             public void onDataChange(
-                                    @NonNull DataSnapshot snapshot) {
+                                    @NonNull DataSnapshot snapshot
+                            ) {
 
-                                notifyList.clear();
-
-                                for (DataSnapshot ds :
-                                        snapshot.getChildren()) {
-
-                                    NotifyModel model =
-                                            ds.getValue(
-                                                    NotifyModel.class
-                                            );
-
-                                    if (model != null) {
-
-                                        notifyList.add(
-                                                0,
-                                                model
-                                        );
-                                    }
+                                if (!snapshot.exists()) {
+                                    return;
                                 }
 
-                                notifyAdapter
-                                        .notifyDataSetChanged();
+
+                                Object value =
+                                        snapshot.getValue();
+
+
+                                if (value != null) {
+
+                                    userName.setText(
+                                            String.valueOf(
+                                                    value
+                                            )
+                                    );
+                                }
                             }
 
 
                             @Override
                             public void onCancelled(
-                                    @NonNull DatabaseError error) {
+                                    @NonNull DatabaseError error
+                            ) {
 
                                 Log.e(
                                         "Dashboard",
-                                        "Notification error: "
+                                        "Username error: "
                                                 + error.getMessage()
                                 );
                             }
                         }
                 );
-
-
-        // ========================================================
-        // CLICK LISTENERS
-        // ========================================================
-
-        // ========================================================
-        // ADD PRODUCT
-        // ========================================================
-
-        addProduct.setOnClickListener(
-                new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View v) {
-
-                        startActivity(
-                                new Intent(
-                                        DashActivity.this,
-                                        AddProActivity.class
-                                )
-                        );
-                    }
-                }
-        );
-
-
-        // ========================================================
-        // OUTGOING SALES
-        // ========================================================
-
-        Qsales.setOnClickListener(
-                new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View v) {
-
-                        startActivity(
-                                new Intent(
-                                        DashActivity.this,
-                                        OutgoingSalesActivity.class
-                                )
-                        );
-                    }
-                }
-        );
-
-
-        // ========================================================
-        // INCOMING PURCHASES
-        // ========================================================
-
-        QIncomingPurchase.setOnClickListener(
-                new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View v) {
-
-                        startActivity(
-                                new Intent(
-                                        DashActivity.this,
-                                        IncomingPurchaseActivity.class
-                                )
-                        );
-                    }
-                }
-        );
-
-
-        // ========================================================
-        // NOTIFICATION
-        // ========================================================
-
-        notify.setOnClickListener(v -> {
-
-            Intent intent =
-                    new Intent(
-                            DashActivity.this,
-                            NotifyActivity.class
-                    );
-
-            startActivity(intent);
-        });
-
-
-        // ========================================================
-        // TOTAL PRODUCTS
-        // ========================================================
-
-        QProduct.setOnClickListener(
-                new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View v) {
-
-                        startActivity(
-                                new Intent(
-                                        DashActivity.this,
-                                        ProductActivity.class
-                                )
-                        );
-                    }
-                }
-        );
-
-
-        // ========================================================
-        // SUPPLIERS
-        // ========================================================
-
-        QSupplier.setOnClickListener(v -> {
-
-            startActivity(
-                    new Intent(
-                            DashActivity.this,
-                            SupplierActivity.class
-                    )
-            );
-        });
-
-
-        // ========================================================
-        // CATEGORIES
-        // ========================================================
-
-        QCategory.setOnClickListener(
-                new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View v) {
-
-                        startActivity(
-                                new Intent(
-                                        DashActivity.this,
-                                        CategoryActivity.class
-                                )
-                        );
-                    }
-                }
-        );
-
-
-        // ========================================================
-        // BOTTOM NAVIGATION
-        // ========================================================
-
-        bottomNavigation.setOnItemSelectedListener(
-                item -> {
-
-                    int id = item.getItemId();
-
-
-                    if (id == R.id.nav_home) {
-
-                        return true;
-                    }
-
-
-                    else if (id == R.id.nav_products) {
-
-                        startActivity(
-                                new Intent(
-                                        this,
-                                        ProductActivity.class
-                                )
-                        );
-
-                        return true;
-                    }
-
-
-                    else if (id == R.id.nav_reports) {
-
-                        startActivity(
-                                new Intent(
-                                        this,
-                                        ReportActivity.class
-                                )
-                        );
-
-                        return true;
-                    }
-
-
-                    else if (id == R.id.nav_profile) {
-
-                        startActivity(
-                                new Intent(
-                                        this,
-                                        SettingsActivity.class
-                                )
-                        );
-
-                        return true;
-                    }
-
-                    return false;
-                }
-        );
     }
+
+
+    // ============================================================
+    // LOAD DASHBOARD PRODUCT DATA
+    // ============================================================
 
     private void loadDashboard() {
 
         if (databaseReference == null) {
-            Log.d("Dashboard", "Products database reference is null");
+
+            Log.e(
+                    "Dashboard",
+                    "Products reference is null"
+            );
+
             return;
         }
+
 
         databaseReference.addValueEventListener(
                 new ValueEventListener() {
 
                     @Override
                     public void onDataChange(
-                            @NonNull DataSnapshot snapshot) {
+                            @NonNull DataSnapshot snapshot
+                    ) {
+
+                        // ==========================================
+                        // RESET
+                        // ==========================================
 
                         totalProducts = 0;
+
                         lowStock = 0;
+
                         categorySet.clear();
+
+
+                        // ==========================================
+                        // READ PRODUCTS
+                        // ==========================================
 
                         for (DataSnapshot ds :
                                 snapshot.getChildren()) {
 
-                            // Count product
+
+                            /*
+                             * Count product.
+                             */
                             totalProducts++;
 
-                            // Read quantity safely
+
+                            /*
+                             * Read quantity.
+                             */
                             int quantity =
-                                    getIntFromSnapshot(
-                                            ds.child("quantity")
+                                    getQuantity(
+                                            ds
                                     );
 
-                            // If quantity doesn't exist,
-                            // try stock as fallback.
-                            if (!ds.hasChild("quantity")) {
 
-                                quantity =
-                                        getIntFromSnapshot(
-                                                ds.child("stock")
-                                        );
-                            }
+                            /*
+                             * LOW STOCK
+                             *
+                             * 1 - 10 = Low Stock
+                             *
+                             * 0 = Out of Stock
+                             *
+                             * We count only positive quantities
+                             * as Low Stock.
+                             */
 
-                            if (quantity < 10) {
+                            if (quantity > 0 &&
+                                    quantity <= LOW_STOCK_LIMIT) {
+
                                 lowStock++;
                             }
 
-                            // Read category directly
-                            Object categoryValue =
-                                    ds.child("category").getValue();
 
-                            if (categoryValue != null) {
+                            /*
+                             * Category.
+                             */
+                            String categoryName =
+                                    getString(
+                                            ds.child(
+                                                    "category"
+                                            )
+                                    );
 
-                                String categoryName =
-                                        String.valueOf(
-                                                categoryValue
-                                        ).trim();
 
-                                if (!categoryName.isEmpty()) {
-                                    categorySet.add(categoryName);
-                                }
+                            if (!categoryName.isEmpty()) {
+
+                                categorySet.add(
+                                        categoryName
+                                );
                             }
                         }
 
+
+                        // ==========================================
+                        // UPDATE UI
+                        // ==========================================
+
                         TotalPro.setText(
-                                String.valueOf(totalProducts)
+                                String.valueOf(
+                                        totalProducts
+                                )
                         );
 
+
                         low.setText(
-                                String.valueOf(lowStock)
+                                String.valueOf(
+                                        lowStock
+                                )
                         );
+
 
                         category.setText(
                                 String.valueOf(
@@ -609,18 +542,23 @@ public class DashActivity extends AppCompatActivity {
                                 )
                         );
 
+
                         Log.d(
                                 "Dashboard",
-                                "Products = " + totalProducts
-                                        + ", Low Stock = " + lowStock
+                                "Products = "
+                                        + totalProducts
+                                        + ", Low Stock = "
+                                        + lowStock
                                         + ", Categories = "
                                         + categorySet.size()
                         );
                     }
 
+
                     @Override
                     public void onCancelled(
-                            @NonNull DatabaseError error) {
+                            @NonNull DatabaseError error
+                    ) {
 
                         Log.e(
                                 "Dashboard",
@@ -631,60 +569,150 @@ public class DashActivity extends AppCompatActivity {
                 }
         );
     }
+
+
+    // ============================================================
+    // GET QUANTITY
+    //
+    // Handles:
+    // quantity = 10
+    // quantity = "10"
+    //
+    // Also supports old records where stock may contain
+    // a numeric value.
+    // ============================================================
+
+    private int getQuantity(
+            DataSnapshot productSnapshot
+    ) {
+
+        DataSnapshot quantitySnapshot =
+                productSnapshot.child(
+                        "quantity"
+                );
+
+
+        if (quantitySnapshot.exists()) {
+
+            return getIntFromSnapshot(
+                    quantitySnapshot
+            );
+        }
+
+
+        /*
+         * Fallback for old Firebase records.
+         */
+        DataSnapshot stockSnapshot =
+                productSnapshot.child(
+                        "stock"
+                );
+
+
+        if (stockSnapshot.exists()) {
+
+            Object stockValue =
+                    stockSnapshot.getValue();
+
+
+            /*
+             * Numeric stock.
+             */
+            if (stockValue instanceof Number) {
+
+                return ((Number) stockValue)
+                        .intValue();
+            }
+
+
+            /*
+             * String stock.
+             */
+            if (stockValue != null) {
+
+                String stock =
+                        String.valueOf(
+                                stockValue
+                        ).trim();
+
+
+                try {
+
+                    return Integer.parseInt(
+                            stock
+                    );
+
+                } catch (NumberFormatException ignored) {
+
+                    /*
+                     * Text values such as:
+                     *
+                     * In Stock
+                     * Low Stock
+                     * Out of Stock
+                     *
+                     * cannot give an exact quantity.
+                     */
+                }
+            }
+        }
+
+
+        return 0;
+    }
+
+
+    // ============================================================
+    // LOAD SALES
+    // ============================================================
+
     private void loadSales() {
 
         if (salesReference == null) {
-
-            Log.d(
-                    "Dashboard",
-                    "Sales database reference is null"
-            );
-
             return;
         }
+
 
         salesReference.addValueEventListener(
                 new ValueEventListener() {
 
                     @Override
                     public void onDataChange(
-                            @NonNull DataSnapshot snapshot) {
+                            @NonNull DataSnapshot snapshot
+                    ) {
 
                         totalQuantitySold = 0;
+
                         totalRevenue = 0.0;
 
-                        // ------------------------------------------------
-                        // READ SALES SAFELY
-                        // ------------------------------------------------
 
                         for (DataSnapshot ds :
                                 snapshot.getChildren()) {
 
-                            // ================================
-                            // QUANTITY
-                            // ================================
-
                             int quantity =
                                     getIntFromSnapshot(
-                                            ds.child("quantity")
+                                            ds.child(
+                                                    "quantity"
+                                            )
                                     );
 
-                            // ================================
-                            // TOTAL AMOUNT
-                            // ================================
 
                             double amount =
                                     getDoubleFromSnapshot(
-                                            ds.child("totalAmount")
+                                            ds.child(
+                                                    "totalAmount"
+                                            )
                                     );
 
-                            totalQuantitySold += quantity;
-                            totalRevenue += amount;
+
+                            totalQuantitySold +=
+                                    quantity;
+
+
+                            totalRevenue +=
+                                    amount;
                         }
 
-                        // ------------------------------------------------
-                        // UPDATE SALES CARD
-                        // ------------------------------------------------
 
                         sales.setText(
                                 String.valueOf(
@@ -692,9 +720,6 @@ public class DashActivity extends AppCompatActivity {
                                 )
                         );
 
-                        // ------------------------------------------------
-                        // UPDATE REVENUE CARD
-                        // ------------------------------------------------
 
                         revenue.setText(
                                 String.format(
@@ -703,23 +728,13 @@ public class DashActivity extends AppCompatActivity {
                                         totalRevenue
                                 )
                         );
-
-                        Log.d(
-                                "Dashboard",
-                                "Total Quantity Sold = "
-                                        + totalQuantitySold
-                        );
-
-                        Log.d(
-                                "Dashboard",
-                                "Total Revenue = "
-                                        + totalRevenue
-                        );
                     }
+
 
                     @Override
                     public void onCancelled(
-                            @NonNull DatabaseError error) {
+                            @NonNull DatabaseError error
+                    ) {
 
                         Log.e(
                                 "Dashboard",
@@ -732,104 +747,13 @@ public class DashActivity extends AppCompatActivity {
     }
 
 
-// ============================================================
-// SAFE INTEGER READER
-// ============================================================
-
-    private int getIntFromSnapshot(DataSnapshot snapshot) {
-
-        if (!snapshot.exists()) {
-            return 0;
-        }
-
-        Object value = snapshot.getValue();
-
-        if (value instanceof Long) {
-            return ((Long) value).intValue();
-        }
-
-        if (value instanceof Integer) {
-            return (Integer) value;
-        }
-
-        if (value instanceof Double) {
-            return ((Double) value).intValue();
-        }
-
-        if (value instanceof Float) {
-            return ((Float) value).intValue();
-        }
-
-        if (value instanceof String) {
-
-            try {
-                return Integer.parseInt(
-                        ((String) value).trim()
-                );
-
-            } catch (NumberFormatException e) {
-
-                return 0;
-            }
-        }
-
-        return 0;
-    }
-
-
-// ============================================================
-// SAFE DOUBLE READER
-// ============================================================
-
-    private double getDoubleFromSnapshot(DataSnapshot snapshot) {
-
-        if (!snapshot.exists()) {
-            return 0.0;
-        }
-
-        Object value = snapshot.getValue();
-
-        if (value instanceof Double) {
-            return (Double) value;
-        }
-
-        if (value instanceof Long) {
-            return ((Long) value).doubleValue();
-        }
-
-        if (value instanceof Integer) {
-            return ((Integer) value).doubleValue();
-        }
-
-        if (value instanceof Float) {
-            return ((Float) value).doubleValue();
-        }
-
-        if (value instanceof String) {
-
-            try {
-                return Double.parseDouble(
-                        ((String) value).trim()
-                );
-
-            } catch (NumberFormatException e) {
-
-                return 0.0;
-            }
-        }
-
-        return 0.0;
-    }
+    // ============================================================
+    // LOAD SUPPLIERS
+    // ============================================================
 
     private void loadSuppliers() {
 
         if (suppliersReference == null) {
-
-            Log.d(
-                    "Dashboard",
-                    "Suppliers database reference is null"
-            );
-
             return;
         }
 
@@ -839,10 +763,13 @@ public class DashActivity extends AppCompatActivity {
 
                     @Override
                     public void onDataChange(
-                            @NonNull DataSnapshot snapshot) {
+                            @NonNull DataSnapshot snapshot
+                    ) {
 
                         totalSuppliers =
-                                (int) snapshot.getChildrenCount();
+                                (int)
+                                        snapshot
+                                                .getChildrenCount();
 
 
                         suppliers.setText(
@@ -850,19 +777,13 @@ public class DashActivity extends AppCompatActivity {
                                         totalSuppliers
                                 )
                         );
-
-
-                        Log.d(
-                                "Dashboard",
-                                "Total Suppliers = "
-                                        + totalSuppliers
-                        );
                     }
 
 
                     @Override
                     public void onCancelled(
-                            @NonNull DatabaseError error) {
+                            @NonNull DatabaseError error
+                    ) {
 
                         Log.e(
                                 "Dashboard",
@@ -882,12 +803,6 @@ public class DashActivity extends AppCompatActivity {
     private void loadIncomingPurchases() {
 
         if (purchasesReference == null) {
-
-            Log.d(
-                    "Dashboard",
-                    "Purchases database reference is null"
-            );
-
             return;
         }
 
@@ -897,40 +812,27 @@ public class DashActivity extends AppCompatActivity {
 
                     @Override
                     public void onDataChange(
-                            @NonNull DataSnapshot snapshot) {
+                            @NonNull DataSnapshot snapshot
+                    ) {
 
-                        notifyList.clear();
+                        totalIncomingPurchases =
+                                (int)
+                                        snapshot
+                                                .getChildrenCount();
 
-                        for (DataSnapshot ds :
-                                snapshot.getChildren()) {
 
-                            try {
-
-                                NotifyModel model =
-                                        ds.getValue(NotifyModel.class);
-
-                                if (model != null) {
-                                    notifyList.add(0, model);
-                                }
-
-                            } catch (Exception e) {
-
-                                Log.e(
-                                        "Dashboard",
-                                        "Skipping invalid notification: "
-                                                + ds.getKey(),
-                                        e
-                                );
-                            }
-                        }
-
-                        notifyAdapter.notifyDataSetChanged();
+                        incomingPurchases.setText(
+                                String.valueOf(
+                                        totalIncomingPurchases
+                                )
+                        );
                     }
 
 
                     @Override
                     public void onCancelled(
-                            @NonNull DatabaseError error) {
+                            @NonNull DatabaseError error
+                    ) {
 
                         Log.e(
                                 "Dashboard",
@@ -944,6 +846,406 @@ public class DashActivity extends AppCompatActivity {
 
 
     // ============================================================
+    // LOAD NOTIFICATIONS
+    // ============================================================
+
+    private void loadNotifications() {
+
+        DatabaseReference notificationRef =
+                FirebaseDatabase
+                        .getInstance()
+                        .getReference(
+                                "Notifications"
+                        );
+
+
+        notificationRef
+                .limitToLast(5)
+                .addValueEventListener(
+                        new ValueEventListener() {
+
+                            @Override
+                            public void onDataChange(
+                                    @NonNull DataSnapshot snapshot
+                            ) {
+
+                                notifyList.clear();
+
+
+                                for (DataSnapshot ds :
+                                        snapshot.getChildren()) {
+
+                                    try {
+
+                                        NotifyModel model =
+                                                ds.getValue(
+                                                        NotifyModel.class
+                                                );
+
+
+                                        if (model != null) {
+
+                                            notifyList.add(
+                                                    0,
+                                                    model
+                                            );
+                                        }
+
+                                    } catch (Exception e) {
+
+                                        Log.e(
+                                                "Dashboard",
+                                                "Notification parse error",
+                                                e
+                                        );
+                                    }
+                                }
+
+
+                                notifyAdapter
+                                        .notifyDataSetChanged();
+                            }
+
+
+                            @Override
+                            public void onCancelled(
+                                    @NonNull DatabaseError error
+                            ) {
+
+                                Log.e(
+                                        "Dashboard",
+                                        "Notification Firebase Error: "
+                                                + error.getMessage()
+                                );
+                            }
+                        }
+                );
+    }
+
+
+    // ============================================================
+    // CLICK LISTENERS
+    // ============================================================
+
+    private void setupClickListeners() {
+
+
+        // ========================================================
+        // ADD PRODUCT
+        // ========================================================
+
+        addProduct.setOnClickListener(
+                v -> {
+
+                    startActivity(
+                            new Intent(
+                                    DashActivity.this,
+                                    AddProActivity.class
+                            )
+                    );
+                }
+        );
+
+
+        // ========================================================
+        // SALES
+        // ========================================================
+
+        Qsales.setOnClickListener(
+                v -> {
+
+                    startActivity(
+                            new Intent(
+                                    DashActivity.this,
+                                    OutgoingSalesActivity.class
+                            )
+                    );
+                }
+        );
+
+
+        // ========================================================
+        // PURCHASES
+        // ========================================================
+
+        QIncomingPurchase.setOnClickListener(
+                v -> {
+
+                    startActivity(
+                            new Intent(
+                                    DashActivity.this,
+                                    IncomingPurchaseActivity.class
+                            )
+                    );
+                }
+        );
+
+
+        // ========================================================
+        // PRODUCTS
+        // ========================================================
+
+        QProduct.setOnClickListener(
+                v -> {
+
+                    startActivity(
+                            new Intent(
+                                    DashActivity.this,
+                                    ProductActivity.class
+                            )
+                    );
+                }
+        );
+
+
+        // ========================================================
+        // SUPPLIERS
+        // ========================================================
+
+        QSupplier.setOnClickListener(
+                v -> {
+
+                    startActivity(
+                            new Intent(
+                                    DashActivity.this,
+                                    SupplierActivity.class
+                            )
+                    );
+                }
+        );
+
+
+        // ========================================================
+        // CATEGORIES
+        // ========================================================
+
+        QCategory.setOnClickListener(
+                v -> {
+
+                    startActivity(
+                            new Intent(
+                                    DashActivity.this,
+                                    CategoryActivity.class
+                            )
+                    );
+                }
+        );
+
+
+        // ========================================================
+        // NOTIFICATIONS
+        // ========================================================
+
+        notify.setOnClickListener(
+                v -> {
+
+                    startActivity(
+                            new Intent(
+                                    DashActivity.this,
+                                    NotifyActivity.class
+                            )
+                    );
+                }
+        );
+
+
+        // ========================================================
+        // BOTTOM NAVIGATION
+        // ========================================================
+
+        bottomNavigation.setOnItemSelectedListener(
+                item -> {
+
+                    int id =
+                            item.getItemId();
+
+
+                    if (id == R.id.nav_home) {
+
+                        return true;
+                    }
+
+
+                    if (id == R.id.nav_products) {
+
+                        startActivity(
+                                new Intent(
+                                        this,
+                                        ProductActivity.class
+                                )
+                        );
+
+                        return true;
+                    }
+
+
+                    if (id == R.id.nav_reports) {
+
+                        startActivity(
+                                new Intent(
+                                        this,
+                                        ReportActivity.class
+                                )
+                        );
+
+                        return true;
+                    }
+
+
+                    if (id == R.id.nav_profile) {
+
+                        startActivity(
+                                new Intent(
+                                        this,
+                                        SettingsActivity.class
+                                )
+                        );
+
+                        return true;
+                    }
+
+
+                    return false;
+                }
+        );
+    }
+
+
+    // ============================================================
+    // SAFE INTEGER READER
+    // ============================================================
+
+    private int getIntFromSnapshot(
+            DataSnapshot snapshot
+    ) {
+
+        if (snapshot == null ||
+                !snapshot.exists()) {
+
+            return 0;
+        }
+
+
+        Object value =
+                snapshot.getValue();
+
+
+        if (value instanceof Number) {
+
+            return ((Number) value).intValue();
+        }
+
+
+        if (value != null) {
+
+            try {
+
+                return Integer.parseInt(
+                        String.valueOf(
+                                value
+                        ).trim()
+                );
+
+            } catch (Exception ignored) {
+
+                try {
+
+                    return (int)
+                            Double.parseDouble(
+                                    String.valueOf(
+                                            value
+                                    ).trim()
+                            );
+
+                } catch (Exception ignoredAgain) {
+                    return 0;
+                }
+            }
+        }
+
+
+        return 0;
+    }
+
+
+    // ============================================================
+    // SAFE DOUBLE READER
+    // ============================================================
+
+    private double getDoubleFromSnapshot(
+            DataSnapshot snapshot
+    ) {
+
+        if (snapshot == null ||
+                !snapshot.exists()) {
+
+            return 0.0;
+        }
+
+
+        Object value =
+                snapshot.getValue();
+
+
+        if (value instanceof Number) {
+
+            return ((Number) value)
+                    .doubleValue();
+        }
+
+
+        if (value != null) {
+
+            try {
+
+                return Double.parseDouble(
+                        String.valueOf(
+                                value
+                        ).trim()
+                );
+
+            } catch (Exception ignored) {
+
+                return 0.0;
+            }
+        }
+
+
+        return 0.0;
+    }
+
+
+    // ============================================================
+    // SAFE STRING READER
+    // ============================================================
+
+    private String getString(
+            DataSnapshot snapshot
+    ) {
+
+        if (snapshot == null ||
+                !snapshot.exists()) {
+
+            return "";
+        }
+
+
+        Object value =
+                snapshot.getValue();
+
+
+        if (value == null) {
+            return "";
+        }
+
+
+        return String.valueOf(
+                value
+        ).trim();
+    }
+
+
+    // ============================================================
     // RESUME
     // ============================================================
 
@@ -952,9 +1254,11 @@ public class DashActivity extends AppCompatActivity {
 
         super.onResume();
 
+
         /*
-         * Firebase ValueEventListeners remain active,
-         * so the Dashboard automatically updates when
+         * Firebase listeners remain active.
+         *
+         * Dashboard values automatically update whenever
          * Products, Sales, Suppliers or Purchases change.
          */
     }

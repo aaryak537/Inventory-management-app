@@ -28,6 +28,21 @@ import java.util.Locale;
 public class ProductActivity extends AppCompatActivity {
 
     // ============================================================
+    // LOW STOCK LIMIT
+    // ============================================================
+
+    /*
+     * Product is considered Low Stock when quantity is
+     * 10 or less.
+     *
+     * 0       = Out of Stock
+     * 1 - 10  = Low Stock
+     * 11+     = In Stock
+     */
+    private static final int LOW_STOCK_LIMIT = 10;
+
+
+    // ============================================================
     // UI
     // ============================================================
 
@@ -39,14 +54,22 @@ public class ProductActivity extends AppCompatActivity {
 
     private RecyclerView recyclerProducts;
 
-    private FloatingActionButton fabAdd;
+    private FloatingActionButton fabAddProduct;
 
 
     // ============================================================
-    // PRODUCT LIST
+    // PRODUCT DATA
     // ============================================================
 
-    private ArrayList<Product> productList;
+    /*
+     * This is the complete product list loaded from Firebase.
+     *
+     * IMPORTANT:
+     * Searching must NEVER modify this list permanently.
+     */
+    private final ArrayList<Product> productList =
+            new ArrayList<>();
+
 
     private ProductAdapter adapter;
 
@@ -55,11 +78,11 @@ public class ProductActivity extends AppCompatActivity {
     // FIREBASE
     // ============================================================
 
-    private DatabaseReference databaseReference;
+    private DatabaseReference productsReference;
 
 
     // ============================================================
-    // ON CREATE
+    // ACTIVITY CREATED
     // ============================================================
 
     @Override
@@ -76,30 +99,29 @@ public class ProductActivity extends AppCompatActivity {
         // INITIALIZE VIEWS
         // ========================================================
 
-        fabAdd =
-                findViewById(
-                        R.id.fabAddProduct
-                );
-
         etSearch =
                 findViewById(
                         R.id.etSearch
                 );
+
 
         tvTotalProducts =
                 findViewById(
                         R.id.tvTotalProducts
                 );
 
+
         tvStockValue =
                 findViewById(
                         R.id.tvStockValue
                 );
 
+
         tvLowStock =
                 findViewById(
                         R.id.tvLowStock
                 );
+
 
         recyclerProducts =
                 findViewById(
@@ -107,22 +129,31 @@ public class ProductActivity extends AppCompatActivity {
                 );
 
 
-        // ========================================================
-        // PRODUCT LIST
-        // ========================================================
+        fabAddProduct =
+                findViewById(
+                        R.id.fabAddProduct
+                );
 
-        productList =
-                new ArrayList<>();
 
+        // ========================================================
+        // RECYCLER VIEW
+        // ========================================================
 
         recyclerProducts.setLayoutManager(
                 new LinearLayoutManager(this)
         );
 
 
+        recyclerProducts.setHasFixedSize(false);
+
+
+        // ========================================================
+        // PRODUCT ADAPTER
+        // ========================================================
+
         adapter =
                 new ProductAdapter(
-                        this,
+                        ProductActivity.this,
                         productList
                 );
 
@@ -133,19 +164,19 @@ public class ProductActivity extends AppCompatActivity {
 
 
         // ========================================================
-        // FIREBASE USER
+        // FIREBASE AUTHENTICATION
         // ========================================================
 
-        FirebaseUser user =
+        FirebaseUser currentUser =
                 FirebaseAuth
                         .getInstance()
                         .getCurrentUser();
 
 
-        if (user == null) {
+        if (currentUser == null) {
 
             Toast.makeText(
-                    this,
+                    ProductActivity.this,
                     "User not logged in",
                     Toast.LENGTH_SHORT
             ).show();
@@ -157,14 +188,29 @@ public class ProductActivity extends AppCompatActivity {
 
 
         // ========================================================
-        // FIREBASE PRODUCTS REFERENCE
+        // FIREBASE PRODUCT REFERENCE
         // ========================================================
 
-        databaseReference =
+        /*
+         * Database structure:
+         *
+         * Products
+         *    └── userId
+         *          └── productId
+         */
+
+        productsReference =
                 FirebaseDatabase
                         .getInstance()
                         .getReference("Products")
-                        .child(user.getUid());
+                        .child(currentUser.getUid());
+
+
+        // ========================================================
+        // SEARCH
+        // ========================================================
+
+        setupSearch();
 
 
         // ========================================================
@@ -175,17 +221,10 @@ public class ProductActivity extends AppCompatActivity {
 
 
         // ========================================================
-        // SEARCH
-        // ========================================================
-
-        searchProduct();
-
-
-        // ========================================================
         // ADD PRODUCT
         // ========================================================
 
-        fabAdd.setOnClickListener(
+        fabAddProduct.setOnClickListener(
                 v -> {
 
                     Intent intent =
@@ -201,7 +240,7 @@ public class ProductActivity extends AppCompatActivity {
 
 
     // ============================================================
-    // RESUME
+    // ON RESUME
     // ============================================================
 
     @Override
@@ -209,7 +248,15 @@ public class ProductActivity extends AppCompatActivity {
 
         super.onResume();
 
-        if (databaseReference != null) {
+
+        /*
+         * Reload products whenever we return from:
+         *
+         * Add Product
+         * Edit Product
+         * Delete Product
+         */
+        if (productsReference != null) {
 
             loadProducts();
         }
@@ -217,40 +264,52 @@ public class ProductActivity extends AppCompatActivity {
 
 
     // ============================================================
-    // LOAD PRODUCTS
+    // LOAD PRODUCTS FROM FIREBASE
     // ============================================================
 
     private void loadProducts() {
 
-        if (databaseReference == null) {
+        if (productsReference == null) {
             return;
         }
 
 
-        databaseReference.addListenerForSingleValueEvent(
+        productsReference.addListenerForSingleValueEvent(
                 new ValueEventListener() {
 
                     @Override
                     public void onDataChange(
-                            @NonNull DataSnapshot snapshot) {
+                            @NonNull DataSnapshot snapshot
+                    ) {
 
-                        productList.clear();
+                        // ====================================================
+                        // TEMPORARY LIST
+                        // ====================================================
+
+                        ArrayList<Product> loadedProducts =
+                                new ArrayList<>();
 
 
-                        double stockValue = 0.0;
+                        // ====================================================
+                        // SUMMARY VALUES
+                        // ====================================================
 
                         int lowStockCount = 0;
 
+                        double totalStockValue = 0.0;
+
 
                         // ====================================================
-                        // READ EACH PRODUCT SAFELY
+                        // READ PRODUCTS
                         // ====================================================
 
-                        for (DataSnapshot ds :
+                        for (DataSnapshot productSnapshot :
                                 snapshot.getChildren()) {
 
                             Product product =
-                                    createProductSafely(ds);
+                                    createProductSafely(
+                                            productSnapshot
+                                    );
 
 
                             if (product == null) {
@@ -258,96 +317,120 @@ public class ProductActivity extends AppCompatActivity {
                             }
 
 
-                            // Firebase key
+                            // =================================================
+                            // SAVE FIREBASE KEY AS PRODUCT ID
+                            // =================================================
+
                             product.setProductId(
-                                    ds.getKey()
+                                    productSnapshot.getKey()
                             );
 
 
-                            productList.add(
+                            loadedProducts.add(
                                     product
                             );
 
 
                             // =================================================
-                            // STOCK VALUE
-                            // =================================================
-                            // Stock value = quantity × cost price
+                            // QUANTITY
                             // =================================================
 
                             int quantity =
                                     product.getQuantity();
 
 
-                            double costPrice =
-                                    product.getCostPrice();
-
-
-                            stockValue +=
-                                    quantity * costPrice;
-
-
                             // =================================================
                             // LOW STOCK
                             // =================================================
 
-                            if (quantity <= 10) {
+                            if (quantity > 0
+                                    && quantity <= LOW_STOCK_LIMIT) {
 
                                 lowStockCount++;
                             }
+
+
+                            // =================================================
+                            // STOCK VALUE
+                            //
+                            // IMPORTANT:
+                            //
+                            // Stock Value =
+                            // Quantity × Cost Price
+                            //
+                            // NOT selling price.
+                            // =================================================
+
+                            double costPrice =
+                                    product.getCostPrice();
+
+
+                            totalStockValue +=
+                                    quantity * costPrice;
                         }
 
 
                         // ====================================================
-                        // TOTAL PRODUCTS
+                        // UPDATE MAIN PRODUCT LIST
                         // ====================================================
 
-                        int totalProducts =
-                                productList.size();
+                        productList.clear();
 
-
-                        tvTotalProducts.setText(
-                                String.valueOf(
-                                        totalProducts
-                                )
+                        productList.addAll(
+                                loadedProducts
                         );
 
 
                         // ====================================================
-                        // STOCK VALUE
+                        // UPDATE SUMMARY
                         // ====================================================
 
-                        tvStockValue.setText(
-                                String.format(
-                                        Locale.getDefault(),
-                                        "₹%.2f",
-                                        stockValue
-                                )
+                        updateSummary(
+                                loadedProducts.size(),
+                                lowStockCount,
+                                totalStockValue
                         );
 
 
                         // ====================================================
-                        // LOW STOCK
+                        // UPDATE ADAPTER
+                        //
+                        // updateList() updates BOTH:
+                        //
+                        // list
+                        // fullList
+                        //
+                        // This is required for search to work correctly.
                         // ====================================================
 
-                        tvLowStock.setText(
-                                String.valueOf(
-                                        lowStockCount
-                                )
+                        adapter.updateList(
+                                loadedProducts
                         );
 
 
                         // ====================================================
-                        // UPDATE RECYCLER
+                        // RESTORE SEARCH TEXT
                         // ====================================================
 
-                        adapter.notifyDataSetChanged();
+                        String currentSearch =
+                                etSearch.getText()
+                                        .toString()
+                                        .trim();
+
+
+                        if (!currentSearch.isEmpty()) {
+
+                            adapter
+                                    .getFilter()
+                                    .filter(currentSearch);
+                        }
                     }
 
 
                     @Override
                     public void onCancelled(
-                            @NonNull DatabaseError error) {
+                            @NonNull DatabaseError error
+                    ) {
 
                         Toast.makeText(
                                 ProductActivity.this,
@@ -362,85 +445,226 @@ public class ProductActivity extends AppCompatActivity {
 
 
     // ============================================================
-    // SAFE PRODUCT CREATION
+    // UPDATE SUMMARY
+    // ============================================================
+
+    private void updateSummary(
+            int totalProducts,
+            int lowStockCount,
+            double stockValue
+    ) {
+
+        // ========================================================
+        // TOTAL PRODUCTS
+        // ========================================================
+
+        tvTotalProducts.setText(
+                String.valueOf(
+                        totalProducts
+                )
+        );
+
+
+        // ========================================================
+        // LOW STOCK
+        // ========================================================
+
+        tvLowStock.setText(
+                String.valueOf(
+                        lowStockCount
+                )
+        );
+
+
+        // ========================================================
+        // STOCK VALUE
+        // ========================================================
+
+        tvStockValue.setText(
+                String.format(
+                        Locale.getDefault(),
+                        "₹%.2f",
+                        stockValue
+                )
+        );
+    }
+
+
+    // ============================================================
+    // SEARCH SETUP
+    // ============================================================
+
+    private void setupSearch() {
+
+        etSearch.addTextChangedListener(
+                new TextWatcher() {
+
+                    @Override
+                    public void beforeTextChanged(
+                            CharSequence s,
+                            int start,
+                            int count,
+                            int after
+                    ) {
+                        // Nothing required
+                    }
+
+
+                    @Override
+                    public void onTextChanged(
+                            CharSequence s,
+                            int start,
+                            int before,
+                            int count
+                    ) {
+
+                        String query =
+                                s == null
+                                        ? ""
+                                        : s.toString().trim();
+
+                        adapter
+                                .getFilter()
+                                .filter(query);
+                    }
+
+
+                    @Override
+                    public void afterTextChanged(
+                            Editable s
+                    ) {
+                        // Nothing required
+                    }
+                }
+        );
+    }
+
+
+    // ============================================================
+    // CREATE PRODUCT SAFELY
     // ============================================================
 
     private Product createProductSafely(
-            DataSnapshot ds
+            DataSnapshot snapshot
     ) {
 
         try {
 
+            // ====================================================
+            // PRODUCT NAME
+            // ====================================================
+
             String productName =
                     getStringValue(
-                            ds.child("productName")
+                            snapshot.child("productName")
                     );
 
+
+            // ====================================================
+            // CATEGORY ID
+            // ====================================================
 
             String categoryId =
                     getStringValue(
-                            ds.child("categoryId")
+                            snapshot.child("categoryId")
                     );
 
+
+            // ====================================================
+            // CATEGORY
+            // ====================================================
 
             String category =
                     getStringValue(
-                            ds.child("category")
+                            snapshot.child("category")
                     );
 
+
+            // ====================================================
+            // BRAND
+            // ====================================================
 
             String brandName =
                     getStringValue(
-                            ds.child("brandName")
+                            snapshot.child("brandName")
                     );
 
+
+            // ====================================================
+            // DESCRIPTION
+            // ====================================================
 
             String description =
                     getStringValue(
-                            ds.child("description")
+                            snapshot.child("description")
                     );
 
+
+            // ====================================================
+            // IMAGE
+            // ====================================================
 
             String imageUrl =
                     getStringValue(
-                            ds.child("imageUrl")
+                            snapshot.child("imageUrl")
                     );
 
+
+            // ====================================================
+            // QUANTITY
+            // ====================================================
 
             int quantity =
                     getIntValue(
-                            ds.child("quantity")
+                            snapshot.child("quantity")
                     );
 
+
+            // ====================================================
+            // COST PRICE
+            // ====================================================
 
             double costPrice =
                     getDoubleValue(
-                            ds.child("costPrice")
+                            snapshot.child("costPrice")
                     );
 
+
+            // ====================================================
+            // SELLING PRICE
+            // ====================================================
 
             double sellingPrice =
                     getDoubleValue(
-                            ds.child("sellingPrice")
+                            snapshot.child("sellingPrice")
                     );
 
 
-            int stock =
-                    getIntValue(
-                            ds.child("stock")
-                    );
+            // ====================================================
+            // STOCK
+            // ====================================================
+
+            /*
+             * Your Firebase database may contain stock as:
+             *
+             * String:
+             * "In Stock"
+             *
+             * OR number:
+             * 20
+             *
+             * Product.setStock(Object) safely handles both.
+             */
+
+            Object stockValue =
+                    snapshot
+                            .child("stock")
+                            .getValue();
 
 
-            // =================================================
-            // IF STOCK DOESN'T EXIST
-            // USE QUANTITY
-            // =================================================
-
-            if (!ds.hasChild("stock")) {
-
-                stock = quantity;
-            }
-
+            // ====================================================
+            // CREATE PRODUCT
+            // ====================================================
 
             Product product =
                     new Product();
@@ -450,37 +674,78 @@ public class ProductActivity extends AppCompatActivity {
                     productName
             );
 
+
             product.setCategoryId(
                     categoryId
             );
+
 
             product.setCategory(
                     category
             );
 
+
             product.setQuantity(
                     quantity
             );
+
 
             product.setBrandName(
                     brandName
             );
 
+
             product.setCostPrice(
                     costPrice
             );
+
 
             product.setSellingPrice(
                     sellingPrice
             );
 
-            product.setStock(
-                    stock
-            );
+
+            if (stockValue != null) {
+
+                product.setStock(
+                        stockValue
+                );
+
+            } else {
+
+                /*
+                 * Older products may not have a stock field.
+                 *
+                 * Quantity remains the source of truth.
+                 */
+
+                if (quantity <= 0) {
+
+                    product.setStock(
+                            "Out of Stock"
+                    );
+
+                } else if (
+                        quantity <= LOW_STOCK_LIMIT
+                ) {
+
+                    product.setStock(
+                            "Low Stock"
+                    );
+
+                } else {
+
+                    product.setStock(
+                            "In Stock"
+                    );
+                }
+            }
+
 
             product.setDescription(
                     description
             );
+
 
             product.setImageUrl(
                     imageUrl
@@ -494,7 +759,7 @@ public class ProductActivity extends AppCompatActivity {
             Toast.makeText(
                     ProductActivity.this,
                     "Unable to read product: "
-                            + ds.getKey(),
+                            + snapshot.getKey(),
                     Toast.LENGTH_SHORT
             ).show();
 
@@ -504,7 +769,7 @@ public class ProductActivity extends AppCompatActivity {
 
 
     // ============================================================
-    // SAFE STRING READER
+    // SAFE STRING
     // ============================================================
 
     private String getStringValue(
@@ -527,46 +792,6 @@ public class ProductActivity extends AppCompatActivity {
         }
 
 
-        // Normal String
-        if (value instanceof String) {
-
-            return (String) value;
-        }
-
-
-        // Firebase number
-        if (value instanceof Long) {
-
-            return String.valueOf(
-                    value
-            );
-        }
-
-
-        if (value instanceof Double) {
-
-            return String.valueOf(
-                    value
-            );
-        }
-
-
-        if (value instanceof Integer) {
-
-            return String.valueOf(
-                    value
-            );
-        }
-
-
-        if (value instanceof Float) {
-
-            return String.valueOf(
-                    value
-            );
-        }
-
-
         return String.valueOf(
                 value
         );
@@ -574,7 +799,7 @@ public class ProductActivity extends AppCompatActivity {
 
 
     // ============================================================
-    // SAFE INTEGER READER
+    // SAFE INTEGER
     // ============================================================
 
     private int getIntValue(
@@ -597,60 +822,45 @@ public class ProductActivity extends AppCompatActivity {
         }
 
 
-        if (value instanceof Long) {
+        // Firebase numeric value
+        if (value instanceof Number) {
 
-            return ((Long) value).intValue();
+            return (
+                    (Number) value
+            ).intValue();
         }
 
 
-        if (value instanceof Integer) {
+        // String numeric value
+        try {
 
-            return (Integer) value;
-        }
+            return Integer.parseInt(
+                    String.valueOf(
+                            value
+                    ).trim()
+            );
 
-
-        if (value instanceof Double) {
-
-            return ((Double) value).intValue();
-        }
-
-
-        if (value instanceof Float) {
-
-            return ((Float) value).intValue();
-        }
-
-
-        if (value instanceof String) {
+        } catch (Exception e) {
 
             try {
 
-                return Integer.parseInt(
-                        ((String) value).trim()
-                );
+                return (int)
+                        Double.parseDouble(
+                                String.valueOf(
+                                        value
+                                ).trim()
+                        );
 
-            } catch (NumberFormatException e) {
+            } catch (Exception ignored) {
 
-                try {
-
-                    return (int) Double.parseDouble(
-                            ((String) value).trim()
-                    );
-
-                } catch (NumberFormatException ignored) {
-
-                    return 0;
-                }
+                return 0;
             }
         }
-
-
-        return 0;
     }
 
 
     // ============================================================
-    // SAFE DOUBLE READER
+    // SAFE DOUBLE
     // ============================================================
 
     private double getDoubleValue(
@@ -673,85 +883,27 @@ public class ProductActivity extends AppCompatActivity {
         }
 
 
-        if (value instanceof Double) {
+        // Firebase numeric value
+        if (value instanceof Number) {
 
-            return (Double) value;
+            return (
+                    (Number) value
+            ).doubleValue();
         }
 
 
-        if (value instanceof Long) {
+        // String numeric value
+        try {
 
-            return ((Long) value).doubleValue();
+            return Double.parseDouble(
+                    String.valueOf(
+                            value
+                    ).trim()
+            );
+
+        } catch (Exception e) {
+
+            return 0.0;
         }
-
-
-        if (value instanceof Integer) {
-
-            return ((Integer) value).doubleValue();
-        }
-
-
-        if (value instanceof Float) {
-
-            return ((Float) value).doubleValue();
-        }
-
-
-        if (value instanceof String) {
-
-            try {
-
-                return Double.parseDouble(
-                        ((String) value).trim()
-                );
-
-            } catch (NumberFormatException e) {
-
-                return 0.0;
-            }
-        }
-
-
-        return 0.0;
-    }
-
-
-    // ============================================================
-    // SEARCH PRODUCT
-    // ============================================================
-
-    private void searchProduct() {
-
-        etSearch.addTextChangedListener(
-                new TextWatcher() {
-
-                    @Override
-                    public void beforeTextChanged(
-                            CharSequence s,
-                            int start,
-                            int count,
-                            int after) {
-                    }
-
-
-                    @Override
-                    public void onTextChanged(
-                            CharSequence s,
-                            int start,
-                            int before,
-                            int count) {
-
-                        adapter
-                                .getFilter()
-                                .filter(s);
-                    }
-
-
-                    @Override
-                    public void afterTextChanged(
-                            Editable s) {
-                    }
-                }
-        );
     }
 }

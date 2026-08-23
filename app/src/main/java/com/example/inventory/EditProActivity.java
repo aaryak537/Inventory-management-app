@@ -268,10 +268,12 @@ public class EditProActivity extends AppCompatActivity {
 
         String stockStatus;
 
-        if (quantity > 0) {
-            stockStatus = "In Stock";
-        } else {
+        if (quantity <= 0) {
             stockStatus = "Out of Stock";
+        } else if (quantity <= 10) {
+            stockStatus = "Low Stock";
+        } else {
+            stockStatus = "In Stock";
         }
 
         Product product = new Product(

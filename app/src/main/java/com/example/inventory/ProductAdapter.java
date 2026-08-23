@@ -23,232 +23,516 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder>
+public class ProductAdapter
+        extends RecyclerView.Adapter<ProductAdapter.ViewHolder>
         implements Filterable {
+
+    // ============================================================
+    // VARIABLES
+    // ============================================================
 
     private final Context context;
 
-
+    // Currently displayed list
     private final ArrayList<Product> list;
 
-
+    // Complete unfiltered list
     private final ArrayList<Product> fullList;
 
-    public ProductAdapter(Context context, ArrayList<Product> list) {
+
+    // ============================================================
+    // CONSTRUCTOR
+    // ============================================================
+
+    public ProductAdapter(
+            Context context,
+            ArrayList<Product> list
+    ) {
 
         this.context = context;
-        this.list = list;
 
+        this.list = new ArrayList<>();
 
-        this.fullList = new ArrayList<>(list);
+        this.fullList = new ArrayList<>();
+
+        if (list != null) {
+
+            this.list.addAll(list);
+
+            this.fullList.addAll(list);
+        }
     }
 
 
-    public void updateList(ArrayList<Product> newList) {
+    // ============================================================
+    // UPDATE LIST
+    //
+    // IMPORTANT:
+    // This method updates BOTH the displayed list and the
+    // complete search list.
+    // ============================================================
 
-
-        list.clear();
-        list.addAll(newList);
-
+    public void updateList(
+            ArrayList<Product> newList
+    ) {
 
         fullList.clear();
-        fullList.addAll(newList);
+
+        list.clear();
+
+        if (newList != null) {
+
+            fullList.addAll(newList);
+
+            list.addAll(newList);
+        }
 
         notifyDataSetChanged();
     }
 
 
+    // ============================================================
+    // ALTERNATIVE METHOD NAME
+    //
+    // Keeps compatibility if ProductActivity uses updateData().
+    // ============================================================
+
+    public void updateData(
+            ArrayList<Product> newList
+    ) {
+
+        updateList(newList);
+    }
+
+
+    // ============================================================
+    // CREATE VIEW HOLDER
+    // ============================================================
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(
             @NonNull ViewGroup parent,
-            int viewType) {
+            int viewType
+    ) {
 
-        View view = LayoutInflater.from(context)
-                .inflate(R.layout.item_product, parent, false);
+        View view =
+                LayoutInflater
+                        .from(context)
+                        .inflate(
+                                R.layout.item_product,
+                                parent,
+                                false
+                        );
 
         return new ViewHolder(view);
     }
 
 
+    // ============================================================
+    // BIND VIEW HOLDER
+    // ============================================================
 
     @Override
     public void onBindViewHolder(
             @NonNull ViewHolder holder,
-            int position) {
+            int position
+    ) {
 
-        Product product = list.get(position);
+        // --------------------------------------------------------
+        // IMPORTANT
+        //
+        // Use a final reference so that this Product can safely
+        // be used inside lambda expressions.
+        // --------------------------------------------------------
 
-        // Product name
-        String productName = product.getProductName();
+        final Product product =
+                list.get(position);
 
-        if (productName == null || productName.trim().isEmpty()) {
+
+        // ========================================================
+        // PRODUCT NAME
+        // ========================================================
+
+        String productName =
+                product.getProductName();
+
+        if (productName == null ||
+                productName.trim().isEmpty()) {
+
             productName = "Unnamed Product";
         }
 
-        holder.txtProductName.setText(productName);
+        holder.txtProductName.setText(
+                productName
+        );
 
-        // Category
-        String category = product.getCategory();
 
-        if (category == null || category.trim().isEmpty()) {
+        // ========================================================
+        // CATEGORY
+        // ========================================================
+
+        String category =
+                product.getCategory();
+
+        if (category == null ||
+                category.trim().isEmpty()) {
+
             category = "No Category";
         }
 
-        holder.txtCategory.setText(category);
+        holder.txtCategory.setText(
+                category
+        );
 
-        // Selling price
+
+        // ========================================================
+        // SELLING PRICE
+        // ========================================================
+
         holder.txtPrice.setText(
-                "₹" + String.format(
-                        Locale.getDefault(),
-                        "%.2f",
-                        product.getSellingPrice()
-                )
+                "₹" +
+                        String.format(
+                                Locale.getDefault(),
+                                "%.2f",
+                                product.getSellingPrice()
+                        )
         );
 
-        // Quantity
+
+        // ========================================================
+        // QUANTITY
+        // ========================================================
+
+        int quantity =
+                product.getQuantity();
+
         holder.txtQuantity.setText(
-                "Quantity : " + product.getQuantity()
+                "Quantity : " + quantity
         );
 
 
+        // ========================================================
+        // STOCK STATUS
+        //
+        // Quantity is the source of truth.
+        //
+        // 0       = Out of Stock
+        // 1 - 10  = Low Stock
+        // 11+     = Available
+        // ========================================================
 
-        if (product.isInStock()) {
+        if (quantity <= 0) {
 
-            holder.txtStatus.setText("Available");
+            holder.txtStatus.setText(
+                    "Out of Stock"
+            );
 
-            holder.txtStatus.setBackgroundResource(
-                    R.drawable.circle_green_bg
+            holder.txtStatus.setTextColor(
+                    Color.WHITE
+            );
+
+            holder.txtStatus.setBackgroundColor(
+                    Color.RED
+            );
+
+        } else if (quantity <= 10) {
+
+            holder.txtStatus.setText(
+                    "Low Stock"
+            );
+
+            holder.txtStatus.setTextColor(
+                    Color.WHITE
+            );
+
+            holder.txtStatus.setBackgroundColor(
+                    Color.RED
             );
 
         } else {
 
-            holder.txtStatus.setText("Low Stock");
+            holder.txtStatus.setText(
+                    "Available"
+            );
 
-            holder.txtStatus.setBackgroundColor(Color.RED);
+            holder.txtStatus.setTextColor(
+                    Color.WHITE
+            );
+
+            holder.txtStatus.setBackgroundResource(
+                    R.drawable.circle_green_bg
+            );
         }
 
 
+        // ========================================================
+        // EDIT PRODUCT
+        // ========================================================
 
-        holder.btnEdit.setOnClickListener(v -> {
+        holder.btnEdit.setOnClickListener(
+                v -> {
 
-            Intent intent = new Intent(
-                    context,
-                    EditProActivity.class
-            );
+                    // Product is final, therefore Java allows
+                    // it inside this lambda.
 
-            intent.putExtra(
-                    "productId",
-                    product.getProductId()
-            );
+                    Intent intent =
+                            new Intent(
+                                    context,
+                                    EditProActivity.class
+                            );
 
-            intent.putExtra(
-                    "name",
-                    product.getProductName()
-            );
+                    intent.putExtra(
+                            "productId",
+                            product.getProductId()
+                    );
 
-            intent.putExtra(
-                    "category",
-                    product.getCategory()
-            );
+                    intent.putExtra(
+                            "name",
+                            product.getProductName()
+                    );
 
-            intent.putExtra(
-                    "price",
-                    product.getSellingPrice()
-            );
+                    intent.putExtra(
+                            "category",
+                            product.getCategory()
+                    );
 
-            intent.putExtra(
-                    "quantity",
-                    product.getQuantity()
-            );
+                    intent.putExtra(
+                            "price",
+                            product.getSellingPrice()
+                    );
 
-            context.startActivity(intent);
-        });
+                    intent.putExtra(
+                            "quantity",
+                            product.getQuantity()
+                    );
+
+                    context.startActivity(intent);
+                }
+        );
 
 
-        holder.btnDelete.setOnClickListener(v -> {
+        // ========================================================
+        // DELETE PRODUCT
+        // ========================================================
 
-            new AlertDialog.Builder(context)
-                    .setTitle("Delete Product")
-                    .setMessage("Delete this product?")
-                    .setPositiveButton(
-                            "Delete",
-                            (dialog, which) -> {
+        holder.btnDelete.setOnClickListener(
+                v -> {
 
-                                FirebaseUser user =
-                                        FirebaseAuth
-                                                .getInstance()
-                                                .getCurrentUser();
+                    new AlertDialog.Builder(context)
 
-                                if (user == null) {
+                            .setTitle(
+                                    "Delete Product"
+                            )
 
-                                    Toast.makeText(
-                                            context,
-                                            "User not logged in",
-                                            Toast.LENGTH_SHORT
-                                    ).show();
+                            .setMessage(
+                                    "Are you sure you want to delete this product?"
+                            )
 
-                                    return;
-                                }
+                            .setPositiveButton(
+                                    "Delete",
+                                    (dialog, which) -> {
 
-                                String productId =
-                                        product.getProductId();
+                                        deleteProduct(
+                                                product
+                                        );
+                                    }
+                            )
 
-                                if (productId == null ||
-                                        productId.isEmpty()) {
+                            .setNegativeButton(
+                                    "Cancel",
+                                    null
+                            )
 
-                                    Toast.makeText(
-                                            context,
-                                            "Product ID not found",
-                                            Toast.LENGTH_SHORT
-                                    ).show();
-
-                                    return;
-                                }
-
-                                FirebaseDatabase
-                                        .getInstance()
-                                        .getReference("Products")
-                                        .child(user.getUid())
-                                        .child(productId)
-                                        .removeValue()
-
-                                        .addOnSuccessListener(unused -> {
-
-                                            Toast.makeText(
-                                                    context,
-                                                    "Product Deleted",
-                                                    Toast.LENGTH_SHORT
-                                            ).show();
-
-                                        })
-
-                                        .addOnFailureListener(e -> {
-
-                                            Toast.makeText(
-                                                    context,
-                                                    "Delete failed: "
-                                                            + e.getMessage(),
-                                                    Toast.LENGTH_SHORT
-                                            ).show();
-                                        });
-                            }
-                    )
-                    .setNegativeButton(
-                            "Cancel",
-                            null
-                    )
-                    .show();
-        });
+                            .show();
+                }
+        );
     }
 
+
+    // ============================================================
+    // DELETE PRODUCT
+    // ============================================================
+
+    private void deleteProduct(
+            final Product product
+    ) {
+
+        FirebaseUser user =
+                FirebaseAuth
+                        .getInstance()
+                        .getCurrentUser();
+
+
+        // ========================================================
+        // USER CHECK
+        // ========================================================
+
+        if (user == null) {
+
+            Toast.makeText(
+                    context,
+                    "User not logged in",
+                    Toast.LENGTH_SHORT
+            ).show();
+
+            return;
+        }
+
+
+        // ========================================================
+        // PRODUCT ID
+        // ========================================================
+
+        final String productId =
+                product.getProductId();
+
+
+        if (productId == null ||
+                productId.trim().isEmpty()) {
+
+            Toast.makeText(
+                    context,
+                    "Product ID not found",
+                    Toast.LENGTH_SHORT
+            ).show();
+
+            return;
+        }
+
+
+        // ========================================================
+        // FIREBASE DELETE
+        // ========================================================
+
+        FirebaseDatabase
+                .getInstance()
+                .getReference("Products")
+                .child(user.getUid())
+                .child(productId)
+                .removeValue()
+
+                .addOnSuccessListener(
+                        unused -> {
+
+                            Toast.makeText(
+                                    context,
+                                    "Product Deleted",
+                                    Toast.LENGTH_SHORT
+                            ).show();
+
+                            // Remove from both lists locally.
+                            removeProductLocally(
+                                    product
+                            );
+                        }
+                )
+
+                .addOnFailureListener(
+                        e -> {
+
+                            String errorMessage =
+                                    e.getMessage();
+
+                            if (errorMessage == null ||
+                                    errorMessage.trim().isEmpty()) {
+
+                                errorMessage =
+                                        "Unknown error";
+                            }
+
+                            Toast.makeText(
+                                    context,
+                                    "Delete failed: "
+                                            + errorMessage,
+                                    Toast.LENGTH_LONG
+                            ).show();
+                        }
+                );
+    }
+
+
+    // ============================================================
+    // REMOVE PRODUCT LOCALLY
+    // ============================================================
+
+    private void removeProductLocally(
+            Product product
+    ) {
+
+        // Remove using product ID rather than object reference.
+        // This is safer if Firebase recreated the object.
+
+        String productId =
+                product.getProductId();
+
+
+        // --------------------------------------------------------
+        // Remove from complete list
+        // --------------------------------------------------------
+
+        for (int i = fullList.size() - 1; i >= 0; i--) {
+
+            Product item =
+                    fullList.get(i);
+
+            if (item == null) {
+                continue;
+            }
+
+            String id =
+                    item.getProductId();
+
+            if (productId != null &&
+                    productId.equals(id)) {
+
+                fullList.remove(i);
+            }
+        }
+
+
+        // --------------------------------------------------------
+        // Remove from displayed list
+        // --------------------------------------------------------
+
+        for (int i = list.size() - 1; i >= 0; i--) {
+
+            Product item =
+                    list.get(i);
+
+            if (item == null) {
+                continue;
+            }
+
+            String id =
+                    item.getProductId();
+
+            if (productId != null &&
+                    productId.equals(id)) {
+
+                list.remove(i);
+            }
+        }
+
+
+        notifyDataSetChanged();
+    }
+
+
+    // ============================================================
+    // ITEM COUNT
+    // ============================================================
 
     @Override
     public int getItemCount() {
+
         return list.size();
     }
 
+
+    // ============================================================
+    // VIEW HOLDER
+    // ============================================================
 
     static class ViewHolder
             extends RecyclerView.ViewHolder {
@@ -262,39 +546,49 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         ImageView btnEdit;
         ImageView btnDelete;
 
-        ViewHolder(@NonNull View itemView) {
+
+        ViewHolder(
+                @NonNull View itemView
+        ) {
 
             super(itemView);
+
 
             txtProductName =
                     itemView.findViewById(
                             R.id.txtProductName
                     );
 
+
             txtCategory =
                     itemView.findViewById(
                             R.id.txtCategory
                     );
+
 
             txtPrice =
                     itemView.findViewById(
                             R.id.txtPrice
                     );
 
+
             txtQuantity =
                     itemView.findViewById(
                             R.id.txtQuantity
                     );
+
 
             txtStatus =
                     itemView.findViewById(
                             R.id.txtStatus
                     );
 
+
             btnEdit =
                     itemView.findViewById(
                             R.id.btnEdit
                     );
+
 
             btnDelete =
                     itemView.findViewById(
@@ -304,6 +598,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     }
 
 
+    // ============================================================
+    // SEARCH
+    // ============================================================
+
     @Override
     public Filter getFilter() {
 
@@ -311,75 +609,177 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
             @Override
             protected FilterResults performFiltering(
-                    CharSequence constraint) {
+                    CharSequence constraint
+            ) {
 
-                ArrayList<Product> filtered =
+                ArrayList<Product> filteredList =
                         new ArrayList<>();
 
 
-                if (constraint == null ||
-                        constraint.length() == 0) {
+                // =================================================
+                // EMPTY SEARCH
+                //
+                // Return the COMPLETE original list.
+                // =================================================
 
-                    filtered.addAll(fullList);
+                if (constraint == null ||
+                        constraint.toString().trim().isEmpty()) {
+
+                    filteredList.addAll(
+                            fullList
+                    );
 
                 } else {
 
-                    String text =
-                            constraint.toString()
-                                    .toLowerCase(Locale.getDefault())
-                                    .trim();
+                    String searchText =
+                            constraint
+                                    .toString()
+                                    .trim()
+                                    .toLowerCase(
+                                            Locale.getDefault()
+                                    );
 
-                    // Search through complete list
-                    for (Product product : fullList) {
+
+                    // =============================================
+                    // SEARCH COMPLETE LIST
+                    // =============================================
+
+                    for (Product product :
+                            fullList) {
+
+                        if (product == null) {
+                            continue;
+                        }
+
+
+                        // -----------------------------------------
+                        // PRODUCT NAME
+                        // -----------------------------------------
 
                         String name =
-                                product.getProductName() == null
-                                        ? ""
-                                        : product.getProductName()
-                                          .toLowerCase(
-                                                  Locale.getDefault()
-                                          );
+                                product.getProductName();
+
+                        if (name == null) {
+                            name = "";
+                        }
+
+
+                        name =
+                                name.toLowerCase(
+                                        Locale.getDefault()
+                                );
+
+
+                        // -----------------------------------------
+                        // CATEGORY
+                        // -----------------------------------------
 
                         String category =
-                                product.getCategory() == null
-                                        ? ""
-                                        : product.getCategory()
-                                          .toLowerCase(
-                                                  Locale.getDefault()
-                                          );
+                                product.getCategory();
 
-                        if (name.contains(text) ||
-                                category.contains(text)) {
+                        if (category == null) {
+                            category = "";
+                        }
 
-                            filtered.add(product);
+
+                        category =
+                                category.toLowerCase(
+                                        Locale.getDefault()
+                                );
+
+
+                        // -----------------------------------------
+                        // BRAND
+                        // -----------------------------------------
+
+                        String brand =
+                                product.getBrandName();
+
+                        if (brand == null) {
+                            brand = "";
+                        }
+
+
+                        brand =
+                                brand.toLowerCase(
+                                        Locale.getDefault()
+                                );
+
+
+                        // -----------------------------------------
+                        // PRODUCT ID
+                        // -----------------------------------------
+
+                        String productId =
+                                product.getProductId();
+
+                        if (productId == null) {
+                            productId = "";
+                        }
+
+
+                        productId =
+                                productId.toLowerCase(
+                                        Locale.getDefault()
+                                );
+
+
+                        // -----------------------------------------
+                        // MATCH
+                        // -----------------------------------------
+
+                        if (name.contains(searchText)
+                                || category.contains(searchText)
+                                || brand.contains(searchText)
+                                || productId.contains(searchText)) {
+
+                            filteredList.add(
+                                    product
+                            );
                         }
                     }
                 }
 
+
+                // =================================================
+                // FILTER RESULTS
+                // =================================================
+
                 FilterResults results =
                         new FilterResults();
 
-                results.values = filtered;
-                results.count = filtered.size();
+                results.values =
+                        filteredList;
+
+                results.count =
+                        filteredList.size();
 
                 return results;
             }
+
 
             @Override
             @SuppressWarnings("unchecked")
             protected void publishResults(
                     CharSequence constraint,
-                    FilterResults results) {
+                    FilterResults results
+            ) {
 
                 list.clear();
 
-                if (results.values != null) {
+
+                if (results != null &&
+                        results.values != null) {
+
+                    ArrayList<Product> filteredList =
+                            (ArrayList<Product>)
+                                    results.values;
 
                     list.addAll(
-                            (ArrayList<Product>)
-                                    results.values
+                            filteredList
                     );
                 }
+
 
                 notifyDataSetChanged();
             }
