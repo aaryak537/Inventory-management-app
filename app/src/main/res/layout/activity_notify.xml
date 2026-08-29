@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#F5F7FA">
 
-    <!-- Toolbar -->
+
     <androidx.cardview.widget.CardView
         android:id="@+id/topBar"
         android:layout_width="0dp"
@@ -60,7 +60,7 @@
 
     </androidx.cardview.widget.CardView>
 
-    <!-- RecyclerView -->
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerNotifications"
         android:layout_width="0dp"
@@ -72,7 +72,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Empty State -->
+
     <LinearLayout
         android:id="@+id/layoutEmpty"
         android:layout_width="wrap_content"

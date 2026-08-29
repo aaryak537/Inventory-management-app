@@ -21,7 +21,7 @@ public class NotifyAdapter extends RecyclerView.Adapter<NotifyAdapter.Notificati
 
     public NotifyAdapter(Context context, ArrayList<NotifyModel> notifyList) {
         this.context = context;
-        this.notifyList = notifyList;   // ✅ Fixed
+        this.notifyList = notifyList;
     }
 
     @NonNull
@@ -37,7 +37,7 @@ public class NotifyAdapter extends RecyclerView.Adapter<NotifyAdapter.Notificati
 
         NotifyModel model = notifyList.get(position);
 
-        // holder.imgIcon.setImageResource(model.getIcon());
+
 
         holder.tvTitle.setText(model.getTitle());
         holder.tvMessage.setText(model.getMessage());
@@ -63,7 +63,7 @@ public class NotifyAdapter extends RecyclerView.Adapter<NotifyAdapter.Notificati
 
     @Override
     public int getItemCount() {
-        return notifyList == null ? 0 : notifyList.size();   // ✅ Prevent crash
+        return notifyList == null ? 0 : notifyList.size();
     }
 
     static class NotificationViewHolder extends RecyclerView.ViewHolder {

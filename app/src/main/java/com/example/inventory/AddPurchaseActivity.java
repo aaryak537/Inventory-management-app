@@ -31,10 +31,6 @@ import java.util.Map;
 
 public class AddPurchaseActivity extends AppCompatActivity {
 
-    // =========================================================
-    // UI
-    // =========================================================
-
     private AutoCompleteTextView actvProduct;
     private AutoCompleteTextView actvSupplier;
 
@@ -48,19 +44,11 @@ public class AddPurchaseActivity extends AppCompatActivity {
     private MaterialButton btnSavePurchase;
     private ImageView btnBack;
 
-    // =========================================================
-    // FIREBASE
-    // =========================================================
-
     private FirebaseAuth auth;
 
     private DatabaseReference productsRef;
     private DatabaseReference suppliersRef;
     private DatabaseReference purchasesRef;
-
-    // =========================================================
-    // PRODUCT DATA
-    // =========================================================
 
     private final ArrayList<String> productNames = new ArrayList<>();
     private final ArrayList<String> productIds = new ArrayList<>();
@@ -70,10 +58,6 @@ public class AddPurchaseActivity extends AppCompatActivity {
     private String selectedProductId = "";
     private String selectedProductName = "";
 
-    // =========================================================
-    // SUPPLIER DATA
-    // =========================================================
-
     private final ArrayList<String> supplierNames = new ArrayList<>();
     private final ArrayList<String> supplierIds = new ArrayList<>();
 
@@ -82,15 +66,7 @@ public class AddPurchaseActivity extends AppCompatActivity {
     private String selectedSupplierId = "";
     private String selectedSupplierName = "";
 
-    // =========================================================
-    // STOCK
-    // =========================================================
-
     private int currentStock = 0;
-
-    // =========================================================
-    // ON CREATE
-    // =========================================================
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,10 +118,6 @@ public class AddPurchaseActivity extends AppCompatActivity {
         setCurrentDate();
     }
 
-    // =========================================================
-    // INITIALIZE VIEWS
-    // =========================================================
-
     private void initializeViews() {
 
         actvProduct =
@@ -179,9 +151,9 @@ public class AddPurchaseActivity extends AppCompatActivity {
                 findViewById(R.id.btnBack);
     }
 
-    // =========================================================
-    // ADAPTERS
-    // =========================================================
+
+
+
 
     private void setupAdapters() {
 
@@ -203,8 +175,6 @@ public class AddPurchaseActivity extends AppCompatActivity {
 
         actvSupplier.setAdapter(supplierAdapter);
 
-        // IMPORTANT:
-        // 0 means show all items when dropdown is opened.
         actvProduct.setThreshold(0);
         actvSupplier.setThreshold(0);
 
@@ -223,27 +193,20 @@ public class AddPurchaseActivity extends AppCompatActivity {
         });
     }
 
-    // =========================================================
-    // LISTENERS
-    // =========================================================
-
     private void setupListeners() {
 
         btnBack.setOnClickListener(
                 v -> finish()
         );
 
-        // -----------------------------------------------------
-        // PRODUCT
-        // -----------------------------------------------------
+
+
+
 
         actvProduct.setOnItemClickListener(
                 (parent, view, position, id) -> {
 
-                    /*
-                     * Do NOT assume that the position is always
-                     * valid in the ID list.
-                     */
+
 
                     if (position < 0 ||
                             position >= productNames.size() ||
@@ -264,9 +227,9 @@ public class AddPurchaseActivity extends AppCompatActivity {
                 }
         );
 
-        // -----------------------------------------------------
-        // SUPPLIER
-        // -----------------------------------------------------
+
+
+
 
         actvSupplier.setOnItemClickListener(
                 (parent, view, position, id) -> {
@@ -286,9 +249,9 @@ public class AddPurchaseActivity extends AppCompatActivity {
                 }
         );
 
-        // -----------------------------------------------------
-        // TOTAL CALCULATION
-        // -----------------------------------------------------
+
+
+
 
         TextWatcher totalWatcher =
                 new TextWatcher() {
@@ -325,26 +288,26 @@ public class AddPurchaseActivity extends AppCompatActivity {
                 totalWatcher
         );
 
-        // -----------------------------------------------------
-        // DATE
-        // -----------------------------------------------------
+
+
+
 
         etPurchaseDate.setOnClickListener(
                 v -> showDatePicker()
         );
 
-        // -----------------------------------------------------
-        // SAVE
-        // -----------------------------------------------------
+
+
+
 
         btnSavePurchase.setOnClickListener(
                 v -> savePurchase()
         );
     }
 
-    // =========================================================
-    // LOAD PRODUCTS
-    // =========================================================
+
+
+
 
     private void loadProducts() {
 
@@ -407,9 +370,9 @@ public class AddPurchaseActivity extends AppCompatActivity {
         );
     }
 
-    // =========================================================
-    // LOAD SUPPLIERS
-    // =========================================================
+
+
+
 
     private void loadSuppliers() {
 
@@ -429,18 +392,7 @@ public class AddPurchaseActivity extends AppCompatActivity {
                             String supplierId =
                                     supplierSnapshot.getKey();
 
-                            /*
-                             * Your Supplier.java uses:
-                             *
-                             * id
-                             * name
-                             * company
-                             * phone
-                             * email
-                             *
-                             * Therefore use "name", NOT
-                             * "supplierName".
-                             */
+
 
                             String supplierName =
                                     supplierSnapshot
@@ -493,9 +445,9 @@ public class AddPurchaseActivity extends AppCompatActivity {
         );
     }
 
-    // =========================================================
-    // LOAD CURRENT STOCK
-    // =========================================================
+
+
+
 
     private void loadCurrentProductStock(
             String productId) {
@@ -522,8 +474,8 @@ public class AddPurchaseActivity extends AppCompatActivity {
                                     return;
                                 }
 
-                                // Quantity is the source of truth.
-                                // "stock" is a status string in current records.
+
+
                                 if (snapshot.hasChild("quantity")) {
 
                                     currentStock =
@@ -535,7 +487,7 @@ public class AddPurchaseActivity extends AppCompatActivity {
 
                                 } else if (snapshot.hasChild("stock")) {
 
-                                    // Legacy records may contain numeric stock.
+
                                     currentStock =
                                             getIntValue(
                                                     snapshot.child(
@@ -561,9 +513,9 @@ public class AddPurchaseActivity extends AppCompatActivity {
                 );
     }
 
-    // =========================================================
-    // INTEGER HELPER
-    // =========================================================
+
+
+
 
     private int getIntValue(
             DataSnapshot snapshot) {
@@ -602,9 +554,9 @@ public class AddPurchaseActivity extends AppCompatActivity {
         return 0;
     }
 
-    // =========================================================
-    // CALCULATE TOTAL
-    // =========================================================
+
+
+
 
     private void calculateTotal() {
 
@@ -656,9 +608,9 @@ public class AddPurchaseActivity extends AppCompatActivity {
         }
     }
 
-    // =========================================================
-    // CURRENT DATE
-    // =========================================================
+
+
+
 
     private void setCurrentDate() {
 
@@ -678,9 +630,9 @@ public class AddPurchaseActivity extends AppCompatActivity {
         );
     }
 
-    // =========================================================
-    // DATE PICKER
-    // =========================================================
+
+
+
 
     private void showDatePicker() {
 
@@ -719,9 +671,9 @@ public class AddPurchaseActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    // =========================================================
-    // SAVE PURCHASE
-    // =========================================================
+
+
+
 
     private void savePurchase() {
 
@@ -736,9 +688,9 @@ public class AddPurchaseActivity extends AppCompatActivity {
             return;
         }
 
-        // -----------------------------------------------------
-        // PRODUCT
-        // -----------------------------------------------------
+
+
+
 
         if (selectedProductId.isEmpty()) {
 
@@ -751,9 +703,9 @@ public class AddPurchaseActivity extends AppCompatActivity {
             return;
         }
 
-        // -----------------------------------------------------
-        // SUPPLIER
-        // -----------------------------------------------------
+
+
+
 
         if (selectedSupplierId.isEmpty()) {
 
@@ -875,9 +827,9 @@ public class AddPurchaseActivity extends AppCompatActivity {
                           .toString()
                           .trim();
 
-        // -----------------------------------------------------
-        // PURCHASE ID
-        // -----------------------------------------------------
+
+
+
 
         String purchaseId =
                 purchasesRef
@@ -898,9 +850,9 @@ public class AddPurchaseActivity extends AppCompatActivity {
         btnSavePurchase.setEnabled(false);
         btnSavePurchase.setText("Saving...");
 
-        // -----------------------------------------------------
-        // PURCHASE OBJECT
-        // -----------------------------------------------------
+
+
+
 
         Purchase purchase =
                 new Purchase(
@@ -917,9 +869,9 @@ public class AddPurchaseActivity extends AppCompatActivity {
                         notes
                 );
 
-        // -----------------------------------------------------
-        // INCREASE STOCK
-        // -----------------------------------------------------
+
+
+
 
         int newStock =
                 currentStock + quantity;
@@ -945,7 +897,7 @@ public class AddPurchaseActivity extends AppCompatActivity {
                 .addOnSuccessListener(
                         unused -> {
 
-                            // SAVE PURCHASE
+
                             purchasesRef
                                     .child(purchaseId)
                                     .setValue(purchase)
@@ -964,7 +916,7 @@ public class AddPurchaseActivity extends AppCompatActivity {
                                     .addOnFailureListener(
                                             e -> {
 
-                                                // Revert stock
+
                                                 Map<String, Object>
                                                         revert =
                                                         new HashMap<>();
@@ -1013,10 +965,6 @@ public class AddPurchaseActivity extends AppCompatActivity {
                         }
                 );
     }
-
-    // =========================================================
-    // ENABLE SAVE BUTTON
-    // =========================================================
 
     private void enableSaveButton() {
 

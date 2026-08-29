@@ -20,16 +20,16 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- ===================================================== -->
-            <!-- HEADER -->
-            <!-- ===================================================== -->
+
+
+
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="310dp"
                 android:background="@drawable/bg_dashboard_header">
 
-                <!-- TOP BAR -->
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -43,7 +43,7 @@
                         android:id="@+id/btnBack"
                         android:layout_width="26dp"
                         android:layout_height="26dp"
-                        android:contentDescription="Back"
+                        android:contentDescription="@string/back_2"
                         android:src="@android:drawable/ic_media_previous"
                         app:tint="@android:color/white" />
 
@@ -52,7 +52,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="Edit Profile"
+                        android:text="@string/edit_profile"
                         android:textColor="@android:color/white"
                         android:textSize="22sp"
                         android:textStyle="bold" />
@@ -61,15 +61,15 @@
                         android:id="@+id/btnSave"
                         android:layout_width="26dp"
                         android:layout_height="26dp"
-                        android:contentDescription="Save"
+                        android:contentDescription="@string/save"
                         android:src="@android:drawable/ic_menu_save"
                         app:tint="@android:color/white" />
 
                 </LinearLayout>
 
-                <!-- ================================================= -->
-                <!-- PROFILE -->
-                <!-- ================================================= -->
+
+
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -87,12 +87,12 @@
                             android:id="@+id/profileImage"
                             android:layout_width="130dp"
                             android:layout_height="130dp"
-                            android:contentDescription="Profile Image"
+                            android:contentDescription="@string/profile_image_2"
                             android:scaleType="centerCrop"
                             android:src="@drawable/ic_person"
                             app:shapeAppearanceOverlay="@style/CircleImage" />
 
-                        <!-- Camera icon -->
+
 
                         <com.google.android.material.card.MaterialCardView
                             android:layout_width="42dp"
@@ -107,7 +107,7 @@
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_gravity="center"
-                                android:contentDescription="Camera"
+                                android:contentDescription="@string/camera_2"
                                 android:src="@android:drawable/ic_menu_camera"
                                 app:tint="#1976D2" />
 
@@ -115,14 +115,14 @@
 
                     </FrameLayout>
 
-                    <!-- Dynamic name -->
+
 
                     <TextView
                         android:id="@+id/tvProfileName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="14dp"
-                        android:text="Loading..."
+                        android:text="@string/loading"
                         android:textColor="@android:color/white"
                         android:textSize="24sp"
                         android:textStyle="bold" />
@@ -131,7 +131,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="Inventory Administrator"
+                        android:text="@string/inventory_administrator"
                         android:textColor="#EAF7FF"
                         android:textSize="15sp" />
 
@@ -139,9 +139,9 @@
 
             </FrameLayout>
 
-            <!-- ===================================================== -->
-            <!-- WHITE CONTENT -->
-            <!-- ===================================================== -->
+
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -151,9 +151,9 @@
                 android:orientation="vertical"
                 android:padding="20dp">
 
-                <!-- ================================================= -->
-                <!-- STATISTICS - PRODUCTS + ACCOUNT -->
-                <!-- ================================================= -->
+
+
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -161,7 +161,7 @@
                     android:orientation="horizontal"
                     android:weightSum="2">
 
-                    <!-- PRODUCTS -->
+
 
                     <com.google.android.material.card.MaterialCardView
                         android:layout_width="0dp"
@@ -180,7 +180,7 @@
                             <ImageView
                                 android:layout_width="24dp"
                                 android:layout_height="24dp"
-                                android:contentDescription="Products"
+                                android:contentDescription="@string/products"
                                 android:src="@drawable/ic_package"
                                 app:tint="#1976D2" />
 
@@ -190,7 +190,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
                                 android:gravity="center"
-                                android:text="0"
+                                android:text="@string/text_0"
                                 android:textColor="#263238"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
@@ -199,7 +199,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:text="Products"
+                                android:text="@string/products"
                                 android:textColor="#78909C"
                                 android:textSize="12sp" />
 
@@ -207,7 +207,7 @@
 
                     </com.google.android.material.card.MaterialCardView>
 
-                    <!-- ACCOUNT -->
+
 
                     <com.google.android.material.card.MaterialCardView
                         android:layout_width="0dp"
@@ -226,7 +226,7 @@
                             <ImageView
                                 android:layout_width="24dp"
                                 android:layout_height="24dp"
-                                android:contentDescription="Account"
+                                android:contentDescription="@string/account"
                                 android:src="@android:drawable/btn_star_big_on"
                                 app:tint="#1976D2" />
 
@@ -235,7 +235,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
                                 android:gravity="center"
-                                android:text="PRO"
+                                android:text="@string/pro"
                                 android:textColor="#263238"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
@@ -244,7 +244,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:text="Account"
+                                android:text="@string/account"
                                 android:textColor="#78909C"
                                 android:textSize="12sp" />
 
@@ -254,15 +254,15 @@
 
                 </LinearLayout>
 
-                <!-- ================================================= -->
-                <!-- ACCOUNT INFORMATION -->
-                <!-- ================================================= -->
+
+
+
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="26dp"
-                    android:text="Account Information"
+                    android:text="@string/account_information"
                     android:textColor="#263238"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -271,13 +271,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="18dp"
-                    android:text="Manage your personal information"
+                    android:text="@string/manage_your_personal_information"
                     android:textColor="#90A4AE"
                     android:textSize="14sp" />
 
-                <!-- ================================================= -->
-                <!-- FULL NAME -->
-                <!-- ================================================= -->
+
+
+
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
@@ -295,7 +295,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Full Name"
+                            android:text="@string/full_name"
                             android:textColor="#607D8B"
                             android:textSize="13sp"
                             android:textStyle="bold" />
@@ -314,7 +314,7 @@
                                 android:id="@+id/etName"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="Enter full name"
+                                android:hint="@string/enter_full_name"
                                 android:inputType="textPersonName"
                                 android:textSize="16sp" />
 
@@ -324,9 +324,9 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- ================================================= -->
-                <!-- EMAIL -->
-                <!-- ================================================= -->
+
+
+
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
@@ -344,7 +344,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Email Address"
+                            android:text="@string/email_address"
                             android:textColor="#607D8B"
                             android:textSize="13sp"
                             android:textStyle="bold" />
@@ -363,7 +363,7 @@
                                 android:id="@+id/etEmail"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="Enter email"
+                                android:hint="@string/enter_email"
                                 android:inputType="textEmailAddress"
                                 android:textSize="16sp" />
 
@@ -373,9 +373,9 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- ================================================= -->
-                <!-- PHONE -->
-                <!-- ================================================= -->
+
+
+
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
@@ -393,7 +393,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Mobile Number"
+                            android:text="@string/mobile_number"
                             android:textColor="#607D8B"
                             android:textSize="13sp"
                             android:textStyle="bold" />
@@ -412,7 +412,7 @@
                                 android:id="@+id/etPhone"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="Enter phone number"
+                                android:hint="@string/enter_phone_number"
                                 android:inputType="phone"
                                 android:textSize="16sp" />
 
@@ -422,21 +422,21 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- ================================================= -->
-                <!-- COMPANY INFORMATION -->
-                <!-- ================================================= -->
+
+
+
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:layout_marginBottom="16dp"
-                    android:text="Company Information"
+                    android:text="@string/company_information"
                     android:textColor="#263238"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
-                <!-- COMPANY NAME -->
+
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
@@ -454,7 +454,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Company Name"
+                            android:text="@string/company_name"
                             android:textColor="#607D8B"
                             android:textSize="13sp"
                             android:textStyle="bold" />
@@ -473,7 +473,7 @@
                                 android:id="@+id/etCompany"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="Company name"
+                                android:hint="@string/company_name_2"
                                 android:inputType="textCapWords" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -482,7 +482,7 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- USERNAME -->
+
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
@@ -500,7 +500,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Username"
+                            android:text="@string/username"
                             android:textColor="#607D8B"
                             android:textSize="13sp"
                             android:textStyle="bold" />
@@ -519,7 +519,7 @@
                                 android:id="@+id/etUsername"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="Username"
+                                android:hint="@string/username"
                                 android:inputType="text" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -528,7 +528,7 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- EMPLOYEE ID -->
+
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
@@ -546,7 +546,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Employee ID"
+                            android:text="@string/employee_id"
                             android:textColor="#607D8B"
                             android:textSize="13sp"
                             android:textStyle="bold" />
@@ -565,7 +565,7 @@
                                 android:id="@+id/etEmployeeId"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="Employee ID"
+                                android:hint="@string/employee_id"
                                 android:inputType="text" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -574,9 +574,9 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- ================================================= -->
-                <!-- BUSINESS TYPE -->
-                <!-- ================================================= -->
+
+
+
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
@@ -594,7 +594,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Business Type"
+                            android:text="@string/business_type"
                             android:textColor="#607D8B"
                             android:textSize="13sp"
                             android:textStyle="bold" />
@@ -614,7 +614,7 @@
                                 android:id="@+id/actBusinessType"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="Select business type"
+                                android:hint="@string/select_business_type"
                                 android:inputType="none" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -623,9 +623,9 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- ================================================= -->
-                <!-- SAVE BUTTON -->
-                <!-- ================================================= -->
+
+
+
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnSaveChanges"
@@ -634,7 +634,7 @@
                     android:layout_marginTop="30dp"
                     android:layout_marginBottom="30dp"
                     android:background="@drawable/bg_primary_button"
-                    android:text="Save Changes"
+                    android:text="@string/save_changes"
                     android:textAllCaps="false"
                     android:textColor="@android:color/white"
                     android:textSize="17sp"
@@ -647,9 +647,9 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    <!-- ========================================================= -->
-    <!-- FLOATING ACTION BUTTON -->
-    <!-- ========================================================= -->
+
+
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabEditPhoto"
@@ -657,7 +657,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="24dp"
-        android:contentDescription="Change profile photo"
+        android:contentDescription="@string/change_profile_photo"
         android:src="@android:drawable/ic_menu_camera"
         android:tint="@android:color/white"
         app:backgroundTint="#1976D2" />

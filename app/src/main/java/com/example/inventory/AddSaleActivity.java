@@ -35,9 +35,9 @@ import java.util.Map;
 
 public class AddSaleActivity extends AppCompatActivity {
 
-    // ============================================================
-    // UI
-    // ============================================================
+
+
+
 
     private ImageView btnBack;
 
@@ -58,9 +58,9 @@ public class AddSaleActivity extends AppCompatActivity {
     private MaterialButton btnCompleteSale;
 
 
-    // ============================================================
-    // FIREBASE
-    // ============================================================
+
+
+
 
     private FirebaseAuth firebaseAuth;
 
@@ -68,9 +68,9 @@ public class AddSaleActivity extends AppCompatActivity {
     private DatabaseReference salesRef;
 
 
-    // ============================================================
-    // PRODUCTS
-    // ============================================================
+
+
+
 
     private final List<Product> productList = new ArrayList<>();
     private final List<String> productNames = new ArrayList<>();
@@ -80,9 +80,9 @@ public class AddSaleActivity extends AppCompatActivity {
     private Product selectedProduct;
 
 
-    // ============================================================
-    // PAYMENT METHODS
-    // ============================================================
+
+
+
 
     private final String[] paymentMethods = {
             "Cash",
@@ -92,9 +92,9 @@ public class AddSaleActivity extends AppCompatActivity {
     };
 
 
-    // ============================================================
-    // ON CREATE
-    // ============================================================
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,9 +112,9 @@ public class AddSaleActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // INITIALIZE VIEWS
-    // ============================================================
+
+
+
 
     private void initializeViews() {
 
@@ -138,9 +138,9 @@ public class AddSaleActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // FIREBASE SETUP
-    // ============================================================
+
+
+
 
     private void setupFirebase() {
 
@@ -162,17 +162,7 @@ public class AddSaleActivity extends AppCompatActivity {
 
         String userId = user.getUid();
 
-        /*
-         * YOUR EXISTING FIREBASE STRUCTURE:
-         *
-         * Products
-         *    └── UID
-         *         └── ProductID
-         *
-         * Sales
-         *    └── UID
-         *         └── SaleID
-         */
+
 
         productsRef = FirebaseDatabase
                 .getInstance()
@@ -186,9 +176,9 @@ public class AddSaleActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // PRODUCT DROPDOWN
-    // ============================================================
+
+
+
 
     private void setupProductDropdown() {
 
@@ -218,9 +208,9 @@ public class AddSaleActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // PAYMENT DROPDOWN
-    // ============================================================
+
+
+
 
     private void setupPaymentDropdown() {
 
@@ -239,16 +229,16 @@ public class AddSaleActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // LISTENERS
-    // ============================================================
+
+
+
 
     private void setupListeners() {
 
         btnBack.setOnClickListener(v -> finish());
 
 
-        // Quantity changed
+
         etQuantity.addTextChangedListener(
                 new TextWatcher() {
 
@@ -281,7 +271,7 @@ public class AddSaleActivity extends AppCompatActivity {
         );
 
 
-        // Selling price changed
+
         etSellingPrice.addTextChangedListener(
                 new TextWatcher() {
 
@@ -320,9 +310,9 @@ public class AddSaleActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // LOAD PRODUCTS
-    // ============================================================
+
+
+
 
     private void loadProducts() {
 
@@ -351,15 +341,12 @@ public class AddSaleActivity extends AppCompatActivity {
 
                             if (product != null) {
 
-                                // Firebase key = Product ID
+
                                 product.setProductId(
                                         dataSnapshot.getKey()
                                 );
 
-                                /*
-                                 * Only show products that
-                                 * actually have stock.
-                                 */
+
                                 if (product.getEffectiveQuantity() > 0) {
 
                                     productList.add(product);
@@ -406,9 +393,9 @@ public class AddSaleActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // SELECT PRODUCT
-    // ============================================================
+
+
+
 
     private void selectProduct(String productName) {
 
@@ -438,30 +425,30 @@ public class AddSaleActivity extends AppCompatActivity {
 
         clearErrors();
 
-        // Available stock
+
         tvAvailableStock.setText(
                 String.valueOf(
                         selectedProduct.getEffectiveQuantity()
                 )
         );
 
-        // Existing selling price
+
         etSellingPrice.setText(
                 formatAmount(
                         selectedProduct.getSellingPrice()
                 )
         );
 
-        // Clear old quantity
+
         etQuantity.setText("");
 
         calculateTotal();
     }
 
 
-    // ============================================================
-    // CALCULATE TOTAL
-    // ============================================================
+
+
+
 
     private void calculateTotal() {
 
@@ -477,9 +464,9 @@ public class AddSaleActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // GET QUANTITY
-    // ============================================================
+
+
+
 
     private int getQuantity() {
 
@@ -507,9 +494,9 @@ public class AddSaleActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // GET SELLING PRICE
-    // ============================================================
+
+
+
 
     private double getSellingPrice() {
 
@@ -537,18 +524,18 @@ public class AddSaleActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // COMPLETE SALE
-    // ============================================================
+
+
+
 
     private void completeSale() {
 
         clearErrors();
 
 
-        // --------------------------------------------------------
-        // PRODUCT
-        // --------------------------------------------------------
+
+
+
 
         if (selectedProduct == null) {
 
@@ -560,9 +547,9 @@ public class AddSaleActivity extends AppCompatActivity {
         }
 
 
-        // --------------------------------------------------------
-        // QUANTITY
-        // --------------------------------------------------------
+
+
+
 
         int quantity = getQuantity();
 
@@ -576,9 +563,9 @@ public class AddSaleActivity extends AppCompatActivity {
         }
 
 
-        // --------------------------------------------------------
-        // STOCK
-        // --------------------------------------------------------
+
+
+
 
         int availableStock =
                 selectedProduct.getEffectiveQuantity();
@@ -604,9 +591,9 @@ public class AddSaleActivity extends AppCompatActivity {
         }
 
 
-        // --------------------------------------------------------
-        // SELLING PRICE
-        // --------------------------------------------------------
+
+
+
 
         double sellingPrice =
                 getSellingPrice();
@@ -621,9 +608,9 @@ public class AddSaleActivity extends AppCompatActivity {
         }
 
 
-        // --------------------------------------------------------
-        // PAYMENT METHOD
-        // --------------------------------------------------------
+
+
+
 
         String paymentMethod =
                 actPaymentMethod.getText()
@@ -642,9 +629,9 @@ public class AddSaleActivity extends AppCompatActivity {
         }
 
 
-        // --------------------------------------------------------
-        // CUSTOMER NAME
-        // --------------------------------------------------------
+
+
+
 
         String customerName = "";
 
@@ -657,17 +644,17 @@ public class AddSaleActivity extends AppCompatActivity {
         }
 
 
-        // --------------------------------------------------------
-        // TOTAL
-        // --------------------------------------------------------
+
+
+
 
         double totalAmount =
                 quantity * sellingPrice;
 
 
-        // --------------------------------------------------------
-        // DATE & TIME
-        // --------------------------------------------------------
+
+
+
 
         Date now = new Date();
 
@@ -687,9 +674,9 @@ public class AddSaleActivity extends AppCompatActivity {
                 System.currentTimeMillis();
 
 
-        // --------------------------------------------------------
-        // SALE ID
-        // --------------------------------------------------------
+
+
+
 
         String saleId =
                 salesRef.push().getKey();
@@ -706,9 +693,9 @@ public class AddSaleActivity extends AppCompatActivity {
         }
 
 
-        // --------------------------------------------------------
-        // PRODUCT ID
-        // --------------------------------------------------------
+
+
+
 
         String productId =
                 selectedProduct.getProductId();
@@ -726,17 +713,17 @@ public class AddSaleActivity extends AppCompatActivity {
         }
 
 
-        // --------------------------------------------------------
-        // IMAGE
-        // --------------------------------------------------------
+
+
+
 
         String imageUrl =
                 selectedProduct.getImageUrl();
 
 
-        // --------------------------------------------------------
-        // CREATE SALE OBJECT
-        // --------------------------------------------------------
+
+
+
 
         Sale sale = new Sale(
                 saleId,
@@ -754,17 +741,17 @@ public class AddSaleActivity extends AppCompatActivity {
         );
 
 
-        // --------------------------------------------------------
-        // NEW STOCK
-        // --------------------------------------------------------
+
+
+
 
         int newStock =
                 availableStock - quantity;
 
 
-        // --------------------------------------------------------
-        // SAVE
-        // --------------------------------------------------------
+
+
+
 
         saveSaleAndUpdateStock(
                 sale,
@@ -774,9 +761,9 @@ public class AddSaleActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // SAVE SALE + UPDATE STOCK
-    // ============================================================
+
+
+
 
     private void saveSaleAndUpdateStock(
             Sale sale,
@@ -799,9 +786,9 @@ public class AddSaleActivity extends AppCompatActivity {
         btnCompleteSale.setText("Saving Sale...");
 
 
-        // ========================================================
-        // PRODUCT UPDATE
-        // ========================================================
+
+
+
 
         Map<String, Object> productUpdates =
                 new HashMap<>();
@@ -817,9 +804,9 @@ public class AddSaleActivity extends AppCompatActivity {
         );
 
 
-        // ========================================================
-        // UPDATE PRODUCT
-        // ========================================================
+
+
+
 
         productsRef
                 .child(productId)
@@ -827,9 +814,9 @@ public class AddSaleActivity extends AppCompatActivity {
                 .addOnSuccessListener(unused -> {
 
 
-                    // =================================================
-                    // SAVE SALE
-                    // =================================================
+
+
+
 
                     salesRef
                             .child(sale.getSaleId())
@@ -896,9 +883,9 @@ public class AddSaleActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // CLEAR ERRORS
-    // ============================================================
+
+
+
 
     private void clearErrors() {
 
@@ -908,9 +895,9 @@ public class AddSaleActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // FORMAT AMOUNT
-    // ============================================================
+
+
+
 
     private String formatAmount(double amount) {
 

@@ -27,9 +27,9 @@ import java.util.Comparator;
 
 public class IncomingPurchaseActivity extends AppCompatActivity {
 
-    // =========================================================
-    // UI
-    // =========================================================
+
+
+
 
     private RecyclerView recyclerPurchases;
 
@@ -42,18 +42,18 @@ public class IncomingPurchaseActivity extends AppCompatActivity {
     private FloatingActionButton fabAddPurchase;
 
 
-    // =========================================================
-    // FIREBASE
-    // =========================================================
+
+
+
 
     private FirebaseAuth auth;
 
     private DatabaseReference purchasesRef;
 
 
-    // =========================================================
-    // ADAPTER / LIST
-    // =========================================================
+
+
+
 
     private PurchaseAdapter purchaseAdapter;
 
@@ -61,32 +61,32 @@ public class IncomingPurchaseActivity extends AppCompatActivity {
             new ArrayList<>();
 
 
-    // =========================================================
-    // ON CREATE
-    // =========================================================
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
-        // IMPORTANT:
-        // This must match activity_incoming_purchase.xml
+
+
         setContentView(
                 R.layout.activity_incomingpurchase
         );
 
 
-        // =====================================================
-        // INITIALIZE FIREBASE
-        // =====================================================
+
+
+
 
         auth = FirebaseAuth.getInstance();
 
 
-        // =====================================================
-        // CHECK LOGIN
-        // =====================================================
+
+
+
 
         if (auth.getCurrentUser() == null) {
 
@@ -102,16 +102,16 @@ public class IncomingPurchaseActivity extends AppCompatActivity {
         }
 
 
-        // =====================================================
-        // INITIALIZE VIEWS
-        // =====================================================
+
+
+
 
         initializeViews();
 
 
-        // =====================================================
-        // ADD PURCHASE BUTTON
-        // =====================================================
+
+
+
 
         fabAddPurchase.setOnClickListener(
                 v -> {
@@ -127,9 +127,9 @@ public class IncomingPurchaseActivity extends AppCompatActivity {
         );
 
 
-        // =====================================================
-        // FIREBASE PURCHASE REFERENCE
-        // =====================================================
+
+
+
 
         String uid =
                 auth.getCurrentUser().getUid();
@@ -142,24 +142,24 @@ public class IncomingPurchaseActivity extends AppCompatActivity {
                         .child(uid);
 
 
-        // =====================================================
-        // SETUP RECYCLER
-        // =====================================================
+
+
+
 
         setupRecyclerView();
 
 
-        // =====================================================
-        // LOAD PURCHASES
-        // =====================================================
+
+
+
 
         loadPurchases();
     }
 
 
-    // =========================================================
-    // INITIALIZE VIEWS
-    // =========================================================
+
+
+
 
     private void initializeViews() {
 
@@ -193,9 +193,9 @@ public class IncomingPurchaseActivity extends AppCompatActivity {
                 );
 
 
-        // =====================================================
-        // BACK BUTTON
-        // =====================================================
+
+
+
 
         btnBack.setOnClickListener(
                 v -> finish()
@@ -203,9 +203,9 @@ public class IncomingPurchaseActivity extends AppCompatActivity {
     }
 
 
-    // =========================================================
-    // RECYCLER VIEW
-    // =========================================================
+
+
+
 
     private void setupRecyclerView() {
 
@@ -230,9 +230,9 @@ public class IncomingPurchaseActivity extends AppCompatActivity {
     }
 
 
-    // =========================================================
-    // LOAD PURCHASES
-    // =========================================================
+
+
+
 
     private void loadPurchases() {
 
@@ -249,9 +249,9 @@ public class IncomingPurchaseActivity extends AppCompatActivity {
                         purchaseList.clear();
 
 
-                        // =================================================
-                        // READ PURCHASES
-                        // =================================================
+
+
+
 
                         for (DataSnapshot purchaseSnapshot :
                                 snapshot.getChildren()) {
@@ -264,8 +264,8 @@ public class IncomingPurchaseActivity extends AppCompatActivity {
 
                             if (purchase != null) {
 
-                                // If purchaseId wasn't stored,
-                                // use Firebase key.
+
+
 
                                 if (purchase.getPurchaseId() == null
                                         || purchase.getPurchaseId()
@@ -284,9 +284,9 @@ public class IncomingPurchaseActivity extends AppCompatActivity {
                         }
 
 
-                        // =================================================
-                        // SORT — LATEST FIRST
-                        // =================================================
+
+
+
 
                         Collections.sort(
                                 purchaseList,
@@ -322,9 +322,9 @@ public class IncomingPurchaseActivity extends AppCompatActivity {
                         );
 
 
-                        // =================================================
-                        // UPDATE ADAPTER
-                        // =================================================
+
+
+
 
                         purchaseAdapter.notifyDataSetChanged();
 
@@ -332,9 +332,9 @@ public class IncomingPurchaseActivity extends AppCompatActivity {
                         showLoading(false);
 
 
-                        // =================================================
-                        // EMPTY STATE
-                        // =================================================
+
+
+
 
                         if (purchaseList.isEmpty()) {
 
@@ -388,9 +388,9 @@ public class IncomingPurchaseActivity extends AppCompatActivity {
     }
 
 
-    // =========================================================
-    // LOADING
-    // =========================================================
+
+
+
 
     private void showLoading(boolean loading) {
 

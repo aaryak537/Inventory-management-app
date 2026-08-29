@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Header -->
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:text="Edit Supplier"
+                android:text="@string/edit_supplier"
                 android:textColor="#FFFFFF"
                 android:textSize="28sp"
                 android:textStyle="bold" />
@@ -39,13 +39,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Update supplier information"
+                android:text="@string/update_supplier_information"
                 android:textColor="#EAF4FF"
                 android:textSize="15sp" />
 
         </LinearLayout>
 
-        <!-- Form Card -->
+
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -60,12 +60,12 @@
                 android:orientation="vertical"
                 android:padding="22dp">
 
-                <!-- Supplier Name -->
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Supplier Name"
+                    android:hint="@string/supplier_name"
                     app:boxBackgroundMode="outline"
                     app:boxCornerRadiusBottomEnd="18dp"
                     app:boxCornerRadiusBottomStart="18dp"
@@ -82,13 +82,13 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Company -->
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:hint="Company Name"
+                    android:hint="@string/company_name"
                     app:boxBackgroundMode="outline"
                     app:boxCornerRadiusBottomEnd="18dp"
                     app:boxCornerRadiusBottomStart="18dp"
@@ -105,13 +105,13 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Phone -->
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:hint="Phone Number"
+                    android:hint="@string/phone_number"
                     app:boxBackgroundMode="outline"
                     app:boxCornerRadiusBottomEnd="18dp"
                     app:boxCornerRadiusBottomStart="18dp"
@@ -128,13 +128,13 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Email -->
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:hint="Email Address"
+                    android:hint="@string/email_address"
                     app:boxBackgroundMode="outline"
                     app:boxCornerRadiusBottomEnd="18dp"
                     app:boxCornerRadiusBottomStart="18dp"
@@ -151,14 +151,14 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Update Button -->
+
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnUpdateSupplier"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:layout_marginTop="28dp"
-                    android:text="UPDATE SUPPLIER"
+                    android:text="@string/update_supplier"
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp"

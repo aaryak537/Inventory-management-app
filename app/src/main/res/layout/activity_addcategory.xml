@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Header -->
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="Add Category"
+                android:text="@string/add_category"
                 android:textStyle="bold"
                 android:textColor="@android:color/white"
                 android:textSize="30sp"/>
@@ -42,14 +42,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Create a new product category"
+                android:text="@string/create_a_new_product_category"
                 android:textColor="#DCE7FF"
                 android:textSize="15sp"
                 android:layout_marginTop="6dp"/>
 
         </LinearLayout>
 
-        <!-- Form Card -->
+
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -65,12 +65,12 @@
                 android:orientation="vertical"
                 android:padding="22dp">
 
-                <!-- Category Name -->
+
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Category Name"
+                    android:text="@string/category_name"
                     android:textStyle="bold"
                     android:textColor="#222"
                     android:textSize="15sp"/>
@@ -81,20 +81,20 @@
                     android:layout_height="55dp"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/bg_edittext"
-                    android:hint="Enter category name"
+                    android:hint="@string/enter_category_name"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
                     android:inputType="textCapWords"
                     android:textColor="#222"
                     android:textColorHint="#999"/>
 
-                <!-- Description -->
+
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
-                    android:text="Description"
+                    android:text="@string/description"
                     android:textStyle="bold"
                     android:textColor="#222"
                     android:textSize="15sp"/>
@@ -106,20 +106,20 @@
                     android:layout_marginTop="8dp"
                     android:background="@drawable/bg_edittext"
                     android:gravity="top|start"
-                    android:hint="Enter description"
+                    android:hint="@string/enter_description"
                     android:inputType="textMultiLine"
                     android:minLines="4"
                     android:padding="16dp"
                     android:textColor="#222"
                     android:textColorHint="#999"/>
 
-                <!-- Status -->
+
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
-                    android:text="Status"
+                    android:text="@string/status"
                     android:textStyle="bold"
                     android:textColor="#222"
                     android:textSize="15sp"/>
@@ -131,14 +131,14 @@
                     android:layout_marginTop="8dp"
                     android:background="@drawable/bg_edittext"/>
 
-                <!-- Save Button -->
+
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnSaveCategory"
                     android:layout_width="match_parent"
                     android:layout_height="58dp"
                     android:layout_marginTop="28dp"
-                    android:text="SAVE CATEGORY"
+                    android:text="@string/save_category"
                     android:textAllCaps="false"
                     android:textColor="@android:color/white"
                     android:textSize="16sp"

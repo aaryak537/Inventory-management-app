@@ -15,7 +15,7 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <!-- Header -->
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,7 +44,7 @@
 
         </LinearLayout>
 
-        <!-- Card -->
+
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
@@ -60,7 +60,7 @@
                 android:orientation="vertical"
                 android:padding="22dp">
 
-                <!-- Product Image -->
+
 
                 <ImageView
                     android:id="@+id/imgProduct"
@@ -88,7 +88,7 @@
                     app:iconTint="@android:color/white"
                     app:cornerRadius="24dp"/>
 
-                <!-- Product Name -->
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -108,7 +108,7 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Category -->
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -128,7 +128,7 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Cost Price -->
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -145,7 +145,7 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Selling Price -->
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -162,7 +162,7 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Stock -->
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -179,7 +179,7 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Description -->
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -197,7 +197,7 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Save -->
+
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnUpdate"
@@ -211,7 +211,7 @@
                     app:backgroundTint="#16A34A"
                     app:cornerRadius="18dp"/>
 
-                <!-- Delete -->
+
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnDelete"

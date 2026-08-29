@@ -27,24 +27,17 @@ import java.util.Locale;
 
 public class ProductActivity extends AppCompatActivity {
 
-    // ============================================================
-    // LOW STOCK LIMIT
-    // ============================================================
 
-    /*
-     * Product is considered Low Stock when quantity is
-     * 10 or less.
-     *
-     * 0       = Out of Stock
-     * 1 - 10  = Low Stock
-     * 11+     = In Stock
-     */
+
+
+
+
     private static final int LOW_STOCK_LIMIT = 10;
 
 
-    // ============================================================
-    // UI
-    // ============================================================
+
+
+
 
     private EditText etSearch;
 
@@ -57,16 +50,11 @@ public class ProductActivity extends AppCompatActivity {
     private FloatingActionButton fabAddProduct;
 
 
-    // ============================================================
-    // PRODUCT DATA
-    // ============================================================
 
-    /*
-     * This is the complete product list loaded from Firebase.
-     *
-     * IMPORTANT:
-     * Searching must NEVER modify this list permanently.
-     */
+
+
+
+
     private final ArrayList<Product> productList =
             new ArrayList<>();
 
@@ -74,16 +62,16 @@ public class ProductActivity extends AppCompatActivity {
     private ProductAdapter adapter;
 
 
-    // ============================================================
-    // FIREBASE
-    // ============================================================
+
+
+
 
     private DatabaseReference productsReference;
 
 
-    // ============================================================
-    // ACTIVITY CREATED
-    // ============================================================
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,9 +83,9 @@ public class ProductActivity extends AppCompatActivity {
         );
 
 
-        // ========================================================
-        // INITIALIZE VIEWS
-        // ========================================================
+
+
+
 
         etSearch =
                 findViewById(
@@ -135,9 +123,9 @@ public class ProductActivity extends AppCompatActivity {
                 );
 
 
-        // ========================================================
-        // RECYCLER VIEW
-        // ========================================================
+
+
+
 
         recyclerProducts.setLayoutManager(
                 new LinearLayoutManager(this)
@@ -147,9 +135,9 @@ public class ProductActivity extends AppCompatActivity {
         recyclerProducts.setHasFixedSize(false);
 
 
-        // ========================================================
-        // PRODUCT ADAPTER
-        // ========================================================
+
+
+
 
         adapter =
                 new ProductAdapter(
@@ -163,9 +151,9 @@ public class ProductActivity extends AppCompatActivity {
         );
 
 
-        // ========================================================
-        // FIREBASE AUTHENTICATION
-        // ========================================================
+
+
+
 
         FirebaseUser currentUser =
                 FirebaseAuth
@@ -187,17 +175,11 @@ public class ProductActivity extends AppCompatActivity {
         }
 
 
-        // ========================================================
-        // FIREBASE PRODUCT REFERENCE
-        // ========================================================
 
-        /*
-         * Database structure:
-         *
-         * Products
-         *    └── userId
-         *          └── productId
-         */
+
+
+
+
 
         productsReference =
                 FirebaseDatabase
@@ -206,23 +188,23 @@ public class ProductActivity extends AppCompatActivity {
                         .child(currentUser.getUid());
 
 
-        // ========================================================
-        // SEARCH
-        // ========================================================
+
+
+
 
         setupSearch();
 
 
-        // ========================================================
-        // LOAD PRODUCTS
-        // ========================================================
+
+
+
 
         loadProducts();
 
 
-        // ========================================================
-        // ADD PRODUCT
-        // ========================================================
+
+
+
 
         fabAddProduct.setOnClickListener(
                 v -> {
@@ -239,9 +221,9 @@ public class ProductActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // ON RESUME
-    // ============================================================
+
+
+
 
     @Override
     protected void onResume() {
@@ -249,13 +231,7 @@ public class ProductActivity extends AppCompatActivity {
         super.onResume();
 
 
-        /*
-         * Reload products whenever we return from:
-         *
-         * Add Product
-         * Edit Product
-         * Delete Product
-         */
+
         if (productsReference != null) {
 
             loadProducts();
@@ -263,9 +239,9 @@ public class ProductActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // LOAD PRODUCTS FROM FIREBASE
-    // ============================================================
+
+
+
 
     private void loadProducts() {
 
@@ -282,26 +258,26 @@ public class ProductActivity extends AppCompatActivity {
                             @NonNull DataSnapshot snapshot
                     ) {
 
-                        // ====================================================
-                        // TEMPORARY LIST
-                        // ====================================================
+
+
+
 
                         ArrayList<Product> loadedProducts =
                                 new ArrayList<>();
 
 
-                        // ====================================================
-                        // SUMMARY VALUES
-                        // ====================================================
+
+
+
 
                         int lowStockCount = 0;
 
                         double totalStockValue = 0.0;
 
 
-                        // ====================================================
-                        // READ PRODUCTS
-                        // ====================================================
+
+
+
 
                         for (DataSnapshot productSnapshot :
                                 snapshot.getChildren()) {
@@ -317,9 +293,9 @@ public class ProductActivity extends AppCompatActivity {
                             }
 
 
-                            // =================================================
-                            // SAVE FIREBASE KEY AS PRODUCT ID
-                            // =================================================
+
+
+
 
                             product.setProductId(
                                     productSnapshot.getKey()
@@ -331,17 +307,17 @@ public class ProductActivity extends AppCompatActivity {
                             );
 
 
-                            // =================================================
-                            // QUANTITY
-                            // =================================================
+
+
+
 
                             int quantity =
                                     product.getQuantity();
 
 
-                            // =================================================
-                            // LOW STOCK
-                            // =================================================
+
+
+
 
                             if (quantity > 0
                                     && quantity <= LOW_STOCK_LIMIT) {
@@ -350,16 +326,16 @@ public class ProductActivity extends AppCompatActivity {
                             }
 
 
-                            // =================================================
-                            // STOCK VALUE
-                            //
-                            // IMPORTANT:
-                            //
-                            // Stock Value =
-                            // Quantity × Cost Price
-                            //
-                            // NOT selling price.
-                            // =================================================
+
+
+
+
+
+
+
+
+
+
 
                             double costPrice =
                                     product.getCostPrice();
@@ -370,9 +346,9 @@ public class ProductActivity extends AppCompatActivity {
                         }
 
 
-                        // ====================================================
-                        // UPDATE MAIN PRODUCT LIST
-                        // ====================================================
+
+
+
 
                         productList.clear();
 
@@ -381,9 +357,9 @@ public class ProductActivity extends AppCompatActivity {
                         );
 
 
-                        // ====================================================
-                        // UPDATE SUMMARY
-                        // ====================================================
+
+
+
 
                         updateSummary(
                                 loadedProducts.size(),
@@ -392,25 +368,25 @@ public class ProductActivity extends AppCompatActivity {
                         );
 
 
-                        // ====================================================
-                        // UPDATE ADAPTER
-                        //
-                        // updateList() updates BOTH:
-                        //
-                        // list
-                        // fullList
-                        //
-                        // This is required for search to work correctly.
-                        // ====================================================
+
+
+
+
+
+
+
+
+
+
 
                         adapter.updateList(
                                 loadedProducts
                         );
 
 
-                        // ====================================================
-                        // RESTORE SEARCH TEXT
-                        // ====================================================
+
+
+
 
                         String currentSearch =
                                 etSearch.getText()
@@ -444,9 +420,9 @@ public class ProductActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // UPDATE SUMMARY
-    // ============================================================
+
+
+
 
     private void updateSummary(
             int totalProducts,
@@ -454,9 +430,9 @@ public class ProductActivity extends AppCompatActivity {
             double stockValue
     ) {
 
-        // ========================================================
-        // TOTAL PRODUCTS
-        // ========================================================
+
+
+
 
         tvTotalProducts.setText(
                 String.valueOf(
@@ -465,9 +441,9 @@ public class ProductActivity extends AppCompatActivity {
         );
 
 
-        // ========================================================
-        // LOW STOCK
-        // ========================================================
+
+
+
 
         tvLowStock.setText(
                 String.valueOf(
@@ -476,9 +452,9 @@ public class ProductActivity extends AppCompatActivity {
         );
 
 
-        // ========================================================
-        // STOCK VALUE
-        // ========================================================
+
+
+
 
         tvStockValue.setText(
                 String.format(
@@ -490,9 +466,9 @@ public class ProductActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // SEARCH SETUP
-    // ============================================================
+
+
+
 
     private void setupSearch() {
 
@@ -506,7 +482,7 @@ public class ProductActivity extends AppCompatActivity {
                             int count,
                             int after
                     ) {
-                        // Nothing required
+
                     }
 
 
@@ -533,16 +509,16 @@ public class ProductActivity extends AppCompatActivity {
                     public void afterTextChanged(
                             Editable s
                     ) {
-                        // Nothing required
+
                     }
                 }
         );
     }
 
 
-    // ============================================================
-    // CREATE PRODUCT SAFELY
-    // ============================================================
+
+
+
 
     private Product createProductSafely(
             DataSnapshot snapshot
@@ -550,9 +526,9 @@ public class ProductActivity extends AppCompatActivity {
 
         try {
 
-            // ====================================================
-            // PRODUCT NAME
-            // ====================================================
+
+
+
 
             String productName =
                     getStringValue(
@@ -560,9 +536,9 @@ public class ProductActivity extends AppCompatActivity {
                     );
 
 
-            // ====================================================
-            // CATEGORY ID
-            // ====================================================
+
+
+
 
             String categoryId =
                     getStringValue(
@@ -570,9 +546,9 @@ public class ProductActivity extends AppCompatActivity {
                     );
 
 
-            // ====================================================
-            // CATEGORY
-            // ====================================================
+
+
+
 
             String category =
                     getStringValue(
@@ -580,9 +556,9 @@ public class ProductActivity extends AppCompatActivity {
                     );
 
 
-            // ====================================================
-            // BRAND
-            // ====================================================
+
+
+
 
             String brandName =
                     getStringValue(
@@ -590,9 +566,9 @@ public class ProductActivity extends AppCompatActivity {
                     );
 
 
-            // ====================================================
-            // DESCRIPTION
-            // ====================================================
+
+
+
 
             String description =
                     getStringValue(
@@ -600,9 +576,9 @@ public class ProductActivity extends AppCompatActivity {
                     );
 
 
-            // ====================================================
-            // IMAGE
-            // ====================================================
+
+
+
 
             String imageUrl =
                     getStringValue(
@@ -610,9 +586,9 @@ public class ProductActivity extends AppCompatActivity {
                     );
 
 
-            // ====================================================
-            // QUANTITY
-            // ====================================================
+
+
+
 
             int quantity =
                     getIntValue(
@@ -620,9 +596,9 @@ public class ProductActivity extends AppCompatActivity {
                     );
 
 
-            // ====================================================
-            // COST PRICE
-            // ====================================================
+
+
+
 
             double costPrice =
                     getDoubleValue(
@@ -630,9 +606,9 @@ public class ProductActivity extends AppCompatActivity {
                     );
 
 
-            // ====================================================
-            // SELLING PRICE
-            // ====================================================
+
+
+
 
             double sellingPrice =
                     getDoubleValue(
@@ -640,21 +616,11 @@ public class ProductActivity extends AppCompatActivity {
                     );
 
 
-            // ====================================================
-            // STOCK
-            // ====================================================
 
-            /*
-             * Your Firebase database may contain stock as:
-             *
-             * String:
-             * "In Stock"
-             *
-             * OR number:
-             * 20
-             *
-             * Product.setStock(Object) safely handles both.
-             */
+
+
+
+
 
             Object stockValue =
                     snapshot
@@ -662,9 +628,9 @@ public class ProductActivity extends AppCompatActivity {
                             .getValue();
 
 
-            // ====================================================
-            // CREATE PRODUCT
-            // ====================================================
+
+
+
 
             Product product =
                     new Product();
@@ -713,11 +679,7 @@ public class ProductActivity extends AppCompatActivity {
 
             } else {
 
-                /*
-                 * Older products may not have a stock field.
-                 *
-                 * Quantity remains the source of truth.
-                 */
+
 
                 if (quantity <= 0) {
 
@@ -768,9 +730,9 @@ public class ProductActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // SAFE STRING
-    // ============================================================
+
+
+
 
     private String getStringValue(
             DataSnapshot snapshot
@@ -798,9 +760,9 @@ public class ProductActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // SAFE INTEGER
-    // ============================================================
+
+
+
 
     private int getIntValue(
             DataSnapshot snapshot
@@ -822,7 +784,7 @@ public class ProductActivity extends AppCompatActivity {
         }
 
 
-        // Firebase numeric value
+
         if (value instanceof Number) {
 
             return (
@@ -831,7 +793,7 @@ public class ProductActivity extends AppCompatActivity {
         }
 
 
-        // String numeric value
+
         try {
 
             return Integer.parseInt(
@@ -859,9 +821,9 @@ public class ProductActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // SAFE DOUBLE
-    // ============================================================
+
+
+
 
     private double getDoubleValue(
             DataSnapshot snapshot
@@ -883,7 +845,7 @@ public class ProductActivity extends AppCompatActivity {
         }
 
 
-        // Firebase numeric value
+
         if (value instanceof Number) {
 
             return (
@@ -892,7 +854,7 @@ public class ProductActivity extends AppCompatActivity {
         }
 
 
-        // String numeric value
+
         try {
 
             return Double.parseDouble(

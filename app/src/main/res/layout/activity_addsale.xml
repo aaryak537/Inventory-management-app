@@ -9,7 +9,7 @@
     android:background="#F5F7FA"
     tools:context=".AddSaleActivity">
 
-    <!-- ================= TOP BAR ================= -->
+
 
     <ImageView
         android:id="@+id/btnBack"
@@ -18,7 +18,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="Back"
+        android:contentDescription="@string/back_2"
         android:padding="10dp"
         android:src="@drawable/ic_arrow_back"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +29,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="Add Outgoing Sale"
+        android:text="@string/add_outgoing_sale"
         android:textColor="#1F2937"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -39,7 +39,7 @@
         app:layout_constraintTop_toTopOf="@id/btnBack" />
 
 
-    <!-- ================= SCROLL CONTENT ================= -->
+
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView"
@@ -63,14 +63,14 @@
             android:paddingBottom="20dp">
 
 
-            <!-- ================================================= -->
-            <!-- PRODUCT SECTION -->
-            <!-- ================================================= -->
+
+
+
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Product"
+                android:text="@string/product_2"
                 android:textColor="#1F2937"
                 android:textSize="17sp"
                 android:textStyle="bold" />
@@ -92,12 +92,12 @@
                     android:padding="16dp">
 
 
-                    <!-- Product Dropdown -->
+
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Select Product"
+                        android:text="@string/select_product"
                         android:textColor="#374151"
                         android:textSize="13sp"
                         android:textStyle="bold" />
@@ -108,7 +108,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
-                        android:hint="Choose product">
+                        android:hint="@string/choose_product">
 
                         <AutoCompleteTextView
                             android:id="@+id/actProduct"
@@ -120,7 +120,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
 
-                    <!-- Available Stock -->
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -135,7 +135,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Available Stock"
+                            android:text="@string/available_stock"
                             android:textColor="#6B7280"
                             android:textSize="13sp" />
 
@@ -143,7 +143,7 @@
                             android:id="@+id/tvAvailableStock"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0"
+                            android:text="@string/text_0"
                             android:textColor="#2563EB"
                             android:textSize="15sp"
                             android:textStyle="bold" />
@@ -155,15 +155,15 @@
             </com.google.android.material.card.MaterialCardView>
 
 
-            <!-- ================================================= -->
-            <!-- SALE DETAILS -->
-            <!-- ================================================= -->
+
+
+
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Sale Details"
+                android:text="@string/sale_details"
                 android:textColor="#1F2937"
                 android:textSize="17sp"
                 android:textStyle="bold" />
@@ -186,14 +186,14 @@
                     android:padding="16dp">
 
 
-                    <!-- Quantity -->
+
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilQuantity"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Quantity">
+                        android:hint="@string/quantity">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etQuantity"
@@ -206,7 +206,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
 
-                    <!-- Selling Price -->
+
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilSellingPrice"
@@ -214,7 +214,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:hint="Selling Price">
+                        android:hint="@string/selling">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etSellingPrice"
@@ -227,7 +227,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
 
-                    <!-- Total -->
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -242,7 +242,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Total Amount"
+                            android:text="@string/total_amount"
                             android:textColor="#374151"
                             android:textSize="15sp"
                             android:textStyle="bold" />
@@ -251,7 +251,7 @@
                             android:id="@+id/tvTotalAmount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="₹0"
+                            android:text="@string/_0"
                             android:textColor="#2563EB"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -263,15 +263,15 @@
             </com.google.android.material.card.MaterialCardView>
 
 
-            <!-- ================================================= -->
-            <!-- CUSTOMER -->
-            <!-- ================================================= -->
+
+
+
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Customer Details"
+                android:text="@string/customer_details"
                 android:textColor="#1F2937"
                 android:textSize="17sp"
                 android:textStyle="bold" />
@@ -299,7 +299,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Customer Name (Optional)">
+                        android:hint="@string/customer_name_optional">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etCustomerName"
@@ -312,7 +312,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
 
-                    <!-- Payment Method -->
+
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilPaymentMethod"
@@ -320,7 +320,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:hint="Payment Method">
+                        android:hint="@string/payment_method">
 
                         <AutoCompleteTextView
                             android:id="@+id/actPaymentMethod"
@@ -336,16 +336,16 @@
             </com.google.android.material.card.MaterialCardView>
 
 
-            <!-- ================================================= -->
-            <!-- COMPLETE SALE -->
-            <!-- ================================================= -->
+
+
+
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnCompleteSale"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginTop="24dp"
-                android:text="Complete Sale"
+                android:text="@string/complete_sale"
                 android:textAllCaps="false"
                 android:textSize="16sp"
                 android:textStyle="bold"

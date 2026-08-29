@@ -23,17 +23,17 @@ public class Product {
     private String imageUrl;
 
 
-    // ============================================================
-    // DEFAULT CONSTRUCTOR
-    // ============================================================
+
+
+
 
     public Product() {
     }
 
 
-    // ============================================================
-    // MAIN CONSTRUCTOR
-    // ============================================================
+
+
+
 
     public Product(
             String productName,
@@ -61,9 +61,9 @@ public class Product {
     }
 
 
-    // ============================================================
-    // COMPATIBILITY CONSTRUCTOR
-    // ============================================================
+
+
+
 
     public Product(
             String productName,
@@ -90,9 +90,9 @@ public class Product {
     }
 
 
-    // ============================================================
-    // COMPATIBILITY CONSTRUCTOR
-    // ============================================================
+
+
+
 
     public Product(
             String productName,
@@ -118,9 +118,9 @@ public class Product {
     }
 
 
-    // ============================================================
-    // PRODUCT ID
-    // ============================================================
+
+
+
 
     @Exclude
     public String getProductId() {
@@ -138,9 +138,9 @@ public class Product {
     }
 
 
-    // ============================================================
-    // PRODUCT NAME
-    // ============================================================
+
+
+
 
     public String getProductName() {
 
@@ -159,9 +159,9 @@ public class Product {
     }
 
 
-    // ============================================================
-    // CATEGORY ID
-    // ============================================================
+
+
+
 
     public String getCategoryId() {
 
@@ -180,9 +180,9 @@ public class Product {
     }
 
 
-    // ============================================================
-    // CATEGORY
-    // ============================================================
+
+
+
 
     public String getCategory() {
 
@@ -201,9 +201,9 @@ public class Product {
     }
 
 
-    // ============================================================
-    // QUANTITY
-    // ============================================================
+
+
+
 
     public int getQuantity() {
 
@@ -220,9 +220,9 @@ public class Product {
     }
 
 
-    // ============================================================
-    // BRAND
-    // ============================================================
+
+
+
 
     public String getBrandName() {
 
@@ -241,9 +241,9 @@ public class Product {
     }
 
 
-    // ============================================================
-    // COST PRICE
-    // ============================================================
+
+
+
 
     public double getCostPrice() {
 
@@ -260,9 +260,9 @@ public class Product {
     }
 
 
-    // ============================================================
-    // SELLING PRICE
-    // ============================================================
+
+
+
 
     public double getSellingPrice() {
 
@@ -279,9 +279,9 @@ public class Product {
     }
 
 
-    // ============================================================
-    // STOCK
-    // ============================================================
+
+
+
 
     public String getStock() {
 
@@ -300,9 +300,9 @@ public class Product {
     }
 
 
-    // ============================================================
-    // DESCRIPTION
-    // ============================================================
+
+
+
 
     public String getDescription() {
 
@@ -321,9 +321,9 @@ public class Product {
     }
 
 
-    // ============================================================
-    // IMAGE URL
-    // ============================================================
+
+
+
 
     public String getImageUrl() {
 
@@ -342,9 +342,9 @@ public class Product {
     }
 
 
-    // ============================================================
-    // STOCK STATUS
-    // ============================================================
+
+
+
 
     @Exclude
     public String getStockStatus() {
@@ -363,11 +363,11 @@ public class Product {
     }
 
 
-    // ============================================================
-    // IN STOCK
-    //
-    // Quantity is the source of truth.
-    // ============================================================
+
+
+
+
+
 
     @Exclude
     public boolean isInStock() {
@@ -376,13 +376,13 @@ public class Product {
     }
 
 
-    // ============================================================
-    // EFFECTIVE QUANTITY
-    //
-    // Quantity is the primary source of truth. For older Firebase
-    // records that stored a numeric value in "stock" instead of
-    // "quantity", use that numeric stock as a safe fallback.
-    // ============================================================
+
+
+
+
+
+
+
 
     @Exclude
     public int getEffectiveQuantity() {
@@ -402,7 +402,7 @@ public class Product {
                 }
 
             } catch (Exception ignored) {
-                // Stock contains a status such as "Low Stock".
+
             }
         }
 
@@ -410,9 +410,9 @@ public class Product {
     }
 
 
-    // ============================================================
-    // SAFE INTEGER CONVERSION
-    // ============================================================
+
+
+
 
     private static int convertToInt(
             Object value
@@ -451,9 +451,9 @@ public class Product {
     }
 
 
-    // ============================================================
-    // SAFE DOUBLE CONVERSION
-    // ============================================================
+
+
+
 
     private static double convertToDouble(
             Object value

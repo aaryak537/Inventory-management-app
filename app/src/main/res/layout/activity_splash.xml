@@ -9,7 +9,7 @@
     android:background="@drawable/bg_dashboard_header"
     tools:context=".SplashActivity">
 
-    <!-- Decorative Circle Top Left -->
+
 
     <View
         android:layout_width="220dp"
@@ -21,7 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <!-- Decorative Circle Bottom Right -->
+
 
     <View
         android:layout_width="180dp"
@@ -33,7 +33,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Logo Card -->
+
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/logoCard"
@@ -56,7 +56,7 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-    <!-- App Name -->
+
 
     <TextView
         android:id="@+id/appName"
@@ -72,7 +72,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Tagline -->
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -86,7 +86,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Loading -->
+
 
     <ProgressBar
         android:id="@+id/loading"
@@ -99,7 +99,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Version -->
+
 
     <TextView
         android:id="@+id/versionText"

@@ -21,9 +21,9 @@ public class SaleAdapter extends RecyclerView.Adapter<SaleAdapter.SaleViewHolder
     private final List<Sale> saleList;
 
 
-    // ============================================================
-    // CONSTRUCTOR
-    // ============================================================
+
+
+
 
     public SaleAdapter(
             Context context,
@@ -35,9 +35,9 @@ public class SaleAdapter extends RecyclerView.Adapter<SaleAdapter.SaleViewHolder
     }
 
 
-    // ============================================================
-    // CREATE VIEW HOLDER
-    // ============================================================
+
+
+
 
     @NonNull
     @Override
@@ -57,9 +57,9 @@ public class SaleAdapter extends RecyclerView.Adapter<SaleAdapter.SaleViewHolder
     }
 
 
-    // ============================================================
-    // BIND DATA
-    // ============================================================
+
+
+
 
     @Override
     public void onBindViewHolder(
@@ -74,9 +74,9 @@ public class SaleAdapter extends RecyclerView.Adapter<SaleAdapter.SaleViewHolder
         }
 
 
-        // --------------------------------------------------------
-        // PRODUCT NAME
-        // --------------------------------------------------------
+
+
+
 
         String productName = sale.getProductName();
 
@@ -90,9 +90,9 @@ public class SaleAdapter extends RecyclerView.Adapter<SaleAdapter.SaleViewHolder
         }
 
 
-        // --------------------------------------------------------
-        // SALE DATE + TIME
-        // --------------------------------------------------------
+
+
+
 
         String date = sale.getSaleDate();
         String time = sale.getSaleTime();
@@ -114,18 +114,18 @@ public class SaleAdapter extends RecyclerView.Adapter<SaleAdapter.SaleViewHolder
         }
 
 
-        // --------------------------------------------------------
-        // QUANTITY
-        // --------------------------------------------------------
+
+
+
 
         holder.tvQuantity.setText(
                 "Qty: " + sale.getQuantity()
         );
 
 
-        // --------------------------------------------------------
-        // TOTAL AMOUNT
-        // --------------------------------------------------------
+
+
+
 
         holder.tvTotalAmount.setText(
                 "₹" + formatAmount(
@@ -134,9 +134,9 @@ public class SaleAdapter extends RecyclerView.Adapter<SaleAdapter.SaleViewHolder
         );
 
 
-        // --------------------------------------------------------
-        // PAYMENT METHOD
-        // --------------------------------------------------------
+
+
+
 
         String paymentMethod =
                 sale.getPaymentMethod();
@@ -156,9 +156,9 @@ public class SaleAdapter extends RecyclerView.Adapter<SaleAdapter.SaleViewHolder
         }
 
 
-        // --------------------------------------------------------
-        // PRODUCT IMAGE
-        // --------------------------------------------------------
+
+
+
 
         String imageUrl =
                 sale.getProductImageUrl();
@@ -183,9 +183,9 @@ public class SaleAdapter extends RecyclerView.Adapter<SaleAdapter.SaleViewHolder
     }
 
 
-    // ============================================================
-    // ITEM COUNT
-    // ============================================================
+
+
+
 
     @Override
     public int getItemCount() {
@@ -193,9 +193,9 @@ public class SaleAdapter extends RecyclerView.Adapter<SaleAdapter.SaleViewHolder
     }
 
 
-    // ============================================================
-    // FORMAT AMOUNT
-    // ============================================================
+
+
+
 
     private String formatAmount(double amount) {
 
@@ -218,9 +218,9 @@ public class SaleAdapter extends RecyclerView.Adapter<SaleAdapter.SaleViewHolder
     }
 
 
-    // ============================================================
-    // VIEW HOLDER
-    // ============================================================
+
+
+
 
     static class SaleViewHolder
             extends RecyclerView.ViewHolder {

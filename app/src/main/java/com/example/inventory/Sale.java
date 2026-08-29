@@ -2,10 +2,6 @@ package com.example.inventory;
 
 public class Sale {
 
-    // ============================================================
-    // VARIABLES
-    // ============================================================
-
     private String saleId;
     private String productId;
     private String productName;
@@ -24,19 +20,8 @@ public class Sale {
 
     private long timestamp;
 
-
-    // ============================================================
-    // EMPTY CONSTRUCTOR
-    // REQUIRED BY FIREBASE
-    // ============================================================
-
     public Sale() {
     }
-
-
-    // ============================================================
-    // CONSTRUCTOR
-    // ============================================================
 
     public Sale(
             String saleId,
@@ -68,9 +53,9 @@ public class Sale {
     }
 
 
-    // ============================================================
-    // SALE ID
-    // ============================================================
+
+
+
 
     public String getSaleId() {
         return saleId;
@@ -81,9 +66,9 @@ public class Sale {
     }
 
 
-    // ============================================================
-    // PRODUCT ID
-    // ============================================================
+
+
+
 
     public String getProductId() {
         return productId;
@@ -94,9 +79,9 @@ public class Sale {
     }
 
 
-    // ============================================================
-    // PRODUCT NAME
-    // ============================================================
+
+
+
 
     public String getProductName() {
         return productName;
@@ -107,9 +92,9 @@ public class Sale {
     }
 
 
-    // ============================================================
-    // PRODUCT IMAGE
-    // ============================================================
+
+
+
 
     public String getProductImageUrl() {
         return productImageUrl;
@@ -120,9 +105,9 @@ public class Sale {
     }
 
 
-    // ============================================================
-    // QUANTITY
-    // ============================================================
+
+
+
 
     public int getQuantity() {
         return quantity;
@@ -133,9 +118,9 @@ public class Sale {
     }
 
 
-    // ============================================================
-    // SELLING PRICE
-    // ============================================================
+
+
+
 
     public double getSellingPrice() {
         return sellingPrice;
@@ -146,9 +131,9 @@ public class Sale {
     }
 
 
-    // ============================================================
-    // TOTAL AMOUNT
-    // ============================================================
+
+
+
 
     public double getTotalAmount() {
         return totalAmount;
@@ -159,9 +144,9 @@ public class Sale {
     }
 
 
-    // ============================================================
-    // CUSTOMER NAME
-    // ============================================================
+
+
+
 
     public String getCustomerName() {
         return customerName;
@@ -172,9 +157,9 @@ public class Sale {
     }
 
 
-    // ============================================================
-    // PAYMENT METHOD
-    // ============================================================
+
+
+
 
     public String getPaymentMethod() {
         return paymentMethod;
@@ -185,9 +170,9 @@ public class Sale {
     }
 
 
-    // ============================================================
-    // SALE DATE
-    // ============================================================
+
+
+
 
     public String getSaleDate() {
         return saleDate;
@@ -198,9 +183,9 @@ public class Sale {
     }
 
 
-    // ============================================================
-    // SALE TIME
-    // ============================================================
+
+
+
 
     public String getSaleTime() {
         return saleTime;
@@ -209,11 +194,6 @@ public class Sale {
     public void setSaleTime(String saleTime) {
         this.saleTime = saleTime;
     }
-
-
-    // ============================================================
-    // TIMESTAMP
-    // ============================================================
 
     public long getTimestamp() {
         return timestamp;

@@ -33,7 +33,7 @@
                 android:layout_height="38dp"
                 android:padding="8dp"
                 android:src="@drawable/ic_arrow_back"
-                android:contentDescription="Back"
+                android:contentDescription="@string/back_2"
                 app:tint="@android:color/white"/>
 
             <TextView
@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
-                android:text="Inventory Movement"
+                android:text="@string/inventory_movement"
                 android:textColor="@android:color/white"
                 android:textSize="25sp"
                 android:textStyle="bold"/>
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="48dp"
             android:layout_marginTop="10dp"
-            android:text="0 movements"
+            android:text="@string/text_0_movements"
             android:textColor="#DDEEFF"
             android:textSize="14sp"/>
 
@@ -75,7 +75,7 @@
         android:id="@+id/tvEmptyMovements"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No inventory movements yet"
+        android:text="@string/no_inventory_movements_yet"
         android:textColor="#64748B"
         android:textSize="16sp"
         android:visibility="gone"

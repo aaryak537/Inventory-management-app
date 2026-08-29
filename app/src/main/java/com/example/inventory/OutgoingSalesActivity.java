@@ -32,9 +32,9 @@ import java.util.Locale;
 
 public class OutgoingSalesActivity extends AppCompatActivity {
 
-    // ============================================================
-    // UI
-    // ============================================================
+
+
+
 
     private ImageView btnBack;
     private ImageView btnAddSale;
@@ -49,17 +49,17 @@ public class OutgoingSalesActivity extends AppCompatActivity {
     private LinearLayout emptyState;
 
 
-    // ============================================================
-    // FIREBASE
-    // ============================================================
+
+
+
 
     private FirebaseAuth firebaseAuth;
     private DatabaseReference salesRef;
 
 
-    // ============================================================
-    // SALES
-    // ============================================================
+
+
+
 
     private SaleAdapter saleAdapter;
 
@@ -70,9 +70,9 @@ public class OutgoingSalesActivity extends AppCompatActivity {
             new ArrayList<>();
 
 
-    // ============================================================
-    // ON CREATE
-    // ============================================================
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,9 +94,9 @@ public class OutgoingSalesActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // INITIALIZE VIEWS
-    // ============================================================
+
+
+
 
     private void initializeViews() {
 
@@ -126,9 +126,9 @@ public class OutgoingSalesActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // FIREBASE SETUP
-    // ============================================================
+
+
+
 
     private void setupFirebase() {
 
@@ -157,13 +157,13 @@ public class OutgoingSalesActivity extends AppCompatActivity {
                 user.getUid();
 
 
-        // IMPORTANT:
-        // Your Firebase structure is:
-        //
-        // Sales
-        //   └── UID
-        //        └── SALE_ID
-        //
+
+
+
+
+
+
+
 
         salesRef =
                 FirebaseDatabase
@@ -173,9 +173,9 @@ public class OutgoingSalesActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // RECYCLER VIEW
-    // ============================================================
+
+
+
 
     private void setupRecyclerView() {
 
@@ -199,24 +199,24 @@ public class OutgoingSalesActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // LISTENERS
-    // ============================================================
+
+
+
 
     private void setupListeners() {
 
-        // --------------------------------------------------------
-        // BACK
-        // --------------------------------------------------------
+
+
+
 
         btnBack.setOnClickListener(v ->
                 finish()
         );
 
 
-        // --------------------------------------------------------
-        // ADD SALE
-        // --------------------------------------------------------
+
+
+
 
         btnAddSale.setOnClickListener(v -> {
 
@@ -230,9 +230,9 @@ public class OutgoingSalesActivity extends AppCompatActivity {
         });
 
 
-        // --------------------------------------------------------
-        // SEARCH
-        // --------------------------------------------------------
+
+
+
 
         etSearchSales.addTextChangedListener(
                 new TextWatcher() {
@@ -271,9 +271,9 @@ public class OutgoingSalesActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // LOAD SALES
-    // ============================================================
+
+
+
 
     private void loadSales() {
 
@@ -309,7 +309,7 @@ public class OutgoingSalesActivity extends AppCompatActivity {
 
                                     if (sale != null) {
 
-                                        // Firebase key
+
                                         sale.setSaleId(
                                                 dataSnapshot.getKey()
                                         );
@@ -321,7 +321,7 @@ public class OutgoingSalesActivity extends AppCompatActivity {
                                 }
 
 
-                                // Newest sales first
+
                                 saleList.sort(
                                         (sale1, sale2) ->
                                                 Long.compare(
@@ -352,9 +352,9 @@ public class OutgoingSalesActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // UPDATE SALES
-    // ============================================================
+
+
+
 
     private void updateSalesData() {
 
@@ -374,9 +374,9 @@ public class OutgoingSalesActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // SUMMARY
-    // ============================================================
+
+
+
 
     private void updateSummary() {
 
@@ -404,12 +404,12 @@ public class OutgoingSalesActivity extends AppCompatActivity {
             }
 
 
-            // Total products sold
+
             productsSold +=
                     sale.getQuantity();
 
 
-            // Today's sales
+
             if (
                     sale.getSaleDate() != null
                             &&
@@ -446,9 +446,9 @@ public class OutgoingSalesActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // SEARCH SALES
-    // ============================================================
+
+
+
 
     private void filterSales(
             String query
@@ -536,9 +536,9 @@ public class OutgoingSalesActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // EMPTY STATE
-    // ============================================================
+
+
+
 
     private void updateEmptyState() {
 
@@ -565,9 +565,9 @@ public class OutgoingSalesActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // FORMAT AMOUNT
-    // ============================================================
+
+
+
 
     private String formatAmount(
             double amount
@@ -593,19 +593,11 @@ public class OutgoingSalesActivity extends AppCompatActivity {
             );
         }
     }
-
-
-    // ============================================================
-    // RESUME
-    // ============================================================
-
+    
     @Override
     protected void onResume() {
         super.onResume();
 
-        /*
-         * Firebase ValueEventListener keeps
-         * the sales list synchronized automatically.
-         */
+
     }
 }

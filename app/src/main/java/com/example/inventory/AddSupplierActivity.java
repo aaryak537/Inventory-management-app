@@ -41,7 +41,7 @@ public class AddSupplierActivity extends AppCompatActivity {
         FirebaseUser user =
                 FirebaseAuth.getInstance().getCurrentUser();
 
-        // Check login
+
         if (user == null) {
 
             Toast.makeText(
@@ -54,13 +54,7 @@ public class AddSupplierActivity extends AppCompatActivity {
             return;
         }
 
-        /*
-         * IMPORTANT:
-         *
-         * Suppliers
-         *     └── USER_UID
-         *          └── SUPPLIER_ID
-         */
+
 
         supplierRef =
                 FirebaseDatabase.getInstance()
@@ -94,7 +88,7 @@ public class AddSupplierActivity extends AppCompatActivity {
                         .toString()
                         .trim();
 
-        // Supplier name
+
         if (TextUtils.isEmpty(name)) {
 
             etSupplierName.setError(
@@ -105,7 +99,7 @@ public class AddSupplierActivity extends AppCompatActivity {
             return;
         }
 
-        // Company
+
         if (TextUtils.isEmpty(company)) {
 
             etCompany.setError(
@@ -116,7 +110,7 @@ public class AddSupplierActivity extends AppCompatActivity {
             return;
         }
 
-        // Phone
+
         if (TextUtils.isEmpty(phone)) {
 
             etPhone.setError(

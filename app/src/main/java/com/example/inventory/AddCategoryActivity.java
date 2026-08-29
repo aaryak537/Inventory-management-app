@@ -51,7 +51,7 @@ public class AddCategoryActivity extends AppCompatActivity {
                 .child(user.getUid());
 
 
-        // Spinner Items
+
         String[] status = {
                 "Active",
                 "Inactive"

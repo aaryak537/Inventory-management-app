@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- ================= HEADER ================= -->
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,7 +50,7 @@
 
         </LinearLayout>
 
-        <!-- ================ IMAGE CARD ================ -->
+
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardImage"
@@ -98,7 +98,7 @@
 
         </androidx.cardview.widget.CardView>
 
-        <!-- ================= PRODUCT DETAILS ================= -->
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -126,7 +126,7 @@
                 android:orientation="vertical"
                 android:padding="18dp">
 
-                <!-- Product Name -->
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -147,7 +147,7 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Product ID -->
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -169,7 +169,7 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Category -->
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -192,7 +192,7 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Brand -->
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -213,7 +213,7 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Barcode -->
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -238,7 +238,7 @@
 
         </androidx.cardview.widget.CardView>
 
-        <!-- ================= PRICING & INVENTORY ================= -->
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -265,7 +265,7 @@
                 android:orientation="vertical"
                 android:padding="18dp">
 
-                <!-- Cost Price -->
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -285,7 +285,7 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Selling Price -->
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -306,7 +306,7 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Stock -->
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -327,7 +327,7 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Status Preview -->
+
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -373,7 +373,7 @@
 
         </androidx.cardview.widget.CardView>
 
-        <!-- ================= DESCRIPTION ================= -->
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -424,7 +424,7 @@
 
         </androidx.cardview.widget.CardView>
 
-        <!-- ================= PRODUCT SUMMARY ================= -->
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -511,7 +511,7 @@
 
         </androidx.cardview.widget.CardView>
 
-        <!-- ================= SAVE BUTTON ================= -->
+
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSaveProduct"

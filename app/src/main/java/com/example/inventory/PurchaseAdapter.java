@@ -50,7 +50,7 @@ public class PurchaseAdapter
 
         Purchase purchase = purchaseList.get(position);
 
-        // Product
+
         String productName = purchase.getProductName();
 
         if (productName == null ||
@@ -61,7 +61,7 @@ public class PurchaseAdapter
 
         holder.tvProductName.setText(productName);
 
-        // Supplier
+
         String supplierName = purchase.getSupplierName();
 
         if (supplierName == null ||
@@ -74,12 +74,12 @@ public class PurchaseAdapter
                 supplierName
         );
 
-        // Quantity
+
         holder.tvQuantity.setText(
                 purchase.getQuantity() + " units"
         );
 
-        // Purchase price
+
         holder.tvPurchasePrice.setText(
                 String.format(
                         Locale.getDefault(),
@@ -88,7 +88,7 @@ public class PurchaseAdapter
                 )
         );
 
-        // Total amount
+
         holder.tvTotalAmount.setText(
                 String.format(
                         Locale.getDefault(),
@@ -97,7 +97,7 @@ public class PurchaseAdapter
                 )
         );
 
-        // Date
+
         String date = purchase.getPurchaseDate();
 
         if (date == null || date.trim().isEmpty()) {
@@ -106,7 +106,7 @@ public class PurchaseAdapter
 
         holder.tvPurchaseDate.setText(date);
 
-        // Invoice
+
         String invoice = purchase.getInvoiceNumber();
 
         if (invoice == null ||
@@ -125,7 +125,7 @@ public class PurchaseAdapter
             holder.tvInvoiceNumber.setText(invoice);
         }
 
-        // Notes
+
         String notes = purchase.getNotes();
 
         if (notes == null ||
@@ -152,9 +152,9 @@ public class PurchaseAdapter
         return purchaseList.size();
     }
 
-    // =========================================================
-    // VIEW HOLDER
-    // =========================================================
+
+
+
 
     static class PurchaseViewHolder
             extends RecyclerView.ViewHolder {

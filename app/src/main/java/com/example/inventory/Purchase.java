@@ -18,7 +18,7 @@ public class Purchase {
     private String notes;
 
     public Purchase() {
-        // Required for Firebase
+
     }
 
     public Purchase(String purchaseId,
@@ -46,7 +46,7 @@ public class Purchase {
         this.notes = notes;
     }
 
-    // Purchase ID
+
     public String getPurchaseId() {
         return purchaseId;
     }
@@ -55,7 +55,7 @@ public class Purchase {
         this.purchaseId = purchaseId;
     }
 
-    // Product ID
+
     public String getProductId() {
         return productId;
     }
@@ -64,7 +64,7 @@ public class Purchase {
         this.productId = productId;
     }
 
-    // Product Name
+
     public String getProductName() {
         return productName;
     }
@@ -73,7 +73,7 @@ public class Purchase {
         this.productName = productName;
     }
 
-    // Supplier ID
+
     public String getSupplierId() {
         return supplierId;
     }
@@ -82,7 +82,7 @@ public class Purchase {
         this.supplierId = supplierId;
     }
 
-    // Supplier Name
+
     public String getSupplierName() {
         return supplierName;
     }
@@ -91,7 +91,7 @@ public class Purchase {
         this.supplierName = supplierName;
     }
 
-    // Quantity
+
     public int getQuantity() {
         return quantity;
     }
@@ -100,7 +100,7 @@ public class Purchase {
         this.quantity = quantity;
     }
 
-    // Purchase Price
+
     public double getPurchasePrice() {
         return purchasePrice;
     }
@@ -109,7 +109,7 @@ public class Purchase {
         this.purchasePrice = purchasePrice;
     }
 
-    // Total Amount
+
     public double getTotalAmount() {
         return totalAmount;
     }
@@ -118,7 +118,7 @@ public class Purchase {
         this.totalAmount = totalAmount;
     }
 
-    // Purchase Date
+
     public String getPurchaseDate() {
         return purchaseDate;
     }
@@ -127,7 +127,7 @@ public class Purchase {
         this.purchaseDate = purchaseDate;
     }
 
-    // Invoice Number
+
     public String getInvoiceNumber() {
         return invoiceNumber;
     }
@@ -136,7 +136,7 @@ public class Purchase {
         this.invoiceNumber = invoiceNumber;
     }
 
-    // Notes
+
     public String getNotes() {
         return notes;
     }

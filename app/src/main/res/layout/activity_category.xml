@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#F5F7FA">
 
-    <!--================ HEADER =================-->
+
 
     <LinearLayout
         android:id="@+id/header"
@@ -23,7 +23,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Categories"
+            android:text="@string/category"
             android:textColor="@android:color/white"
             android:textSize="30sp"
             android:textStyle="bold"/>
@@ -31,14 +31,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Organize products into groups"
+            android:text="@string/organize_products_into_groups"
             android:textColor="#DCE7FF"
             android:textSize="15sp"
             android:layout_marginTop="6dp"/>
 
     </LinearLayout>
 
-    <!--================ SEARCH CARD =================-->
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/searchCard"
@@ -69,7 +69,7 @@
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"
-                android:hint="Search category..."
+                android:hint="@string/search_category"
                 android:background="@android:color/transparent"
                 android:paddingStart="14dp"
                 android:textColor="#222222"
@@ -79,7 +79,7 @@
 
     </androidx.cardview.widget.CardView>
 
-    <!--================ TOTAL CARD =================-->
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/statCard"
@@ -117,7 +117,7 @@
                     android:id="@+id/tvTotalCategories"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
+                    android:text="@string/text_0"
                     android:textSize="28sp"
                     android:textStyle="bold"
                     android:textColor="#202124"/>
@@ -125,7 +125,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Total Categories"
+                    android:text="@string/total_categories"
                     android:textColor="#777777"/>
 
             </LinearLayout>
@@ -134,7 +134,7 @@
 
     </androidx.cardview.widget.CardView>
 
-    <!--================ LIST =================-->
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerCategory"
@@ -148,7 +148,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!--================ EMPTY =================-->
+
 
     <LinearLayout
         android:id="@+id/layoutEmpty"
@@ -171,7 +171,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No Categories Found"
+            android:text="@string/no_categories_found"
             android:textStyle="bold"
             android:textSize="20sp"
             android:textColor="#555"/>
@@ -179,13 +179,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tap + to create your first category."
+            android:text="@string/tap_to_create_your_first_category"
             android:textColor="#888"
             android:layout_marginTop="6dp"/>
 
     </LinearLayout>
 
-    <!--================ FAB =================-->
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddCategory"

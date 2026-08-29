@@ -9,7 +9,7 @@
     android:background="#F4F8FC"
     tools:context=".PrivacyPolicyActivity">
 
-    <!-- Header -->
+
 
     <LinearLayout
         android:id="@+id/headerLayout"
@@ -43,7 +43,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Privacy Policy"
+            android:text="@string/privacy_policy"
             android:textColor="@android:color/white"
             android:textStyle="bold"
             android:textSize="28sp"
@@ -52,13 +52,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Your data, protected with care."
+            android:text="@string/your_data_protected_with_care"
             android:textColor="#DCEFFF"
             android:textSize="15sp"/>
 
     </LinearLayout>
 
-    <!-- Card -->
+
 
     <com.google.android.material.card.MaterialCardView
 
@@ -83,12 +83,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <!-- Section -->
+
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1. Information We Collect"
+                    android:text="@string/text_1_information_we_collect"
                     android:textStyle="bold"
                     android:textSize="18sp"
                     android:textColor="#1565C0"/>
@@ -96,7 +96,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Smart Shelf stores inventory information such as product names, categories, prices, stock quantity, and images. We also collect account information like your name and email address for authentication."
+                    android:text="@string/smart_shelf_stores_inventory_information_such"
                     android:textColor="#666666"
                     android:textSize="15sp"
                     android:layout_marginTop="8dp"
@@ -105,7 +105,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2. How We Use Information"
+                    android:text="@string/text_2_how_we_use_information"
                     android:textStyle="bold"
                     android:textSize="18sp"
                     android:textColor="#1565C0"/>
@@ -113,7 +113,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Your information is used to manage inventory, generate reports, synchronize your data securely using Firebase, and improve the application experience."
+                    android:text="@string/your_information_is_used_to_manage_inventory_"
                     android:textColor="#666666"
                     android:textSize="15sp"
                     android:layout_marginTop="8dp"
@@ -122,7 +122,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="3. Data Security"
+                    android:text="@string/text_3_data_security"
                     android:textStyle="bold"
                     android:textSize="18sp"
                     android:textColor="#1565C0"/>
@@ -130,7 +130,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="We use Firebase Authentication and Firebase Database security rules to protect your information. Your data is encrypted during transmission."
+                    android:text="@string/we_use_firebase_authentication_and_firebase_d"
                     android:textColor="#666666"
                     android:textSize="15sp"
                     android:layout_marginTop="8dp"
@@ -139,7 +139,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="4. Third Party Services"
+                    android:text="@string/text_4_third_party_services"
                     android:textStyle="bold"
                     android:textSize="18sp"
                     android:textColor="#1565C0"/>
@@ -147,7 +147,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Smart Shelf integrates Firebase services for authentication, cloud database, and cloud storage. These services have their own privacy policies."
+                    android:text="@string/smart_shelf_integrates_firebase_services_for_"
                     android:textColor="#666666"
                     android:textSize="15sp"
                     android:layout_marginTop="8dp"
@@ -156,7 +156,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="5. User Rights"
+                    android:text="@string/text_5_user_rights"
                     android:textStyle="bold"
                     android:textSize="18sp"
                     android:textColor="#1565C0"/>
@@ -164,7 +164,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="You may update or delete your account information at any time from your profile settings."
+                    android:text="@string/you_may_update_or_delete_your_account_informa"
                     android:textColor="#666666"
                     android:textSize="15sp"
                     android:layout_marginTop="8dp"
@@ -173,7 +173,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="6. Contact Us"
+                    android:text="@string/text_6_contact_us"
                     android:textStyle="bold"
                     android:textSize="18sp"
                     android:textColor="#1565C0"/>
@@ -181,7 +181,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="If you have questions about this Privacy Policy, please contact us through the support section of Smart Shelf."
+                    android:text="@string/if_you_have_questions_about_this_privacy_poli"
                     android:textColor="#666666"
                     android:textSize="15sp"
                     android:layout_marginTop="8dp"/>
@@ -189,7 +189,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Last Updated: July 2026"
+                    android:text="@string/last_updated_july_2026"
                     android:textAlignment="center"
                     android:textStyle="bold"
                     android:textColor="#888888"

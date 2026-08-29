@@ -13,7 +13,7 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <!-- HEADER -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
                 android:layout_height="40dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:contentDescription="Back"
+                android:contentDescription="@string/back_2"
                 android:focusable="true"
                 android:padding="8dp"
                 android:src="@drawable/ic_arrow_back" />
@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_weight="1"
-                android:text="Add Purchase"
+                android:text="@string/add_purchase"
                 android:textColor="#1F2937"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -45,14 +45,14 @@
         </LinearLayout>
 
 
-        <!-- PRODUCT -->
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/productInputLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:hint="Select Product"
+            android:hint="@string/select_product"
             app:boxCornerRadiusBottomEnd="12dp"
             app:boxCornerRadiusBottomStart="12dp"
             app:boxCornerRadiusTopEnd="12dp"
@@ -71,14 +71,14 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <!-- SUPPLIER -->
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/supplierInputLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:hint="Select Supplier"
+            android:hint="@string/select_supplier"
             app:boxCornerRadiusBottomEnd="12dp"
             app:boxCornerRadiusBottomStart="12dp"
             app:boxCornerRadiusTopEnd="12dp"
@@ -97,12 +97,12 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <!-- QUANTITY -->
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:hint="Purchase Quantity"
+            android:hint="@string/purchase_quantity"
             app:boxBackgroundMode="outline"
             app:boxCornerRadiusBottomEnd="12dp"
             app:boxCornerRadiusBottomStart="12dp"
@@ -120,12 +120,12 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <!-- PURCHASE PRICE -->
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:hint="Purchase Price per Unit"
+            android:hint="@string/purchase_price_per_unit"
             app:boxBackgroundMode="outline"
             app:boxCornerRadiusBottomEnd="12dp"
             app:boxCornerRadiusBottomStart="12dp"
@@ -143,12 +143,12 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <!-- TOTAL -->
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:hint="Total Amount"
+            android:hint="@string/total_amount"
             app:boxBackgroundMode="outline"
             app:boxCornerRadiusBottomEnd="12dp"
             app:boxCornerRadiusBottomStart="12dp"
@@ -167,12 +167,12 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <!-- DATE -->
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:hint="Purchase Date"
+            android:hint="@string/purchase_date"
             app:boxBackgroundMode="outline"
             app:boxCornerRadiusBottomEnd="12dp"
             app:boxCornerRadiusBottomStart="12dp"
@@ -191,12 +191,12 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <!-- INVOICE -->
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:hint="Invoice Number (Optional)"
+            android:hint="@string/invoice_number_optional"
             app:boxBackgroundMode="outline"
             app:boxCornerRadiusBottomEnd="12dp"
             app:boxCornerRadiusBottomStart="12dp"
@@ -214,12 +214,12 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <!-- NOTES -->
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:hint="Notes (Optional)"
+            android:hint="@string/notes_optional"
             app:boxBackgroundMode="outline"
             app:boxCornerRadiusBottomEnd="12dp"
             app:boxCornerRadiusBottomStart="12dp"
@@ -238,12 +238,12 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <!-- SAVE -->
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSavePurchase"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="Save Purchase"
+            android:text="@string/save_purchase"
             android:textAllCaps="false"
             android:textSize="17sp"
             android:textStyle="bold"

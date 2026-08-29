@@ -240,7 +240,7 @@ public class EditProfileActivity extends AppCompatActivity {
         loadProductCount();
     }
 
-        private void setupBusinessTypeDropdown() {
+    private void setupBusinessTypeDropdown() {
 
         String[] businessTypes = {
 

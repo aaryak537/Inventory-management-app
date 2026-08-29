@@ -8,7 +8,7 @@ public class Supplier {
     private String phone;
     private String email;
 
-    // Required for Firebase
+
     public Supplier() {
     }
 
@@ -25,7 +25,7 @@ public class Supplier {
         this.email = email;
     }
 
-    // Getters
+
 
     public String getId() {
         return id;
@@ -47,7 +47,7 @@ public class Supplier {
         return email;
     }
 
-    // Setters
+
 
     public void setId(String id) {
         this.id = id;

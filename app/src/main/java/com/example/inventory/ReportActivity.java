@@ -43,9 +43,9 @@ import java.util.Map;
 
 public class ReportActivity extends AppCompatActivity {
 
-    // ============================================================
-    // UI
-    // ============================================================
+
+
+
 
     private TextView txtTotalProducts;
     private TextView txtLowStock;
@@ -71,18 +71,18 @@ public class ReportActivity extends AppCompatActivity {
     private Button btnExport;
 
 
-    // ============================================================
-    // FIREBASE
-    // ============================================================
+
+
+
 
     private DatabaseReference productsRef;
     private DatabaseReference purchasesRef;
     private DatabaseReference salesRef;
 
 
-    // ============================================================
-    // DATA
-    // ============================================================
+
+
+
 
     private final List<Product> productList = new ArrayList<>();
     private final List<Purchase> purchaseList = new ArrayList<>();
@@ -91,9 +91,9 @@ public class ReportActivity extends AppCompatActivity {
     private final Map<String, Product> productMap = new HashMap<>();
 
 
-    // ============================================================
-    // INVENTORY SUMMARY
-    // ============================================================
+
+
+
 
     private int totalProducts = 0;
     private int totalUnits = 0;
@@ -105,9 +105,9 @@ public class ReportActivity extends AppCompatActivity {
     private double totalInventoryValue = 0;
 
 
-    // ============================================================
-    // SALES SUMMARY
-    // ============================================================
+
+
+
 
     private int totalTransactions = 0;
     private int totalProductsSold = 0;
@@ -115,18 +115,18 @@ public class ReportActivity extends AppCompatActivity {
     private double totalSalesRevenue = 0;
 
 
-    // ============================================================
-    // EXCEL
-    // ============================================================
+
+
+
 
     private static final int CREATE_EXCEL_REQUEST = 2001;
 
     private String exportedExcelPath;
 
 
-    // ============================================================
-    // ON CREATE
-    // ============================================================
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,19 +153,19 @@ public class ReportActivity extends AppCompatActivity {
 
         String uid = user.getUid();
 
-        // --------------------------------------------------------
-        // IMPORTANT:
-        // Firebase structure used by your existing project:
-        //
-        // Products
-        //     └── UID
-        //
-        // Purchases
-        //     └── UID
-        //
-        // Sales
-        //     └── UID
-        // --------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         productsRef =
                 FirebaseDatabase
@@ -198,9 +198,9 @@ public class ReportActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // INITIALIZE VIEWS
-    // ============================================================
+
+
+
 
     private void initializeViews() {
 
@@ -254,9 +254,9 @@ public class ReportActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // LOAD COMPLETE REPORT
-    // ============================================================
+
+
+
 
     private void loadCompleteReport() {
 
@@ -269,9 +269,9 @@ public class ReportActivity extends AppCompatActivity {
 
         setLoadingState();
 
-        // --------------------------------------------------------
-        // STEP 1: PRODUCTS
-        // --------------------------------------------------------
+
+
+
 
         productsRef.addListenerForSingleValueEvent(
                 new ValueEventListener() {
@@ -310,9 +310,9 @@ public class ReportActivity extends AppCompatActivity {
 
                         calculateInventorySummary();
 
-                        // ------------------------------------------------
-                        // STEP 2: PURCHASES
-                        // ------------------------------------------------
+
+
+
 
                         loadPurchases();
                     }
@@ -331,9 +331,9 @@ public class ReportActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // LOAD PURCHASES
-    // ============================================================
+
+
+
 
     private void loadPurchases() {
 
@@ -369,9 +369,9 @@ public class ReportActivity extends AppCompatActivity {
                             purchaseList.add(purchase);
                         }
 
-                        // ------------------------------------------------
-                        // STEP 3: SALES
-                        // ------------------------------------------------
+
+
+
 
                         loadSales();
                     }
@@ -390,9 +390,9 @@ public class ReportActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // LOAD SALES
-    // ============================================================
+
+
+
 
     private void loadSales() {
 
@@ -453,9 +453,9 @@ public class ReportActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // INVENTORY SUMMARY
-    // ============================================================
+
+
+
 
     private void calculateInventorySummary() {
 
@@ -486,9 +486,9 @@ public class ReportActivity extends AppCompatActivity {
             totalUnits += quantity;
 
 
-            // ----------------------------------------------------
-            // STOCK STATUS
-            // ----------------------------------------------------
+
+
+
 
             if (quantity <= 0) {
 
@@ -504,11 +504,11 @@ public class ReportActivity extends AppCompatActivity {
             }
 
 
-            // ----------------------------------------------------
-            // INVENTORY VALUE
-            //
-            // Quantity × Cost Price
-            // ----------------------------------------------------
+
+
+
+
+
 
             totalInventoryValue +=
                     quantity *
@@ -520,9 +520,9 @@ public class ReportActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // SALES SUMMARY
-    // ============================================================
+
+
+
 
     private void calculateSalesSummary() {
 
@@ -559,15 +559,15 @@ public class ReportActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // UPDATE REPORT UI
-    // ============================================================
+
+
+
 
     private void updateReportUI() {
 
-        // --------------------------------------------------------
-        // INVENTORY
-        // --------------------------------------------------------
+
+
+
 
         txtTotalProducts.setText(
                 String.valueOf(totalProducts)
@@ -593,9 +593,9 @@ public class ReportActivity extends AppCompatActivity {
         );
 
 
-        // --------------------------------------------------------
-        // SALES
-        // --------------------------------------------------------
+
+
+
 
         txtSalesRevenue.setText(
                 "₹" +
@@ -613,9 +613,9 @@ public class ReportActivity extends AppCompatActivity {
         );
 
 
-        // --------------------------------------------------------
-        // DATE
-        // --------------------------------------------------------
+
+
+
 
         txtReportDate.setText(
                 "Generated: " +
@@ -623,9 +623,9 @@ public class ReportActivity extends AppCompatActivity {
         );
 
 
-        // --------------------------------------------------------
-        // PROGRESS BARS
-        // --------------------------------------------------------
+
+
+
 
         int max =
                 Math.max(
@@ -660,9 +660,9 @@ public class ReportActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // INVENTORY MOVEMENT
-    // ============================================================
+
+
+
 
     private void loadInventoryMovement() {
 
@@ -683,9 +683,9 @@ public class ReportActivity extends AppCompatActivity {
         );
 
 
-        // --------------------------------------------------------
-        // PURCHASES
-        // --------------------------------------------------------
+
+
+
 
         for (Purchase purchase :
                 purchaseList) {
@@ -704,9 +704,9 @@ public class ReportActivity extends AppCompatActivity {
         }
 
 
-        // --------------------------------------------------------
-        // SALES
-        // --------------------------------------------------------
+
+
+
 
         for (Sale sale :
                 saleList) {
@@ -726,9 +726,9 @@ public class ReportActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // ADD MOVEMENT ROW
-    // ============================================================
+
+
+
 
     private void addMovementRow(
             String type,
@@ -807,9 +807,9 @@ public class ReportActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // LOADING STATE
-    // ============================================================
+
+
+
 
     private void setLoadingState() {
 
@@ -830,9 +830,9 @@ public class ReportActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // EXCEL EXPORT
-    // ============================================================
+
+
+
 
     private void exportExcel() {
 
@@ -910,9 +910,9 @@ public class ReportActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // CREATE EXCEL
-    // ============================================================
+
+
+
 
     private XSSFWorkbook createExcelWorkbook() {
 
@@ -920,9 +920,9 @@ public class ReportActivity extends AppCompatActivity {
                 new XSSFWorkbook();
 
 
-        // ========================================================
-        // SUMMARY SHEET
-        // ========================================================
+
+
+
 
         Sheet summary =
                 workbook.createSheet(
@@ -1032,9 +1032,9 @@ public class ReportActivity extends AppCompatActivity {
         );
 
 
-        // ========================================================
-        // INVENTORY SHEET
-        // ========================================================
+
+
+
 
         Sheet inventory =
                 workbook.createSheet(
@@ -1096,9 +1096,9 @@ public class ReportActivity extends AppCompatActivity {
         }
 
 
-        // ========================================================
-        // PURCHASE SHEET
-        // ========================================================
+
+
+
 
         Sheet purchases =
                 workbook.createSheet(
@@ -1151,9 +1151,9 @@ public class ReportActivity extends AppCompatActivity {
         }
 
 
-        // ========================================================
-        // SALES SHEET
-        // ========================================================
+
+
+
 
         Sheet sales =
                 workbook.createSheet(
@@ -1206,9 +1206,9 @@ public class ReportActivity extends AppCompatActivity {
         }
 
 
-        // ========================================================
-        // INVENTORY MOVEMENT
-        // ========================================================
+
+
+
 
         Sheet movement =
                 workbook.createSheet(
@@ -1295,9 +1295,9 @@ public class ReportActivity extends AppCompatActivity {
         }
 
 
-        // ========================================================
-        // STYLE / WIDTH
-        // ========================================================
+
+
+
 
         for (Sheet sheet :
                 workbook) {
@@ -1312,9 +1312,9 @@ public class ReportActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // EXCEL HELPERS
-    // ============================================================
+
+
+
 
     private void addSummaryRow(
             Sheet sheet,
@@ -1417,9 +1417,9 @@ public class ReportActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // EXCEL SAVE
-    // ============================================================
+
+
+
 
     @Override
     protected void onActivityResult(
@@ -1527,9 +1527,9 @@ public class ReportActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // STOCK STATUS
-    // ============================================================
+
+
+
 
     private String getStockStatus(
             int quantity
@@ -1550,9 +1550,9 @@ public class ReportActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // SAFE STRING
-    // ============================================================
+
+
+
 
     private String safe(
             String value
@@ -1564,9 +1564,9 @@ public class ReportActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // INR FORMAT
-    // ============================================================
+
+
+
 
     private String formatAmount(
             double amount
@@ -1580,9 +1580,9 @@ public class ReportActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // DATE
-    // ============================================================
+
+
+
 
     private String getCurrentDateTime() {
 
@@ -1595,9 +1595,9 @@ public class ReportActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // DATABASE ERROR
-    // ============================================================
+
+
+
 
     private void showDatabaseError(
             String section,
@@ -1619,9 +1619,9 @@ public class ReportActivity extends AppCompatActivity {
     }
 
 
-    // ============================================================
-    // SIMPLE DIVIDER
-    // ============================================================
+
+
+
 
     private static class ViewDivider
             extends android.view.View {

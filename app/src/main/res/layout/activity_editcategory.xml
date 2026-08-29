@@ -8,9 +8,9 @@
     android:orientation="vertical"
     android:background="#F5F7FA">
 
-    <!-- ========================= -->
-    <!-- TOP BAR -->
-    <!-- ========================= -->
+
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@android:drawable/ic_media_previous"
             app:tint="#5B5FC7"
-            android:contentDescription="Back"/>
+            android:contentDescription="@string/back_2"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -41,7 +41,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Edit Category"
+                android:text="@string/edit_category"
                 android:textSize="21sp"
                 android:textStyle="bold"
                 android:textColor="#1F2937"/>
@@ -49,7 +49,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Update category information"
+                android:text="@string/update_category_information"
                 android:textSize="12sp"
                 android:textColor="#6B7280"
                 android:layout_marginTop="2dp"/>
@@ -59,9 +59,9 @@
     </LinearLayout>
 
 
-    <!-- ========================= -->
-    <!-- CONTENT -->
-    <!-- ========================= -->
+
+
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -76,9 +76,9 @@
             android:padding="20dp">
 
 
-            <!-- ========================= -->
-            <!-- CATEGORY CARD -->
-            <!-- ========================= -->
+
+
+
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
@@ -96,12 +96,12 @@
                     android:padding="20dp">
 
 
-                    <!-- Category Name -->
+
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Category Name"
+                        android:text="@string/category_name"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         android:textColor="#374151"/>
@@ -116,7 +116,7 @@
                         app:boxCornerRadiusBottomEnd="14dp"
                         app:boxStrokeColor="#5B5FC7"
                         app:hintEnabled="true"
-                        android:hint="Category name">
+                        android:hint="@string/category_name_2">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etCategoryName"
@@ -128,12 +128,12 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
 
-                    <!-- Description -->
+
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Description"
+                        android:text="@string/description"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         android:textColor="#374151"
@@ -149,7 +149,7 @@
                         app:boxCornerRadiusBottomEnd="14dp"
                         app:boxStrokeColor="#5B5FC7"
                         app:hintEnabled="true"
-                        android:hint="Category description">
+                        android:hint="@string/category_description">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etCategoryDescription"
@@ -162,12 +162,12 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
 
-                    <!-- Status -->
+
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Status"
+                        android:text="@string/status"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         android:textColor="#374151"
@@ -200,16 +200,16 @@
             </com.google.android.material.card.MaterialCardView>
 
 
-            <!-- ========================= -->
-            <!-- UPDATE BUTTON -->
-            <!-- ========================= -->
+
+
+
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnUpdateCategory"
                 android:layout_width="match_parent"
                 android:layout_height="58dp"
                 android:layout_marginTop="24dp"
-                android:text="Update Category"
+                android:text="@string/update_category"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="@android:color/white"

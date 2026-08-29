@@ -83,7 +83,7 @@ public class EditSupplierActivity extends AppCompatActivity {
                         .getReference("Suppliers")
                         .child(user.getUid());
 
-        // Receive supplier information
+
         if (getIntent() != null) {
 
             supplierId =

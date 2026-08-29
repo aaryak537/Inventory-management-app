@@ -3,9 +3,7 @@ package com.example.inventory;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-/**
- * Single source of truth for inventory stock rules and INR formatting.
- */
+
 public final class StockUtils {
 
     public static final int LOW_STOCK_LIMIT = 10;

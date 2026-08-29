@@ -72,10 +72,10 @@ public class CategoryActivity extends AppCompatActivity
         String uid = user.getUid();
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Categories")
-                        .child(uid);
+                .child(uid);
 
         productsReference = FirebaseDatabase.getInstance().getReference("Products")
-                        .child(uid);
+                .child(uid);
 
         loadCategories();
 
@@ -83,7 +83,7 @@ public class CategoryActivity extends AppCompatActivity
 
             Intent intent = new Intent(CategoryActivity.this,
                     AddCategoryActivity.class
-                    );
+            );
             startActivity(intent);
         });
 
@@ -92,7 +92,7 @@ public class CategoryActivity extends AppCompatActivity
 
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count,
-                            int after) {}
+                                                  int after) {}
 
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before,
@@ -175,10 +175,10 @@ public class CategoryActivity extends AppCompatActivity
 
                         for (DataSnapshot productSnapshot : snapshot.getChildren()) {
                             String categoryId = productSnapshot.child("categoryId")
-                                            .getValue(String.class);
+                                    .getValue(String.class);
 
                             String categoryName = productSnapshot.child("category")
-                                            .getValue(String.class);
+                                    .getValue(String.class);
 
                             for (Category category : categoryList) {
                                 boolean matched = false;
@@ -191,7 +191,7 @@ public class CategoryActivity extends AppCompatActivity
                                 if (!matched && categoryName != null
                                         && !categoryName.isEmpty()
                                         && categoryName.equalsIgnoreCase(
-                                                category.getCategoryName())) {
+                                        category.getCategoryName())) {
                                     matched = true;
                                 }
                                 if (matched) {
@@ -212,7 +212,7 @@ public class CategoryActivity extends AppCompatActivity
                             @NonNull DatabaseError error) {
 
                         Toast.makeText(CategoryActivity.this, "Product error: "
-                                        + error.getMessage(), Toast.LENGTH_SHORT
+                                + error.getMessage(), Toast.LENGTH_SHORT
                         ).show();
                     }
                 }
@@ -236,7 +236,7 @@ public class CategoryActivity extends AppCompatActivity
 
         Intent intent = new Intent(CategoryActivity.this,
                 EditCategoryActivity.class
-                );
+        );
 
         intent.putExtra("categoryId", category.getId());
 
@@ -249,9 +249,9 @@ public class CategoryActivity extends AppCompatActivity
         startActivity(intent);
     }
 
-    // ====================================================
-    // DELETE CATEGORY
-    // ====================================================
+
+
+
 
     @Override
     public void onDelete(Category category) {

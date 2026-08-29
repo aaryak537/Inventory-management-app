@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#F5F7FA">
 
-    <!-- Header -->
+
     <LinearLayout
         android:id="@+id/headerLayout"
         android:layout_width="0dp"
@@ -28,7 +28,7 @@
             android:layout_height="42dp"
             android:padding="9dp"
             android:src="@drawable/ic_arrow_back"
-            android:contentDescription="Back"
+            android:contentDescription="@string/back_2"
             android:background="?attr/selectableItemBackgroundBorderless" />
 
         <TextView
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginStart="12dp"
-            android:text="Incoming Purchases"
+            android:text="@string/incoming_purchases"
             android:textColor="#1F2937"
             android:textSize="23sp"
             android:textStyle="bold" />
@@ -44,7 +44,7 @@
     </LinearLayout>
 
 
-    <!-- Purchase List -->
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerPurchases"
         android:layout_width="0dp"
@@ -60,12 +60,12 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
 
-    <!-- Empty Message -->
+
     <TextView
         android:id="@+id/tvEmptyPurchases"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No purchases found"
+        android:text="@string/no_purchases_found"
         android:textColor="#6B7280"
         android:textSize="16sp"
         android:visibility="gone"
@@ -75,7 +75,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
 
-    <!-- Loading -->
+
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
@@ -87,14 +87,14 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
 
-    <!-- Add Purchase FAB -->
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddPurchase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="24dp"
-        android:contentDescription="Add Purchase"
+        android:contentDescription="@string/add_purchase"
         android:src="@drawable/ic_add"
         app:fabSize="normal"
         app:tint="@android:color/white"

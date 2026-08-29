@@ -9,7 +9,7 @@
     android:background="#F5F9FC"
     tools:context=".TermsActivity">
 
-    <!-- Header -->
+
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="0dp"
@@ -29,7 +29,7 @@
             android:layout_gravity="start"
             android:layout_marginTop="16dp"
             android:background="@android:color/transparent"
-            android:contentDescription="Back"
+            android:contentDescription="@string/back_2"
             android:src="@drawable/ic_arrow_back"
             app:tint="@android:color/white"/>
 
@@ -37,7 +37,7 @@
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:layout_marginTop="12dp"
-            android:contentDescription="Terms Icon"
+            android:contentDescription="@string/terms_icon"
             android:src="@drawable/ic_terms"
             app:tint="@android:color/white"/>
 
@@ -45,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
-            android:text="Terms &amp; Conditions"
+            android:text="@string/terms_conditions"
             android:textColor="@android:color/white"
             android:textStyle="bold"
             android:textSize="26sp"/>
@@ -54,13 +54,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Please read carefully before using Smart Shelf"
+            android:text="@string/please_read_carefully_before_using_smart_shel"
             android:textColor="#E8F8FF"
             android:textSize="14sp"/>
 
     </LinearLayout>
 
-    <!-- Terms Card -->
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardTerms"
         android:layout_width="0dp"
@@ -89,7 +89,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Smart Shelf Terms &amp; Conditions"
+                    android:text="@string/smart_shelf_terms_conditions"
                     android:textColor="#1E3A5F"
                     android:textStyle="bold"
                     android:textSize="22sp"/>
@@ -98,7 +98,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="1. Acceptance of Terms"
+                    android:text="@string/text_1_acceptance_of_terms"
                     android:textColor="#0086C3"
                     android:textStyle="bold"
                     android:textSize="18sp"/>
@@ -106,7 +106,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="By using Smart Shelf, you agree to comply with these Terms and Conditions. If you disagree with any part of these terms, please discontinue using the application."
+                    android:text="@string/by_using_smart_shelf_you_agree_to_comply_with"
                     android:textColor="#555555"
                     android:textSize="15sp"
                     android:lineSpacingExtra="4dp"/>
@@ -115,7 +115,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
-                    android:text="2. User Responsibilities"
+                    android:text="@string/text_2_user_responsibilities"
                     android:textColor="#0086C3"
                     android:textStyle="bold"
                     android:textSize="18sp"/>
@@ -123,7 +123,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="• Maintain accurate inventory information.\n\n• Keep your login credentials secure.\n\n• Do not misuse or attempt unauthorized access.\n\n• Follow all applicable laws while using Smart Shelf."
+                    android:text="@string/maintain_accurate_inventory_information_n_n_k"
                     android:textColor="#555555"
                     android:textSize="15sp"
                     android:lineSpacingExtra="4dp"/>
@@ -132,7 +132,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
-                    android:text="3. Inventory Data"
+                    android:text="@string/text_3_inventory_data"
                     android:textColor="#0086C3"
                     android:textStyle="bold"
                     android:textSize="18sp"/>
@@ -140,7 +140,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Smart Shelf securely stores your inventory information. Users are responsible for verifying the accuracy of all product details they enter."
+                    android:text="@string/smart_shelf_securely_stores_your_inventory_in"
                     android:textColor="#555555"
                     android:textSize="15sp"
                     android:lineSpacingExtra="4dp"/>
@@ -149,7 +149,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
-                    android:text="4. Privacy"
+                    android:text="@string/text_4_privacy"
                     android:textColor="#0086C3"
                     android:textStyle="bold"
                     android:textSize="18sp"/>
@@ -157,7 +157,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Your information is handled according to the Smart Shelf Privacy Policy. Personal information will never be shared without your permission unless required by law."
+                    android:text="@string/your_information_is_handled_according_to_the_"
                     android:textColor="#555555"
                     android:textSize="15sp"
                     android:lineSpacingExtra="4dp"/>
@@ -166,7 +166,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
-                    android:text="5. Updates"
+                    android:text="@string/text_5_updates"
                     android:textColor="#0086C3"
                     android:textStyle="bold"
                     android:textSize="18sp"/>
@@ -174,7 +174,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="These Terms &amp; Conditions may be updated from time to time. Continued use of Smart Shelf indicates acceptance of any updated terms."
+                    android:text="@string/these_terms_conditions_may_be_updated_from_ti"
                     android:textColor="#555555"
                     android:textSize="15sp"
                     android:lineSpacingExtra="4dp"/>
@@ -183,7 +183,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
-                    android:text="6. Limitation of Liability"
+                    android:text="@string/text_6_limitation_of_liability"
                     android:textColor="#0086C3"
                     android:textStyle="bold"
                     android:textSize="18sp"/>
@@ -191,7 +191,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Smart Shelf is provided 'as is'. The developers are not responsible for any inventory losses, business interruptions, or damages resulting from the use of this application."
+                    android:text="@string/smart_shelf_is_provided_as_is_the_developers_"
                     android:textColor="#555555"
                     android:textSize="15sp"
                     android:lineSpacingExtra="4dp"/>
@@ -201,7 +201,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:gravity="center"
-                    android:text="Thank you for choosing Smart Shelf."
+                    android:text="@string/thank_you_for_choosing_smart_shelf"
                     android:textColor="#0086C3"
                     android:textStyle="bold"
                     android:textSize="18sp"/>

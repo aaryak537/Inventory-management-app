@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Header -->
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Smart Shelf"
+                android:text="@string/app_name"
                 android:textStyle="bold"
                 android:textColor="@android:color/white"
                 android:textSize="30sp"/>
@@ -41,7 +41,7 @@
             <TextView
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="Inventory Management System"
+                android:text="@string/inventory_management_system"
                 android:textColor="#EAF7FF"
                 android:textSize="15sp"/>
 
@@ -49,13 +49,13 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Version 1.0.0"
+                android:text="@string/version_1_0_0"
                 android:textColor="#D7F5FF"
                 android:textSize="13sp"/>
 
         </LinearLayout>
 
-        <!-- About Card -->
+
 
         <com.google.android.material.card.MaterialCardView
             android:layout_margin="16dp"
@@ -73,7 +73,7 @@
                 <TextView
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text="About Smart Shelf"
+                    android:text="@string/about_smart_shelf"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:textColor="#0A4FA8"/>
@@ -82,7 +82,7 @@
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Smart Shelf is a premium inventory management application designed for modern businesses. Track products, manage stock, monitor reports, and organize inventory effortlessly with an intuitive and beautiful interface."
+                    android:text="@string/smart_shelf_is_a_premium_inventory_management"
                     android:textColor="#666666"
                     android:textSize="15sp"
                     android:lineSpacingExtra="4dp"/>
@@ -91,7 +91,7 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Features -->
+
 
         <com.google.android.material.card.MaterialCardView
             android:layout_marginHorizontal="16dp"
@@ -110,7 +110,7 @@
                 <TextView
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text="Features"
+                    android:text="@string/features"
                     android:textStyle="bold"
                     android:textColor="#0A4FA8"
                     android:textSize="18sp"/>
@@ -119,50 +119,50 @@
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:text="✔ Product Management"
+                    android:text="@string/product_management"
                     android:textSize="15sp"/>
 
                 <TextView
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text="✔ Inventory Tracking"
+                    android:text="@string/inventory_tracking"
                     android:textSize="15sp"/>
 
                 <TextView
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text="✔ Reports &amp; Analytics"
+                    android:text="@string/reports_analytics"
                     android:textSize="15sp"/>
 
                 <TextView
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text="✔ Category Management"
+                    android:text="@string/category_management"
                     android:textSize="15sp"/>
 
                 <TextView
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text="✔ Secure Login"
+                    android:text="@string/secure_login"
                     android:textSize="15sp"/>
 
                 <TextView
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text="✔ Modern Dashboard"
+                    android:text="@string/modern_dashboard"
                     android:textSize="15sp"/>
 
                 <TextView
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text="✔ Cloud Ready"
+                    android:text="@string/cloud_ready"
                     android:textSize="15sp"/>
 
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Technology -->
+
 
         <com.google.android.material.card.MaterialCardView
             android:layout_marginHorizontal="16dp"
@@ -180,7 +180,7 @@
                 <TextView
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text="Built With"
+                    android:text="@string/built_with"
                     android:textStyle="bold"
                     android:textColor="#0A4FA8"
                     android:textSize="18sp"/>
@@ -189,7 +189,7 @@
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="• Java\n• Android Studio\n• Firebase\n• Material Design\n• XML UI"
+                    android:text="@string/java_n_android_studio_n_firebase_n_material_d"
                     android:textSize="15sp"
                     android:textColor="#666"/>
 
@@ -197,7 +197,7 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Development Team -->
+
 
         <com.google.android.material.card.MaterialCardView
             android:layout_marginHorizontal="16dp"
@@ -216,7 +216,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Development Team"
+                    android:text="@string/development_team"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:textColor="#0A4FA8"/>
@@ -225,7 +225,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:text="Smart Shelf is proudly designed and developed by our team with a focus on delivering a modern, reliable, and user-friendly inventory management solution."
+                    android:text="@string/smart_shelf_is_proudly_designed_and_developed"
                     android:textSize="15sp"
                     android:textColor="#666666"
                     android:lineSpacingExtra="4dp"/>
@@ -247,7 +247,7 @@
                         android:layout_height="50dp"
                         android:contentDescription="@string/aarya"
                         android:src="@drawable/ic_person"
-                        android:tint="#1976D2"/>
+                        app:tint="#1976D2"/>
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -259,14 +259,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Aarya Kadam"
+                            android:text="@string/aarya_kadam"
                             android:textStyle="bold"
                             android:textSize="17sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Backend Developer • UI/UX • Firebase"
+                            android:text="@string/backend_developer_ui_ux_firebase"
                             android:textColor="#666666"
                             android:textSize="14sp"/>
 
@@ -289,9 +289,9 @@
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:contentDescription="neha"
+                        android:contentDescription="@string/neha"
                         android:src="@drawable/ic_person"
-                        android:tint="#1976D2"/>
+                        app:tint="#1976D2"/>
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -303,14 +303,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Neha Kadam"
+                            android:text="@string/neha_kadam"
                             android:textStyle="bold"
                             android:textSize="17sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Frontend Development • Database • Testing"
+                            android:text="@string/frontend_development_database_testing"
                             android:textColor="#666666"
                             android:textSize="14sp"/>
 
@@ -327,7 +327,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Together, we built Smart Shelf to simplify inventory management through an elegant interface, real-time stock monitoring, insightful reports, and secure data management."
+                    android:text="@string/together_we_built_smart_shelf_to_simplify_inv"
                     android:textColor="#666666"
                     android:textSize="15sp"
                     android:lineSpacingExtra="4dp"/>
@@ -336,7 +336,7 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Buttons -->
+
 
         <LinearLayout
             android:layout_margin="16dp"
@@ -348,7 +348,7 @@
                 android:id="@+id/btnPrivacy"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:text="Privacy Policy"
+                android:text="@string/privacy_policy"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
                 android:backgroundTint="#1976D2"/>
@@ -358,7 +358,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:text="Terms &amp; Conditions"
+                android:text="@string/terms_conditions"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
                 android:backgroundTint="#2196F3"/>
@@ -368,7 +368,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:text="Rate Smart Shelf"
+                android:text="@string/rate_smart_shelf"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
                 android:backgroundTint="#00ACC1"/>
@@ -380,7 +380,7 @@
             android:layout_width="wrap_content"
             android:layout_marginBottom="30dp"
             android:layout_gravity="center"
-            android:text="© 2026 Smart Shelf"
+            android:text="@string/text_2026_smart_shelf"
             android:textColor="#999999"
             android:textSize="13sp"/>
 

@@ -34,7 +34,7 @@ public class CategoryAdapter
     }
 
     public CategoryAdapter(Context context, ArrayList<Category> categoryList,
-            OnCategoryActionListener listener) {
+                           OnCategoryActionListener listener) {
 
         this.context = context;
         this.categoryList = categoryList;
@@ -49,8 +49,8 @@ public class CategoryAdapter
             int viewType) {
 
         View view = LayoutInflater.from(context).inflate(R.layout.item_category,
-                                parent, false
-                        );
+                parent, false
+        );
         return new ViewHolder(view);
     }
 
@@ -184,7 +184,7 @@ public class CategoryAdapter
                     } else {
 
                         String filterPattern = constraint.toString().toLowerCase()
-                                        .trim();
+                                .trim();
 
                         for (Category item : categoryListFull) {
 
@@ -228,7 +228,7 @@ public class CategoryAdapter
                     categoryList.clear();
                     if (results.values != null) {
                         categoryList.addAll((ArrayList<Category>)
-                                        results.values
+                                results.values
                         );
                     }
                     notifyDataSetChanged();

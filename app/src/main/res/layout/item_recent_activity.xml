@@ -20,7 +20,7 @@
         android:padding="16dp"
         android:gravity="center_vertical">
 
-        <!-- Product Icon -->
+
         <ImageView
             android:id="@+id/imgActivity"
             android:layout_width="52dp"
@@ -30,7 +30,7 @@
             android:contentDescription="@string/product"
             android:src="@drawable/ic_package" />
 
-        <!-- Activity Details -->
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
 
         </LinearLayout>
 
-        <!-- Status Badge -->
+
         <TextView
             android:id="@+id/tvStatus"
             android:layout_width="wrap_content"

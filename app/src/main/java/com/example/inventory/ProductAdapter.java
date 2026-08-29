@@ -27,16 +27,16 @@ public class ProductAdapter
         extends RecyclerView.Adapter<ProductAdapter.ViewHolder>
         implements Filterable {
 
-    // ============================================================
-    // VARIABLES
-    // ============================================================
+
+
+
 
     private final Context context;
 
-    // Currently displayed list
+
     private final ArrayList<Product> list;
 
-    // Complete unfiltered list
+
     private final ArrayList<Product> fullList;
 
     private Runnable listChangedListener;
@@ -49,9 +49,9 @@ public class ProductAdapter
     }
 
 
-    // ============================================================
-    // CONSTRUCTOR
-    // ============================================================
+
+
+
 
     public ProductAdapter(
             Context context,
@@ -73,13 +73,13 @@ public class ProductAdapter
     }
 
 
-    // ============================================================
-    // UPDATE LIST
-    //
-    // IMPORTANT:
-    // This method updates BOTH the displayed list and the
-    // complete search list.
-    // ============================================================
+
+
+
+
+
+
+
 
     public void updateList(
             ArrayList<Product> newList
@@ -104,11 +104,11 @@ public class ProductAdapter
     }
 
 
-    // ============================================================
-    // ALTERNATIVE METHOD NAME
-    //
-    // Keeps compatibility if ProductActivity uses updateData().
-    // ============================================================
+
+
+
+
+
 
     public void updateData(
             ArrayList<Product> newList
@@ -118,9 +118,9 @@ public class ProductAdapter
     }
 
 
-    // ============================================================
-    // CREATE VIEW HOLDER
-    // ============================================================
+
+
+
 
     @NonNull
     @Override
@@ -142,9 +142,9 @@ public class ProductAdapter
     }
 
 
-    // ============================================================
-    // BIND VIEW HOLDER
-    // ============================================================
+
+
+
 
     @Override
     public void onBindViewHolder(
@@ -152,20 +152,20 @@ public class ProductAdapter
             int position
     ) {
 
-        // --------------------------------------------------------
-        // IMPORTANT
-        //
-        // Use a final reference so that this Product can safely
-        // be used inside lambda expressions.
-        // --------------------------------------------------------
+
+
+
+
+
+
 
         final Product product =
                 list.get(position);
 
 
-        // ========================================================
-        // PRODUCT NAME
-        // ========================================================
+
+
+
 
         String productName =
                 product.getProductName();
@@ -181,9 +181,9 @@ public class ProductAdapter
         );
 
 
-        // ========================================================
-        // CATEGORY
-        // ========================================================
+
+
+
 
         String category =
                 product.getCategory();
@@ -199,9 +199,9 @@ public class ProductAdapter
         );
 
 
-        // ========================================================
-        // SELLING PRICE
-        // ========================================================
+
+
+
 
         holder.txtPrice.setText(
                 "₹" +
@@ -213,9 +213,9 @@ public class ProductAdapter
         );
 
 
-        // ========================================================
-        // QUANTITY
-        // ========================================================
+
+
+
 
         int quantity =
                 product.getEffectiveQuantity();
@@ -225,15 +225,15 @@ public class ProductAdapter
         );
 
 
-        // ========================================================
-        // STOCK STATUS
-        //
-        // Quantity is the source of truth.
-        //
-        // 0       = Out of Stock
-        // 1 - 10  = Low Stock
-        // 11+     = Available
-        // ========================================================
+
+
+
+
+
+
+
+
+
 
         if (quantity <= 0) {
 
@@ -279,15 +279,15 @@ public class ProductAdapter
         }
 
 
-        // ========================================================
-        // EDIT PRODUCT
-        // ========================================================
+
+
+
 
         holder.btnEdit.setOnClickListener(
                 v -> {
 
-                    // Product is final, therefore Java allows
-                    // it inside this lambda.
+
+
 
                     Intent intent =
                             new Intent(
@@ -325,9 +325,9 @@ public class ProductAdapter
         );
 
 
-        // ========================================================
-        // DELETE PRODUCT
-        // ========================================================
+
+
+
 
         holder.btnDelete.setOnClickListener(
                 v -> {
@@ -363,9 +363,9 @@ public class ProductAdapter
     }
 
 
-    // ============================================================
-    // DELETE PRODUCT
-    // ============================================================
+
+
+
 
     private void deleteProduct(
             final Product product
@@ -377,9 +377,9 @@ public class ProductAdapter
                         .getCurrentUser();
 
 
-        // ========================================================
-        // USER CHECK
-        // ========================================================
+
+
+
 
         if (user == null) {
 
@@ -393,9 +393,9 @@ public class ProductAdapter
         }
 
 
-        // ========================================================
-        // PRODUCT ID
-        // ========================================================
+
+
+
 
         final String productId =
                 product.getProductId();
@@ -414,9 +414,9 @@ public class ProductAdapter
         }
 
 
-        // ========================================================
-        // FIREBASE DELETE
-        // ========================================================
+
+
+
 
         FirebaseDatabase
                 .getInstance()
@@ -434,7 +434,7 @@ public class ProductAdapter
                                     Toast.LENGTH_SHORT
                             ).show();
 
-                            // Remove from both lists locally.
+
                             removeProductLocally(
                                     product
                             );
@@ -465,24 +465,24 @@ public class ProductAdapter
     }
 
 
-    // ============================================================
-    // REMOVE PRODUCT LOCALLY
-    // ============================================================
+
+
+
 
     private void removeProductLocally(
             Product product
     ) {
 
-        // Remove using product ID rather than object reference.
-        // This is safer if Firebase recreated the object.
+
+
 
         String productId =
                 product.getProductId();
 
 
-        // --------------------------------------------------------
-        // Remove from complete list
-        // --------------------------------------------------------
+
+
+
 
         for (int i = fullList.size() - 1; i >= 0; i--) {
 
@@ -504,9 +504,9 @@ public class ProductAdapter
         }
 
 
-        // --------------------------------------------------------
-        // Remove from displayed list
-        // --------------------------------------------------------
+
+
+
 
         for (int i = list.size() - 1; i >= 0; i--) {
 
@@ -536,9 +536,9 @@ public class ProductAdapter
     }
 
 
-    // ============================================================
-    // ITEM COUNT
-    // ============================================================
+
+
+
 
     @Override
     public int getItemCount() {
@@ -547,9 +547,9 @@ public class ProductAdapter
     }
 
 
-    // ============================================================
-    // VIEW HOLDER
-    // ============================================================
+
+
+
 
     static class ViewHolder
             extends RecyclerView.ViewHolder {
@@ -615,9 +615,9 @@ public class ProductAdapter
     }
 
 
-    // ============================================================
-    // SEARCH
-    // ============================================================
+
+
+
 
     @Override
     public Filter getFilter() {
@@ -633,11 +633,11 @@ public class ProductAdapter
                         new ArrayList<>();
 
 
-                // =================================================
-                // EMPTY SEARCH
-                //
-                // Return the COMPLETE original list.
-                // =================================================
+
+
+
+
+
 
                 if (constraint == null ||
                         constraint.toString().trim().isEmpty()) {
@@ -657,9 +657,9 @@ public class ProductAdapter
                                     );
 
 
-                    // =============================================
-                    // SEARCH COMPLETE LIST
-                    // =============================================
+
+
+
 
                     for (Product product :
                             fullList) {
@@ -669,9 +669,9 @@ public class ProductAdapter
                         }
 
 
-                        // -----------------------------------------
-                        // PRODUCT NAME
-                        // -----------------------------------------
+
+
+
 
                         String name =
                                 product.getProductName();
@@ -687,9 +687,9 @@ public class ProductAdapter
                                 );
 
 
-                        // -----------------------------------------
-                        // CATEGORY
-                        // -----------------------------------------
+
+
+
 
                         String category =
                                 product.getCategory();
@@ -705,9 +705,9 @@ public class ProductAdapter
                                 );
 
 
-                        // -----------------------------------------
-                        // BRAND
-                        // -----------------------------------------
+
+
+
 
                         String brand =
                                 product.getBrandName();
@@ -723,9 +723,9 @@ public class ProductAdapter
                                 );
 
 
-                        // -----------------------------------------
-                        // PRODUCT ID
-                        // -----------------------------------------
+
+
+
 
                         String productId =
                                 product.getProductId();
@@ -741,9 +741,9 @@ public class ProductAdapter
                                 );
 
 
-                        // -----------------------------------------
-                        // MATCH
-                        // -----------------------------------------
+
+
+
 
                         if (name.contains(searchText)
                                 || category.contains(searchText)
@@ -758,9 +758,9 @@ public class ProductAdapter
                 }
 
 
-                // =================================================
-                // FILTER RESULTS
-                // =================================================
+
+
+
 
                 FilterResults results =
                         new FilterResults();

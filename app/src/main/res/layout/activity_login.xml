@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Header -->
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,7 +50,7 @@
 
         </LinearLayout>
 
-        <!-- Login Card -->
+
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
@@ -73,7 +73,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/welcome_back"
+                    android:text="@string/welcome"
                     android:textColor="#12344D"
                     android:textSize="26sp"
                     android:textStyle="bold" />
@@ -123,7 +123,7 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Remember + Forgot -->
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -154,7 +154,7 @@
 
                 </LinearLayout>
 
-                <!-- Login -->
+
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnLogin"
@@ -168,7 +168,7 @@
                     android:textColor="@android:color/white"
                     android:textSize="17sp"/>
 
-                <!-- Divider -->
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -198,7 +198,7 @@
 
                 </LinearLayout>
 
-                <!-- Signup -->
+
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnSignup"

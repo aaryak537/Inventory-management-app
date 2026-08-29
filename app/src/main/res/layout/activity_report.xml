@@ -9,9 +9,9 @@
     android:background="#F4F8FC"
     tools:context=".ReportActivity">
 
-    <!-- ========================================================= -->
-    <!-- HEADER -->
-    <!-- ========================================================= -->
+
+
+
 
     <LinearLayout
         android:id="@+id/header"
@@ -30,7 +30,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Business Reports"
+            android:text="@string/business_reports"
             android:textColor="#FFFFFF"
             android:textSize="28sp"
             android:textStyle="bold" />
@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:text="Inventory, sales and business performance"
+            android:text="@string/inventory_sales_and_business_performance"
             android:textColor="#DDEEFF"
             android:textSize="15sp" />
 
@@ -48,16 +48,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
-            android:text="Report ready"
+            android:text="@string/report_ready"
             android:textColor="#FFFFFF"
             android:textSize="13sp" />
 
     </LinearLayout>
 
 
-    <!-- ========================================================= -->
-    <!-- SCROLL CONTENT -->
-    <!-- ========================================================= -->
+
+
+
 
     <ScrollView
         android:layout_width="0dp"
@@ -75,20 +75,20 @@
             android:padding="16dp">
 
 
-            <!-- ================================================= -->
-            <!-- INVENTORY SUMMARY -->
-            <!-- ================================================= -->
+
+
+
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Inventory Summary"
+                android:text="@string/inventory_summary"
                 android:textColor="#1565C0"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
 
-            <!-- TOTAL PRODUCTS + LOW STOCK -->
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -114,7 +114,7 @@
                         <ImageView
                             android:layout_width="35dp"
                             android:layout_height="35dp"
-                            android:contentDescription="Products"
+                            android:contentDescription="@string/products"
                             android:src="@drawable/ic_package" />
 
                         <TextView
@@ -122,7 +122,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
-                            android:text="0"
+                            android:text="@string/text_0"
                             android:textColor="#1565C0"
                             android:textSize="27sp"
                             android:textStyle="bold" />
@@ -130,7 +130,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Products"
+                            android:text="@string/products"
                             android:textSize="13sp" />
 
                     </LinearLayout>
@@ -155,7 +155,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="⚠"
+                            android:text="@string/text"
                             android:textColor="#FB8C00"
                             android:textSize="30sp" />
 
@@ -163,7 +163,7 @@
                             android:id="@+id/txtLowStock"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0"
+                            android:text="@string/text_0"
                             android:textColor="#FB8C00"
                             android:textSize="27sp"
                             android:textStyle="bold" />
@@ -171,7 +171,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Low Stock"
+                            android:text="@string/low_stock"
                             android:textSize="13sp" />
 
                     </LinearLayout>
@@ -181,9 +181,9 @@
             </LinearLayout>
 
 
-            <!-- ================================================= -->
-            <!-- INVENTORY VALUE -->
-            <!-- ================================================= -->
+
+
+
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -202,7 +202,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Current Inventory Value"
+                        android:text="@string/current_inventory_value"
                         android:textColor="#555555"
                         android:textSize="14sp" />
 
@@ -211,7 +211,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="₹0.00"
+                        android:text="@string/text_0_00"
                         android:textColor="#00897B"
                         android:textSize="27sp"
                         android:textStyle="bold" />
@@ -219,7 +219,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Quantity × Cost Price"
+                        android:text="@string/quantity_cost_price"
                         android:textColor="#888888"
                         android:textSize="11sp" />
 
@@ -228,15 +228,15 @@
             </androidx.cardview.widget.CardView>
 
 
-            <!-- ================================================= -->
-            <!-- STOCK STATUS -->
-            <!-- ================================================= -->
+
+
+
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="22dp"
-                android:text="Stock Status"
+                android:text="@string/stock_status"
                 android:textColor="#1565C0"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -259,7 +259,7 @@
                         android:id="@+id/txtOutStock"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0"
+                        android:text="@string/text_0"
                         android:textColor="#E53935"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -267,7 +267,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Out of Stock"
+                        android:text="@string/out_of_stock_2"
                         android:textColor="#555555"
                         android:textSize="13sp" />
 
@@ -286,7 +286,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="14dp"
-                        android:text="Low Stock"
+                        android:text="@string/low_stock"
                         android:textColor="#FB8C00"
                         android:textSize="13sp"
                         android:textStyle="bold" />
@@ -306,7 +306,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="14dp"
-                        android:text="0"
+                        android:text="@string/text_0"
                         android:textColor="#00897B"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -314,7 +314,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Healthy Stock"
+                        android:text="@string/healthy_stock"
                         android:textColor="#555555"
                         android:textSize="13sp" />
 
@@ -332,15 +332,15 @@
             </androidx.cardview.widget.CardView>
 
 
-            <!-- ================================================= -->
-            <!-- SALES SUMMARY -->
-            <!-- ================================================= -->
+
+
+
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="22dp"
-                android:text="Outgoing Sales"
+                android:text="@string/outgoing_sales"
                 android:textColor="#1565C0"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -370,7 +370,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Sales Revenue"
+                            android:text="@string/sales_revenue"
                             android:textColor="#555555"
                             android:textSize="13sp" />
 
@@ -379,7 +379,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
-                            android:text="₹0.00"
+                            android:text="@string/text_0_00"
                             android:textColor="#00897B"
                             android:textSize="23sp"
                             android:textStyle="bold" />
@@ -406,7 +406,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Products Sold"
+                            android:text="@string/products_sold"
                             android:textColor="#555555"
                             android:textSize="13sp" />
 
@@ -415,7 +415,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
-                            android:text="0"
+                            android:text="@string/text_0"
                             android:textColor="#7E57C2"
                             android:textSize="27sp"
                             android:textStyle="bold" />
@@ -427,9 +427,9 @@
             </LinearLayout>
 
 
-            <!-- ================================================= -->
-            <!-- TRANSACTIONS -->
-            <!-- ================================================= -->
+
+
+
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -454,7 +454,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Total Transactions"
+                            android:text="@string/total_transactions"
                             android:textColor="#555555"
                             android:textSize="14sp" />
 
@@ -463,7 +463,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
-                            android:text="0"
+                            android:text="@string/text_0"
                             android:textColor="#1565C0"
                             android:textSize="25sp"
                             android:textStyle="bold" />
@@ -473,7 +473,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Sales"
+                        android:text="@string/sales"
                         android:textColor="#888888"
                         android:textSize="12sp" />
 
@@ -482,15 +482,15 @@
             </androidx.cardview.widget.CardView>
 
 
-            <!-- ================================================= -->
-            <!-- INVENTORY MOVEMENT -->
-            <!-- ================================================= -->
+
+
+
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="22dp"
-                android:text="Inventory Movement"
+                android:text="@string/inventory_movement"
                 android:textColor="#1565C0"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -516,7 +516,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:padding="20dp"
-                        android:text="No inventory movement available"
+                        android:text="@string/no_inventory_movement_available"
                         android:textColor="#777777"
                         android:textSize="14sp" />
 
@@ -525,9 +525,9 @@
             </androidx.cardview.widget.CardView>
 
 
-            <!-- ================================================= -->
-            <!-- EXCEL REPORT -->
-            <!-- ================================================= -->
+
+
+
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -545,7 +545,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Excel Report"
+                        android:text="@string/excel_report"
                         android:textColor="#1565C0"
                         android:textSize="19sp"
                         android:textStyle="bold" />
@@ -554,7 +554,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
-                        android:text="Export inventory, purchases, sales and inventory movement into an Excel file."
+                        android:text="@string/export_inventory_purchases_sales_and_inventor"
                         android:textColor="#666666"
                         android:textSize="13sp" />
 
@@ -563,9 +563,9 @@
             </androidx.cardview.widget.CardView>
 
 
-            <!-- ================================================= -->
-            <!-- GENERATE -->
-            <!-- ================================================= -->
+
+
+
 
             <Button
                 android:id="@+id/btnGenerate"
@@ -573,15 +573,15 @@
                 android:layout_height="55dp"
                 android:layout_marginTop="22dp"
                 android:background="@drawable/bg_primary_button"
-                android:text="Generate Report"
+                android:text="@string/generate_report"
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
                 android:textSize="17sp" />
 
 
-            <!-- ================================================= -->
-            <!-- EXPORT -->
-            <!-- ================================================= -->
+
+
+
 
             <Button
                 android:id="@+id/btnExport"
@@ -589,7 +589,7 @@
                 android:layout_height="55dp"
                 android:layout_marginTop="12dp"
                 android:background="@drawable/bg_outline_button"
-                android:text="Export Full Report to Excel"
+                android:text="@string/export_full_report_to_excel"
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
                 android:textSize="17sp" />
