@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -179,6 +181,18 @@ public class ProductAdapter
         holder.txtProductName.setText(
                 productName
         );
+
+        if (product.getImageUrl() != null &&
+                !product.getImageUrl().trim().isEmpty()) {
+            Glide.with(context)
+                    .load(product.getImageUrl())
+                    .placeholder(R.drawable.ic_package)
+                    .error(R.drawable.ic_package)
+                    .centerCrop()
+                    .into(holder.imgProduct);
+        } else {
+            holder.imgProduct.setImageResource(R.drawable.ic_package);
+        }
 
 
 
@@ -559,6 +573,7 @@ public class ProductAdapter
         TextView txtPrice;
         TextView txtQuantity;
         TextView txtStatus;
+        ImageView imgProduct;
 
         ImageView btnEdit;
         ImageView btnDelete;
@@ -598,6 +613,11 @@ public class ProductAdapter
             txtStatus =
                     itemView.findViewById(
                             R.id.txtStatus
+                    );
+
+            imgProduct =
+                    itemView.findViewById(
+                            R.id.imgProduct
                     );
 
 

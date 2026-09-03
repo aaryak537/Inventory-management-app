@@ -100,7 +100,8 @@ public class EditProActivity extends AppCompatActivity {
         }
 
         storageReference = FirebaseStorage.getInstance()
-                .getReference("ProductImages");
+                .getReference("ProductImages")
+                .child(user.getUid());
 
         databaseReference = FirebaseDatabase.getInstance()
                 .getReference("Products")
@@ -292,7 +293,8 @@ public class EditProActivity extends AppCompatActivity {
                 .setValue(product)
                 .addOnSuccessListener(unused -> {
 
-                    NotifyHelper.addNotification("Product Updated",
+                    NotifyHelper.addNotification(EditProActivity.this,
+                            "Product Updated",
                             name + " updated successfully");
 
                     Toast.makeText(EditProActivity.this,
@@ -324,7 +326,7 @@ public class EditProActivity extends AppCompatActivity {
                                     name = productName.getText().toString().trim();
                                 }
 
-                                NotifyHelper.addNotification("Product Deleted",
+                                NotifyHelper.addNotification(EditProActivity.this, "Product Deleted",
                                         name + " removed successfully");
 
                                 Toast.makeText(EditProActivity.this,

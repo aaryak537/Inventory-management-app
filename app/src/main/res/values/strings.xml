@@ -208,7 +208,7 @@
     <string name="rice_has_only_3_items_remaining">Rice has only 3 items remaining.</string>
     <string name="text_5_mins_ago">5 mins ago</string>
     <string name="add_sale">Add Sale</string>
-    <string name="today_s_sales">Today's Sales</string>
+
     <string name="transactions">Transactions</string>
     <string name="search">Search</string>
     <string name="search_sales">Search sales...</string>
@@ -293,7 +293,7 @@
     <string name="text_5_updates">5. Updates</string>
     <string name="these_terms_conditions_may_be_updated_from_ti">These Terms &amp; Conditions may be updated from time to time. Continued use of Smart Shelf indicates acceptance of any updated terms.</string>
     <string name="text_6_limitation_of_liability">6. Limitation of Liability</string>
-    <string name="smart_shelf_is_provided_as_is_the_developers_">Smart Shelf is provided 'as is'. The developers are not responsible for any inventory losses, business interruptions, or damages resulting from the use of this application.</string>
+
     <string name="thank_you_for_choosing_smart_shelf">Thank you for choosing Smart Shelf.</string>
 
     <string name="inventory_at_a_glance">Inventory at a glance</string>

@@ -99,7 +99,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="@string/today_s_sales"
+                    android:text="Today's Sales"
                     android:textColor="#6B7280"
                     android:textSize="11sp" />
 

@@ -191,7 +191,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/smart_shelf_is_provided_as_is_the_developers_"
+                    android:text="Smart Shelf is provided 'as is'. The developers are not responsible for any inventory losses, business interruptions, or damages resulting from the use of this application."
                     android:textColor="#555555"
                     android:textSize="15sp"
                     android:lineSpacingExtra="4dp"/>

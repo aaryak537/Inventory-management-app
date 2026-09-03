@@ -10,6 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,10 +28,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -119,9 +117,13 @@ public class ReportActivity extends AppCompatActivity {
 
 
 
-    private static final int CREATE_EXCEL_REQUEST = 2001;
-
-    private String exportedExcelPath;
+    private final ActivityResultLauncher<String> excelFileLauncher =
+            registerForActivityResult(
+                    new ActivityResultContracts.CreateDocument(
+                            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                    ),
+                    this::writeExcelToUri
+            );
 
 
 
@@ -849,69 +851,55 @@ public class ReportActivity extends AppCompatActivity {
             return;
         }
 
-        try {
-
-            XSSFWorkbook workbook =
-                    createExcelWorkbook();
-
-            File tempFile =
-                    new File(
-                            getCacheDir(),
-                            "Smart_Shelf_Report.xlsx"
-                    );
-
-            FileOutputStream outputStream =
-                    new FileOutputStream(
-                            tempFile
-                    );
-
-            workbook.write(outputStream);
-
-            outputStream.close();
-
-            workbook.close();
-
-            exportedExcelPath =
-                    tempFile.getAbsolutePath();
-
-
-            Intent intent =
-                    new Intent(
-                            Intent.ACTION_CREATE_DOCUMENT
-                    );
-
-            intent.addCategory(
-                    Intent.CATEGORY_OPENABLE
-            );
-
-            intent.setType(
-                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-            );
-
-            intent.putExtra(
-                    Intent.EXTRA_TITLE,
-                    "Smart_Shelf_Inventory_Report.xlsx"
-            );
-
-            startActivityForResult(
-                    intent,
-                    CREATE_EXCEL_REQUEST
-            );
-
-        } catch (Exception e) {
-
-            Toast.makeText(
-                    this,
-                    "Excel export failed: " +
-                            e.getMessage(),
-                    Toast.LENGTH_LONG
-            ).show();
-        }
+        excelFileLauncher.launch("Smart_Shelf_Inventory_Report.xlsx");
     }
 
 
+    private void writeExcelToUri(Uri uri) {
 
+        if (uri == null) return;
 
+        Toast.makeText(
+                this,
+                "Creating Excel report...",
+                Toast.LENGTH_SHORT
+        ).show();
+
+        new Thread(() -> {
+
+            try (XSSFWorkbook workbook = createExcelWorkbook();
+                 OutputStream outputStream =
+                         getContentResolver().openOutputStream(uri)) {
+
+                if (outputStream == null) {
+                    throw new Exception("Unable to open selected file");
+                }
+
+                workbook.write(outputStream);
+                outputStream.flush();
+
+                runOnUiThread(() ->
+                        Toast.makeText(
+                                ReportActivity.this,
+                                "Excel report saved successfully",
+                                Toast.LENGTH_LONG
+                        ).show()
+                );
+
+            } catch (Exception e) {
+
+                runOnUiThread(() ->
+                        Toast.makeText(
+                                ReportActivity.this,
+                                "Could not save Excel report: " +
+                                        e.getClass().getSimpleName() +
+                                        ": " + e.getMessage(),
+                                Toast.LENGTH_LONG
+                        ).show()
+                );
+            }
+        }).start();
+    }
 
 
     private XSSFWorkbook createExcelWorkbook() {
@@ -1299,12 +1287,13 @@ public class ReportActivity extends AppCompatActivity {
 
 
 
-        for (Sheet sheet :
-                workbook) {
-
+        // IMPORTANT: Do not use autoSizeColumn() on Android.
+        // Apache POI's auto-size implementation depends on java.awt.font.FontRenderContext,
+        // which is not available on Android and causes NoClassDefFoundError.
+        // Use fixed column widths instead. Width values are in 1/256th of a character.
+        for (Sheet sheet : workbook) {
             for (int i = 0; i < 8; i++) {
-
-                sheet.autoSizeColumn(i);
+                sheet.setColumnWidth(i, 5000);
             }
         }
 
@@ -1421,110 +1410,7 @@ public class ReportActivity extends AppCompatActivity {
 
 
 
-    @Override
-    protected void onActivityResult(
-            int requestCode,
-            int resultCode,
-            Intent data
-    ) {
 
-        super.onActivityResult(
-                requestCode,
-                resultCode,
-                data
-        );
-
-        if (requestCode !=
-                CREATE_EXCEL_REQUEST) {
-
-            return;
-        }
-
-        if (resultCode !=
-                RESULT_OK ||
-                data == null) {
-
-            return;
-        }
-
-        Uri uri =
-                data.getData();
-
-        if (uri == null ||
-                exportedExcelPath == null) {
-
-            return;
-        }
-
-        try {
-
-            InputStream inputStream =
-                    new FileInputStream(
-                            exportedExcelPath
-                    );
-
-            OutputStream outputStream =
-                    getContentResolver()
-                            .openOutputStream(uri);
-
-            if (outputStream == null) {
-
-                inputStream.close();
-
-                Toast.makeText(
-                        this,
-                        "Unable to save Excel file",
-                        Toast.LENGTH_LONG
-                ).show();
-
-                return;
-            }
-
-            byte[] buffer =
-                    new byte[8192];
-
-            int length;
-
-            while (
-                    (length =
-                            inputStream.read(buffer))
-                            > 0
-            ) {
-
-                outputStream.write(
-                        buffer,
-                        0,
-                        length
-                );
-            }
-
-            outputStream.flush();
-
-            inputStream.close();
-            outputStream.close();
-
-            new File(
-                    exportedExcelPath
-            ).delete();
-
-            exportedExcelPath = null;
-
-            Toast.makeText(
-                    this,
-                    "Excel report exported successfully",
-                    Toast.LENGTH_LONG
-            ).show();
-
-        } catch (Exception e) {
-
-            Toast.makeText(
-                    this,
-                    "Could not save Excel report: " +
-                            e.getMessage(),
-                    Toast.LENGTH_LONG
-            ).show();
-        }
-    }
 
 
 

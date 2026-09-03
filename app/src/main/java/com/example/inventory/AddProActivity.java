@@ -26,6 +26,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -54,6 +56,7 @@ public class AddProActivity extends AppCompatActivity {
 
     private DatabaseReference productsReference;
     private DatabaseReference categoriesReference;
+    private StorageReference productImagesReference;
 
     private ActivityResultLauncher<Intent> imagePickerLauncher;
 
@@ -123,6 +126,10 @@ public class AddProActivity extends AppCompatActivity {
 
         categoriesReference = FirebaseDatabase.getInstance()
                 .getReference("Categories")
+                .child(uid);
+
+        productImagesReference = FirebaseStorage.getInstance()
+                .getReference("ProductImages")
                 .child(uid);
 
         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this,
@@ -294,27 +301,72 @@ public class AddProActivity extends AppCompatActivity {
                 ""
         );
 
-        productsReference.child(proId).setValue(product)
-                .addOnSuccessListener(
-                        unused -> {
+        if (imageUri != null) {
+            StorageReference imageRef =
+                    productImagesReference.child(proId + ".jpg");
 
-                            Toast.makeText(AddProActivity.this,
-                                    "Product Added Successfully", Toast.LENGTH_SHORT
-                            ).show();
-
-                            NotifyHelper.addNotification("Product Added",
-                                    productName + " added successfully"
-                            );
-                            finish();
-                        }
-                )
-                .addOnFailureListener(
-                        e -> {
-                            Toast.makeText(AddProActivity.this, "Failed: "
-                                            + e.getMessage(),
+            imageRef.putFile(imageUri)
+                    .addOnSuccessListener(taskSnapshot ->
+                            imageRef.getDownloadUrl()
+                                    .addOnSuccessListener(downloadUri ->
+                                            saveProductToDatabase(
+                                                    product,
+                                                    productName,
+                                                    proId,
+                                                    downloadUri.toString()
+                                            ))
+                                    .addOnFailureListener(e ->
+                                            Toast.makeText(
+                                                    this,
+                                                    "Could not get image URL: " + e.getMessage(),
+                                                    Toast.LENGTH_LONG
+                                            ).show()
+                                    )
+                    )
+                    .addOnFailureListener(e ->
+                            Toast.makeText(
+                                    this,
+                                    "Image upload failed: " + e.getMessage(),
                                     Toast.LENGTH_LONG
-                            ).show();
-                        }
+                            ).show()
+                    );
+        } else {
+            saveProductToDatabase(product, productName, proId, "");
+        }
+    }
+
+
+
+    private void saveProductToDatabase(
+            Product product,
+            String productName,
+            String proId,
+            String imageUrl
+    ) {
+        product.setImageUrl(imageUrl);
+
+        productsReference.child(proId)
+                .setValue(product)
+                .addOnSuccessListener(unused -> {
+                    Toast.makeText(
+                            AddProActivity.this,
+                            "Product Added Successfully",
+                            Toast.LENGTH_SHORT
+                    ).show();
+
+                    NotifyHelper.addNotification(
+                            AddProActivity.this,
+                            "Product Added",
+                            productName + " added successfully"
+                    );
+                    finish();
+                })
+                .addOnFailureListener(e ->
+                        Toast.makeText(
+                                AddProActivity.this,
+                                "Failed: " + e.getMessage(),
+                                Toast.LENGTH_LONG
+                        ).show()
                 );
     }
 

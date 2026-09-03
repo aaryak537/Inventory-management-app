@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -40,7 +41,8 @@ public class DashActivity extends AppCompatActivity {
     private LinearLayout qAddPurchase;
     private LinearLayout qReport;
     private LinearLayout qMovement;
-    private LinearLayout qSettings, qNotify, cardRevenue;
+    private LinearLayout qSettings, qNotify;
+    private MaterialCardView cardRevenue;
     private TextView totalPro;
     private TextView low;
     private TextView userName;
