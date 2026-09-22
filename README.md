@@ -34,31 +34,6 @@
 
 ---
 
-## 🎬 App Preview
-
-> **Add your real demo GIF here:** `docs/assets/smart-shelf-demo.gif`
-
-<p align="center">
-  <img src="docs/assets/smart-shelf-demo.gif" alt="Smart Shelf application demo" width="820">
-</p>
-
-<details>
-<summary>📸 No GIF yet? Use the screenshot gallery below</summary>
-
-Add your screenshots inside `docs/assets/` and keep the filenames below.
-
-| Authentication | Dashboard | Products |
-|---|---|---|
-| ![Login](docs/assets/login.png) | ![Dashboard](docs/assets/dashboard.png) | ![Products](docs/assets/products.png) |
-
-| Purchases | Sales | Reports |
-|---|---|---|
-| ![Purchases](docs/assets/purchases.png) | ![Sales](docs/assets/sales.png) | ![Reports](docs/assets/reports.png) |
-
-</details>
-
----
-
 ## 🧭 Contents
 
 - [✨ About Smart Shelf](#-about-smart-shelf)
@@ -357,64 +332,6 @@ This creates a traceable view of how inventory changes over time.
 
 ---
 
-# 📱 Application Flow
-
-```mermaid
-flowchart TD
-    A[Splash Screen] --> B{Authenticated?}
-
-    B -->|No| C[Login / Sign Up]
-    B -->|Yes| D[Dashboard]
-
-    C --> D
-
-    D --> E[Products]
-    D --> F[Categories]
-    D --> G[Suppliers]
-    D --> H[Purchases]
-    D --> I[Sales]
-    D --> J[Reports]
-    D --> K[Inventory Movement]
-    D --> L[Notifications]
-    D --> M[Settings]
-
-    H --> N[Increase Stock]
-    I --> O[Decrease Stock]
-
-    N --> P[Updated Inventory]
-    O --> P
-
-    P --> J
-```
-
----
-
-# 🏗️ System Architecture
-
-```mermaid
-flowchart TB
-
-    U[👤 User]
-
-    UI[📱 Android UI<br/>Java + XML]
-
-    AUTH[🔐 Firebase Authentication]
-
-    DB[(☁️ Firebase Realtime Database)]
-
-    STORAGE[(☁️ Firebase Storage)]
-
-    REPORT[📊 Report Engine]
-
-    EXCEL[📄 Excel Export<br/>Apache POI]
-
-    U --> UI
-    UI --> AUTH
-    UI --> DB
-    UI --> STORAGE
-
-    DB --> REPORT
-    REPORT --> EXCEL
 ```
 
 ### Architecture layers
@@ -572,7 +489,6 @@ Firebase Data
 | 🎨 **XML** | User interface |
 | 🔥 **Firebase Authentication** | User authentication |
 | ☁️ **Firebase Realtime Database** | Cloud data storage |
-| ☁️ **Firebase Storage** | Cloud media storage |
 | 🖼️ **Glide 4.16.0** | Image loading |
 | 📊 **Apache POI 5.4.1** | Excel report generation |
 | 🎨 **Material Components 1.12.0** | UI components |
@@ -769,82 +685,11 @@ Firebase authentication and user-specific database paths are used to associate d
 
 Contributions are welcome.
 
-### Development workflow
+### 👥 Team
 
-```mermaid
-flowchart LR
-    A[Fork] --> B[Clone]
-    B --> C[Create Branch]
-    C --> D[Make Changes]
-    D --> E[Test]
-    E --> F[Commit]
-    F --> G[Push]
-    G --> H[Pull Request]
-    H --> I[Review]
-    I --> J[Merge]
-```
-
-### Branch example
-
-```bash
-git checkout -b feature/product-search
-```
-
-### Commit example
-
-```bash
-git add .
-git commit -m "Add product search functionality"
-git push origin feature/product-search
-```
-
----
-
-# 👥 Team
-
-| Member | Contribution |
-|---|---|
-| **Aarya Kadam** | Android development, UI, Firebase integration & project development |
-| **Team Member** | Development & testing |
-| **Team Member** | Development & testing |
-
-> Update this table with the final project members and their actual contributions.
-
----
-
-# 📸 Adding Screenshots
-
-Keep screenshots inside:
-
-```text
-docs/assets/
-```
-
-Recommended screenshots:
-
-```text
-docs/
-└── assets/
-    ├── login.png
-    ├── signup.png
-    ├── dashboard.png
-    ├── products.png
-    ├── add-product.png
-    ├── categories.png
-    ├── suppliers.png
-    ├── purchases.png
-    ├── add-purchase.png
-    ├── sales.png
-    ├── add-sale.png
-    ├── inventory-movement.png
-    ├── notifications.png
-    ├── reports.png
-    └── settings.png
-```
-
-For the best GitHub presentation, use screenshots with the same dimensions and crop them consistently.
-
----
+| Member 
+| **Aarya Kadam** 
+| **Neha Kadam** 
 
 # 🧪 Testing
 
