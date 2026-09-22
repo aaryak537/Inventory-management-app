@@ -332,8 +332,6 @@ This creates a traceable view of how inventory changes over time.
 
 ---
 
-```
-
 ### Architecture layers
 
 | Layer | Responsibility |
@@ -634,20 +632,6 @@ Connect an Android device or launch an emulator and run the application.
 
 ---
 
-# 🔐 Security & Permissions
-
-The application declares permissions related to its functionality, including:
-
-- `INTERNET`
-- `POST_NOTIFICATIONS`
-- `READ_EXTERNAL_STORAGE` for supported older Android versions
-
-Firebase authentication and user-specific database paths are used to associate data with the signed-in user.
-
-> ⚠️ Never commit private credentials, API keys that must remain secret, service-account files, or production secrets to a public repository.
-
----
-
 # 🗺️ Roadmap
 
 ### ✅ Current
@@ -685,11 +669,6 @@ Firebase authentication and user-specific database paths are used to associate d
 
 Contributions are welcome.
 
-### 👥 Team
-
-| Member 
-| **Aarya Kadam** 
-| **Neha Kadam** 
 
 # 🧪 Testing
 
